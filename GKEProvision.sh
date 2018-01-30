@@ -4,4 +4,11 @@ gcloud container clusters create delltechdemo123
 
 kubectl get nodes
 
+kubectl create -f kubefiles/ -R --namespace=default
+
+kubectl get pods,deployments,services,ingress,configmaps
+
+
+# kubectl delete -f kubefiles/ -R --namespace=default
+
 # gcloud container clusters delete delltechdemo123
