@@ -1,4 +1,4 @@
-gcloud container clusters create delltechdemo12
+gcloud container clusters create delltechdemo123
 
 # It takes a few minutes to do this
 
