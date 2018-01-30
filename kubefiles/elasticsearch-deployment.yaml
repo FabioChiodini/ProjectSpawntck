@@ -16,7 +16,7 @@ spec:
       - env:
         - name: ES_JAVA_OPTS
           value: -Xmx256m -Xms256m
-        image: komljen/elasticsearch
+        image: kiodo/elasticsearch
         name: elasticsearch
         ports:
         - containerPort: 9200
