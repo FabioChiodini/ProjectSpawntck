@@ -4,4 +4,4 @@ gcloud container clusters create delltechdemo12
 
 kubectl get nodes
 
-gcloud container clusters delete delltechdemo123
+# gcloud container clusters delete delltechdemo123
