@@ -5,4 +5,4 @@ metadata:
 spec:
         backend:
           serviceName: elasticsearch
-servicePort: 5000
+          servicePort: 9200
