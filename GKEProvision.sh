@@ -110,6 +110,12 @@ sleep 30s
 
 kubectl get nodes
 
+echo "Creating a Configmap for logstash"
+
+kubectl create configmap logstash-config --from-file=kubefiles/config/logstash.conf
+
+sleep 5s
+
 echo "Starting ELK in the remote Kubernetes Cluster"
 
 kubectl create -f kubefiles/ -R --namespace=default
