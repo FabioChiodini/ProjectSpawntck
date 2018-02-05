@@ -134,6 +134,13 @@ curl -L http://127.0.0.1:4001/v2/keys/elk/publicipkibana -XPUT -d value=$publici
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipelastic -XPUT -d value=$publicipelastic
 
+urlkibana=http://$publicipkibana
+urlelastic=http://$publicipelastic
+
+curl -L http://127.0.0.1:4001/v2/keys/elk/urlkibana -XPUT -d value=$urlkibana
+curl -L http://127.0.0.1:4001/v2/keys/elk/urlelastic -XPUT -d value=$urlelastic
+
+
 
 # register Kubernetes Setup parameters in etcd
 echo "Registering Kubernetes Cluster parameters in etcd"
