@@ -115,9 +115,9 @@ gcloud container clusters create delltechdemo123
 #Currently using v1.7.12-gke.0
 
 # It takes a few minutes to do this
-echo "Sleeping for 5 minutes to let the provisioning finish"
+echo "Sleeping for 30 seconds to let the provisioning finish"
 
-sleep 5m
+sleep 30s
 
 kubectl get nodes
 
