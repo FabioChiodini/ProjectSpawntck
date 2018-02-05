@@ -163,6 +163,12 @@ The code also uses another file: GCEkeyfile.json
 - This contains data that is used for GCE authentication (Service account keys type in JSON format)
 
 
+## Kubernetes Configuration Files
+Yaml files for the Kubernetes deployment are located in /kubefiles
+
+These files start an ELK application deployed in multiple containers and publish it over the internet on a GKE cluster.
+
+
 ## Service Discovery
 
 For demo purposes two service discovery services are used: Consul and etcd
