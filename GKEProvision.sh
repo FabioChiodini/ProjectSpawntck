@@ -1,11 +1,28 @@
 
-
+#Overview
+# Load config files
 # Prepare etcd and other infrastructure services
 # Start Kubernetes cluster
 # Log Kubernetes cluster variables in etcd
 # Execute ELK on Kubernetes
 # Log ELK variables in etcd
 # Launch honeypots
+
+
+#Load config files
+#Load Env variables from File (maybe change to DB)
+#using /home/ec2-user/Cloud1
+#source /home/ec2-user/Cloud1
+. /home/ec2-user/Cloud1
+echo ""
+echo "Loaded Config file"
+echo ""
+echo "$(tput setaf 2) Starting $VM_InstancesK Instances in AWS $(tput sgr 0)"
+if [ $GCEKProvision -eq 1 ]; then
+  echo "$(tput setaf 2) Starting $GCEVM_InstancesK Instances in GCE $(tput sgr 0)"
+fi
+echo "$(tput setaf 2) Starting $Container_InstancesK Container Instances $(tput sgr 0)"
+
 
 #Install jq
 
@@ -45,17 +62,25 @@ docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380
 
 
 
-
+#Create Kubernetes cluster
 
 gcloud container clusters create delltechdemo123
 
 #Currently using v1.7.12-gke.0
 
 # It takes a few minutes to do this
+echo "Sleeping for 5 minutes to let the provisioning finish"
+
+sleep 5m
 
 kubectl get nodes
 
 kubectl create -f kubefiles/ -R --namespace=default
+
+kubectl get pods,deployments,services,ingress,configmaps
+
+echo "Sleeping for 2 minutes to let the Pods provisioning finish"
+sleep 5m
 
 kubectl get pods,deployments,services,ingress,configmaps
 
