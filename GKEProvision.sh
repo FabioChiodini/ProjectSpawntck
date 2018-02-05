@@ -180,7 +180,8 @@ echo "$(tput setaf 4) Open a browser to : $ipAWSK:8080 (tput sgr 0)"
 echo ----
 
 #Poll local honeypot
-curl $ipAWSK:$HoneypotPortK
+# curl $ipAWSK:$HoneypotPortK
+curl 127.0.0.1:$HoneypotPortK
 
 
 # kubectl delete -f kubefiles/ -R --namespace=default
