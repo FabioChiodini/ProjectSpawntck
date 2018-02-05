@@ -16,6 +16,8 @@ https://github.com/FabioChiodini/AWSDockermachine
 
 [the script is run in the context of ec2-user account]
 
+>>> Install kubectl
+
 ###How to launch
 
 Launch the main script with no parameters (all parameters are stored in the configuration file **Cloud1)
