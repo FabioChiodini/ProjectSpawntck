@@ -23,6 +23,7 @@ publicipelastic=$(kubectl get ing/elasticsearch-ingress --namespace=default -o j
 kubernetescontext=$(kubectl config view -o jsonpath="{.current-context}")
 
 kubcluster=$(kubectl config view -o jsonpath='{.clusters[?(@.name == "gke_tactile-phalanx-189106_us-central1-a_delltechdemo123")].cluster.server}')
+
 # kubectl delete -f kubefiles/ -R --namespace=default
 
 # gcloud container clusters delete delltechdemo123
