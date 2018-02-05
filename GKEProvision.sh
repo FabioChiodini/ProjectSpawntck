@@ -162,6 +162,14 @@ curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
     docker run -d --name honeypot-i -e LOG_HOST=$publicipelastic -e LOG_PORT=$ReceiverPortK -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK 
 #launches nginx (optional)
 
+echo ----
+echo "$(tput setaf 6) Local honeypot RUNNING ON $ipAWSK:8080 $(tput sgr 0)"
+echo "$(tput setaf 4) Open a browser to : $ipAWSK:8080 (tput sgr 0)"
+echo ----
+
+#Poll local honeypot
+curl $ipAWSK:8080
+
 
 # kubectl delete -f kubefiles/ -R --namespace=default
 
