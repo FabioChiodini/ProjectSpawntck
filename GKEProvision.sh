@@ -61,23 +61,12 @@ docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380
     --initial-cluster etcd0=http://${ipAWSK}:2380 -initial-cluster-state new
 
 
-#Install etcd browser via docker machine
+#Install local etcd browser 
 
   #creates name
   etcdbrowserkVMName=etcd-browserk$instidk
-  #Create Docker Receiver Instance in AWS
-  docker-machine create --driver amazonec2 --amazonec2-access-key $K1_AWS_ACCESS_KEY --amazonec2-secret-key $K1_AWS_SECRET_KEY --amazonec2-vpc-id  $K1_AWS_VPC_ID --amazonec2-zone $K1_AWS_ZONE --amazonec2-region $K1_AWS_DEFAULT_REGION $etcdbrowserkVMName
-
-  echo "$(tput setaf 2) Opening Ports for etcd-browser on AWS $(tput sgr 0)"
-  #Opens Firewall Port for Receiver on AWS
-  aws ec2 authorize-security-group-ingress --group-name docker-machine --protocol tcp --port 8000 --cidr 0.0.0.0/0
-
-  #Connects to remote VM
-
-  docker-machine env $etcdbrowserkVMName > /home/ec2-user/$etcdbrowserkVMName
-  . /home/ec2-user/$etcdbrowserkVMName
-
-  publicipetcdbrowser=$(docker-machine ip etcd-browserk$instidk)
+  
+  publicipetcdbrowser=$ipAWSK
   
   #launches etcd-browser containerized
   docker run -d --name etcd-browserk -p 0.0.0.0:8000:8000 --env ETCD_HOST=$DynDNSK kiodo/etcd-browser:latest
