@@ -159,6 +159,14 @@ curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
 #Add number of nodes/worloads?
 
 
+# Launch local honeypot
+
+#Launches Honeypots
+    #docker run -d --name honeypot-$i -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK
+    docker run -d --name honeypot-i -e LOG_HOST=$publicipelastic -e LOG_PORT=$ReceiverPortK -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK 
+#launches nginx (optional)
+
+
 # kubectl delete -f kubefiles/ -R --namespace=default
 
 # gcloud container clusters delete delltechdemo123 --quiet
