@@ -134,6 +134,17 @@ curl -L http://127.0.0.1:4001/v2/keys/elk/publicipkibana -XPUT -d value=$publici
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipelastic -XPUT -d value=$publicipelastic
 
+echo ----
+echo "$(tput setaf 6) Kibana RUNNING ON $publicipkibana $(tput sgr 0)"
+echo "$(tput setaf 4) $publicipkibana $(tput sgr 0)"
+echo ----
+
+echo ----
+echo "$(tput setaf 6) elasticsearch RUNNING ON $publicipelastic $(tput sgr 0)"
+echo "$(tput setaf 4) $publicipelastic $(tput sgr 0)"
+echo ----
+
+
 urlkibana=http://$publicipkibana
 urlelastic=http://$publicipelastic
 
@@ -163,12 +174,13 @@ curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
 #launches nginx (optional)
 
 echo ----
-echo "$(tput setaf 6) Local honeypot RUNNING ON $ipAWSK:8080 $(tput sgr 0)"
+echo "$(tput setaf 6) Local honeypot RUNNING ON $ipAWSK:$HoneypotPortK $(tput sgr 0)"
+echo "$(tput setaf 6) Local honeypot sending logs to $publicipelastic PORT $ReceiverPortK$(tput sgr 0)"
 echo "$(tput setaf 4) Open a browser to : $ipAWSK:8080 (tput sgr 0)"
 echo ----
 
 #Poll local honeypot
-curl $ipAWSK:8080
+curl $ipAWSK:$HoneypotPortK
 
 
 # kubectl delete -f kubefiles/ -R --namespace=default
