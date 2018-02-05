@@ -61,8 +61,54 @@ docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380
     --initial-cluster etcd0=http://${ipAWSK}:2380 -initial-cluster-state new
 
 
+#Install etcd browser via docker machine
+
+  #creates name
+  etcdbrowserkVMName=etcd-browserk$instidk
+  #Create Docker Receiver Instance in AWS
+  docker-machine create --driver amazonec2 --amazonec2-access-key $K1_AWS_ACCESS_KEY --amazonec2-secret-key $K1_AWS_SECRET_KEY --amazonec2-vpc-id  $K1_AWS_VPC_ID --amazonec2-zone $K1_AWS_ZONE --amazonec2-region $K1_AWS_DEFAULT_REGION $etcdbrowserkVMName
+
+  echo "$(tput setaf 2) Opening Ports for etcd-browser on AWS $(tput sgr 0)"
+  #Opens Firewall Port for Receiver on AWS
+  aws ec2 authorize-security-group-ingress --group-name docker-machine --protocol tcp --port 8000 --cidr 0.0.0.0/0
+
+  #Connects to remote VM
+
+  docker-machine env $etcdbrowserkVMName > /home/ec2-user/$etcdbrowserkVMName
+  . /home/ec2-user/$etcdbrowserkVMName
+
+  publicipetcdbrowser=$(docker-machine ip etcd-browserk$instidk)
+  
+  #launches etcd-browser containerized
+  docker run -d --name etcd-browserk -p 0.0.0.0:8000:8000 --env ETCD_HOST=$DynDNSK kiodo/etcd-browser:latest
+  
+  #Register etcd-browser in etcd
+  curl -L http://127.0.0.1:4001/v2/keys/etcd-browser/name -XPUT -d value=$etcdbrowserkVMName
+  curl -L http://127.0.0.1:4001/v2/keys/etcd-browser/ip -XPUT -d value=$publicipetcdbrowser
+  curl -L http://127.0.0.1:4001/v2/keys/etcd-browser/port -XPUT -d value=8000
+  curl -L http://127.0.0.1:4001/v2/keys/etcd-browser/address -XPUT -d value=$publicipetcdbrowser:8000
+
+echo ----
+echo "$(tput setaf 6) $etcdbrowserkVMName RUNNING ON $publicipetcdbrowser:8000 $(tput sgr 0)"
+echo "$(tput setaf 4) publicipetcdbrowser=$publicipetcdbrowser $(tput sgr 0)"
+echo ----
+
+#register local ip and dns name in etcd
+myipK=$( dig +short $DynDNSK @8.8.8.8)
+curl -L http://127.0.0.1:4001/v2/keys/maininstance/ip -XPUT -d value=$myipK
+fqnK=$(nslookup $myipK)
+fqnK=${fqnK##*name = }
+fqnK=${fqnK%.*}
+#echo $fqn
+curl -L http://127.0.0.1:4001/v2/keys/maininstance/name -XPUT -d value=$fqnK
+
+#register instance id in etcd
+curl -L http://127.0.0.1:4001/v2/keys/maininstance/uniqueinstanceid -XPUT -d value=$instidk
+
 
 #Create Kubernetes cluster
+
+echo "Creating Kubernetes Cluster in GKE"
 
 gcloud container clusters create delltechdemo123
 
@@ -74,6 +120,8 @@ echo "Sleeping for 5 minutes to let the provisioning finish"
 sleep 5m
 
 kubectl get nodes
+
+echo "Starting ELK in the remote Kubernetes Cluster"
 
 kubectl create -f kubefiles/ -R --namespace=default
 
@@ -87,16 +135,29 @@ kubectl get pods,deployments,services,ingress,configmaps
 #After getting the ingress IPs it takes a few minutes for the services to be visible on the external ip
 
 
-publicipKibana=$(kubectl get ing/all-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+publicipkibana=$(kubectl get ing/all-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
 publicipelastic=$(kubectl get ing/elasticsearch-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
+#register ELK public ips in etcd
 
-# Kubernetes Setup
+curl -L http://127.0.0.1:4001/v2/keys/elk/publicipkibana -XPUT -d value=$publicipkibana
+
+curl -L http://127.0.0.1:4001/v2/keys/elk/publicipelastic -XPUT -d value=$publicipelastic
+
+
+# register Kubernetes Setup parameters in etcd
+echo "Registering Kubernetes Cluster parameters in etcd"
 
 kubernetescontext=$(kubectl config view -o jsonpath="{.current-context}")
 
 kubcluster=$(kubectl config view -o jsonpath='{.clusters[?(@.name == "gke_tactile-phalanx-189106_us-central1-a_delltechdemo123")].cluster.server}')
+
+curl -L http://127.0.0.1:4001/v2/keys/k8s/kubernetescontext -XPUT -d value=$kubernetescontext
+curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
+
+#Add number of nodes/worloads?
+
 
 # kubectl delete -f kubefiles/ -R --namespace=default
 
