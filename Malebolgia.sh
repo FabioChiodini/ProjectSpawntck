@@ -14,11 +14,15 @@ echo ""
 
 kubectl delete -f kubefiles/ -R --namespace=default
 
+kubectl get pods,deployments,services,ingress,configmaps
+
 echo ""
 echo "$(tput setaf 1)Destroying Kubernetes Cluster $(tput sgr 0)"
 echo ""
 
 gcloud container clusters delete delltechdemo123 --quiet
+
+kubectl get nodes
 
 #Delete local docker containers
 
@@ -31,3 +35,5 @@ sleep 1
 docker rm -f honeypot-i
 sleep 1
 docker rm -f etcdk
+
+docker ps
