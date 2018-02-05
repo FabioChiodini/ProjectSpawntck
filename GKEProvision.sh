@@ -1,5 +1,7 @@
 gcloud container clusters create delltechdemo123
 
+#Currently using v1.7.12-gke.0
+
 # It takes a few minutes to do this
 
 kubectl get nodes
