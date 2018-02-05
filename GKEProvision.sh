@@ -26,4 +26,4 @@ kubcluster=$(kubectl config view -o jsonpath='{.clusters[?(@.name == "gke_tactil
 
 # kubectl delete -f kubefiles/ -R --namespace=default
 
-# gcloud container clusters delete delltechdemo123
+# gcloud container clusters delete delltechdemo123 --quiet
