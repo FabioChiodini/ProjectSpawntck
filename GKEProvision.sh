@@ -1,3 +1,15 @@
+
+
+# Prepare etcd and other infrastructure services
+# Start Kubernetes cluster
+# Log Kubernetes cluster variables in etcd
+# Execute ELK on Kubernetes
+# Log ELK variables in etcd
+# Launch honeypots
+
+
+
+
 gcloud container clusters create delltechdemo123
 
 #Currently using v1.7.12-gke.0
