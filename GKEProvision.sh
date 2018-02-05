@@ -10,6 +10,7 @@ kubectl create -f kubefiles/ -R --namespace=default
 
 kubectl get pods,deployments,services,ingress,configmaps
 
+#After getting the ingress IPs it takes a few minutes for the services to be visible on the external ip
 
 # kubectl delete -f kubefiles/ -R --namespace=default
 
