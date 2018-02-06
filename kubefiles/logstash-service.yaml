@@ -13,4 +13,4 @@ spec:
     nodePort: 30002
   selector:
     name: logstash
-type: NodePort
+  type: NodePort
