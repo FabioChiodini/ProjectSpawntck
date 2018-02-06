@@ -197,12 +197,20 @@ curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
 #Add number of nodes/worloads?
 
 
-# Launch local honeypot
+# Launch local honeypot (this will log to elasticsearch)
 
 #Launches Honeypots
     #docker run -d --name honeypot-$i -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK
     docker run -d --name honeypot-i -e LOG_HOST=$publiciplogstash -e LOG_PORT=$ReceiverPortK -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK 
 #launches nginx (optional)
+
+#Registers honeypot parameters in etcd
+
+curl -L http://127.0.0.1:4001/v2/keys/honeypots/containername -XPUT -d value=$HoneypotImageK
+curl -L http://127.0.0.1:4001/v2/keys/honeypots/honeypotport -XPUT -d value=$HoneypotPortK
+curl -L http://127.0.0.1:4001/v2/keys/honeypots/receiverip -XPUT -d value=$publiciplogstash
+curl -L http://127.0.0.1:4001/v2/keys/honeypots/receiverport -XPUT -d value=$ReceiverPortK
+
 
 echo ----
 echo "$(tput setaf 6) Local honeypot RUNNING ON $ipAWSK:$HoneypotPortK $(tput sgr 0)"
