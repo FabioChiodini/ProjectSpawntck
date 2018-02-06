@@ -203,7 +203,12 @@ echo ----
 # curl $ipAWSK:$HoneypotPortK
 curl 127.0.0.1:$HoneypotPortK
 
+echo ----
+echo "$(tput setaf 6) $etcdbrowserkVMName RUNNING ON $publicipetcdbrowser:8000 $(tput sgr 0)"
+echo "$(tput setaf 4) publicipetcdbrowser=$publicipetcdbrowser $(tput sgr 0)"
+echo ----
 
+echo "Demo by @FabioChiodini"
 # kubectl delete -f kubefiles/ -R --namespace=default
 
 # gcloud container clusters delete delltechdemo123 --quiet
