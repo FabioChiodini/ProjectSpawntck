@@ -4,8 +4,10 @@ Project to Spawn a titanium crucible Installation with Cloud Foundry and Kuberne
 *Credits to komljen for the kubernetes yaml files for deploying ELK*
 
 # ProjectSpawnSwarmtck
-Project to Spawn a titanium crucible (receiver + multiple honeypots) installation in an automated way across different Clouds (AWS and optionally GCE) using Docker Machine, Docker Swarm and basic Service Discovery. 
-A dockerized Consul and etcd instances are used to store variables in a KV store.
+Project to Spawn a titanium crucible (receiver + multiple honeypots) installation in an automated way across different Clouds (AWS and optionally GCE) using Docker containers, Kubernetes, Cloud Foundry and basic Service Discovery. 
+An ELK stack gets started in Kubernetes (GKE), honeypot instances are started in Cloud Foundry (Pivotal Web services). Some local docker containers perform Service discovery and mapping for the different application components.
+
+A dockerized etcd instances is used to store variables/application parameters in a KV store.
 The code stores all application information in etcd and uses the data stored to scale up, scale down, perform a basic TDD/CI and eventually tear down the application.
 
 Tested on a t1.micro AMI
@@ -24,43 +26,31 @@ Launch the main script with no parameters (all parameters are stored in the conf
 
 ```
 
-./SpawnSwarmtcK.sh
+./GKE.sh
 
 ```
 
 ## Configuration Files
 To run this script you have to prepare two configuration files (in /home/ec2-user)
 - **Cloud1** see below for syntax
-- **GCEkeyfile.json** used for GCE authentication (see below for instructions)
+
 
 
 
 ## Script Flow 
 
-This script creates (leveraging Docker-Machine):
-
-- one VM in AWS with Consul in a Docker container  (used also to prepare docker Discovery). There is an option to run this instance  locally containerized (**remember to open port 8500 if you run this locally**)
-
-- One VM on GCE (g1-small VM type) hosting the receiver application in a container
-
-- One local etcd instance containerized to store deployment variables <-> Service Discovery (the etcd is not reachable from outside networks if you do not open port 4001 in your relevant AWS security group)
-
-- One VM in AWS hosting the Docker swarm main instance in a Docker container
-
-- A number of VMs in AWS (specified in the variable export VM_InstancesK) as "slaves" that will host honeypots containers. These are t2.micro VM types
-
-- A number of VMs in GCE (specified in the variable export GCEVM_InstancesK) as "slaves" that will host honeypots containers. These are g1-small VM types
-
-- [Optional] One VM on GCE (g1-small VM type) hosting an etcd browser GUI (to display the data stored in etcd). **Remember to open port 4001 locally (ie on main VM) if you want to be able to access etcd data**
-
-- [in the code there are commented lines to deploy (along with honeypots) a dockerized nginx via DockerSwarm and opening the relevant port]  
+This script performs these tasks (leveraging Docker-Machine):
 
 
-It then starts many Docker Containers (honeypots) via Docker Swarm (the number of instances is specified in the variable InstancesK in the main configuration file)
+- Loads config files
+- Prepares etcd and other infrastructure services starting docker containers locally
+- Starts Kubernetes cluster
+- Logs Kubernetes cluster variables in etcd
+- Executes ELK on Kubernetes
+- Logs ELK variables in etcd
+- Launch honeypots
 
-It also opens up all required port on AWS Security Groups and on GCE Firewall
 
-Currently it opens all ports for Docker Swarm, Docker Machine and SSH plus ports specified in the configuration files for dockerized applications (AppPortK, ReceiverPortK and HoneypotPortK).
 
 Here's an high level diagram: 
 
