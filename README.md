@@ -20,7 +20,7 @@ https://github.com/FabioChiodini/AWSDockermachine
 
 >>> Install kubectl
 
-###How to launch
+### How to launch
 
 Launch the main script with no parameters (all parameters are stored in the configuration file **Cloud1)
 
@@ -83,19 +83,6 @@ export GCEKProvision=1
 export GCEVM_InstancesK=1
 
 
-export K2_GOOGLE_AUTH_EMAIL=XXXXX@developer.gserviceaccount.com
-export K2_GOOGLE_PROJECT=XXXXXX
-export GOOGLE_APPLICATION_CREDENTIALS="/home/ec2-user/GCEkeyfile.json"
-
-export AppPortK=80
-
-export ReceiverKinGCE=0
-
-export ExternalReceiverK=0
-export ExternalReceiverNameK=Brian
-export ExternalReceiverIpK=54.186.230.14
-export ExternalReceiverPortK=5000
-
 export ReceiverPortK=61116
 export ReceiverImageK=kiodo/receiver:latest
 export HoneypotPortK=8080
@@ -126,12 +113,6 @@ Here are the details on how these variables are used:
 - **K2_GOOGLE_PROJECT** contains the project to targte for GCE
 
 - **GOOGLE_APPLICATION_CREDENTIALS** maps to a file containing the Service account keys for your GCE login
-
-- **ReceiverKinGCE** if set to 1 (*and* if provisioning to GCE is enabled) provisions the Receiver in GCE
-
-- [**AppPortK** is the port that is opened for (optional/code commented out) dockerized nginx instances launched via docker swarm]
-
-- **ExternalReceiverK** if set to 1 inhibts the provisioning of a receiver and uses an external one with ip and port as specified in the **ExternalReceiverIpK** and **ExternalReceiverPortK** variables. This is useful if you are running a receiver using an ELK stack
 
 - **ReceiverPortK** and **ReceiverImageK** are the port used and the docker image for the receiver Application
 
