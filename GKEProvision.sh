@@ -212,7 +212,7 @@ echo ----
 
 #Poll local honeypot
 # curl $ipAWSK:$HoneypotPortK
-curl 127.0.0.1:$HoneypotPortK
+curl $ipAWSK:$HoneypotPortK
 
 echo ----
 echo "$(tput setaf 6) $etcdbrowserkVMName RUNNING ON $publicipetcdbrowser:8000 $(tput sgr 0)"
