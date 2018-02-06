@@ -136,8 +136,8 @@ kubectl create -f kubefiles/ -R --namespace=default
 
 kubectl get pods,deployments,services,ingress,configmaps
 
-echo "Sleeping for 3 minutes to let the Pods provisioning finish"
-sleep 3m
+echo "Sleeping for 5 minutes to let the Pods provisioning finish"
+sleep 5m
 
 kubectl get pods,deployments,services,ingress,configmaps
 
