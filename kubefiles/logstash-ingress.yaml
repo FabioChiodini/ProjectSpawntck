@@ -5,4 +5,4 @@ metadata:
 spec:
         backend:
           serviceName: logstash
-servicePort: 5000
+          servicePort: 5000
