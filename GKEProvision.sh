@@ -148,11 +148,15 @@ publicipkibana=$(kubectl get ing/all-ingress --namespace=default -o jsonpath="{.
 
 publicipelastic=$(kubectl get ing/elasticsearch-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
+publiciplogstash=$(kubectl get ing/logstash-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+
 #register ELK public ips in etcd
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipkibana -XPUT -d value=$publicipkibana
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipelastic -XPUT -d value=$publicipelastic
+
+curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publiciplogstash
 
 echo ----
 echo "$(tput setaf 6) Kibana RUNNING ON $publicipkibana $(tput sgr 0)"
@@ -164,12 +168,19 @@ echo "$(tput setaf 6) elasticsearch RUNNING ON $publicipelastic $(tput sgr 0)"
 echo "$(tput setaf 4) $publicipelastic $(tput sgr 0)"
 echo ----
 
+echo ----
+echo "$(tput setaf 6) logstash RUNNING ON $publiciplogstash $(tput sgr 0)"
+echo "$(tput setaf 4) $publiciplogstash $(tput sgr 0)"
+echo ----
+
 
 urlkibana=http://$publicipkibana
 urlelastic=http://$publicipelastic
+urllogstash=http://$publiciplogstash
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlkibana -XPUT -d value=$urlkibana
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlelastic -XPUT -d value=$urlelastic
+curl -L http://127.0.0.1:4001/v2/keys/elk/urllogstash -XPUT -d value=$urllogstash
 
 
 
@@ -190,12 +201,12 @@ curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
 
 #Launches Honeypots
     #docker run -d --name honeypot-$i -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK
-    docker run -d --name honeypot-i -e LOG_HOST=$publicipelastic -e LOG_PORT=$ReceiverPortK -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK 
+    docker run -d --name honeypot-i -e LOG_HOST=$publiciplogstash -e LOG_PORT=$ReceiverPortK -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK 
 #launches nginx (optional)
 
 echo ----
 echo "$(tput setaf 6) Local honeypot RUNNING ON $ipAWSK:$HoneypotPortK $(tput sgr 0)"
-echo "$(tput setaf 6) Local honeypot sending logs to $publicipelastic PORT $ReceiverPortK$(tput sgr 0)"
+echo "$(tput setaf 6) Local honeypot sending logs to $publiciplogstash PORT $ReceiverPortK$(tput sgr 0)"
 echo "$(tput setaf 4) Open a browser to : $ipAWSK:8080 (tput sgr 0)"
 echo ----
 
