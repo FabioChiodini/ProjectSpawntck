@@ -110,13 +110,13 @@ sleep 30s
 
 kubectl get nodes
 
-echo "Creating a Configmap for logstash"
+# echo "Creating a Configmap for logstash"
 
-kubectl create configmap logstash-config --from-file=kubefiles/config/logstash.conf
+# kubectl create configmap logstash-config --from-file=kubefiles/config/logstash.conf
 
-sleep 5s
+# sleep 5s
 
-kubectl get configmaps
+# kubectl get configmaps
 
 echo "Starting ELK in the remote Kubernetes Cluster"
 
@@ -124,8 +124,8 @@ kubectl create -f kubefiles/ -R --namespace=default
 
 kubectl get pods,deployments,services,ingress,configmaps
 
-echo "Sleeping for 2 minutes to let the Pods provisioning finish"
-sleep 5m
+echo "Sleeping for 3 minutes to let the Pods provisioning finish"
+sleep 3m
 
 kubectl get pods,deployments,services,ingress,configmaps
 
