@@ -17,20 +17,10 @@ spec:
       - env:
         - name: LS_JAVA_OPTS
           value: -Xmx256m -Xms256m
-        image: kiodo/logstash
+        image: kiodo/klogstash
         name: logstash
         ports:
         - containerPort: 5000
-        resources: {}
-        volumeMounts:
-        - mountPath: /usr/share/logstash/pipeline
-          name: config
+        resources: {}        
       restartPolicy: Always
-      volumes:
-      - name: config
-        configMap:
-          name: logstash-config
-          items:
-          - key: logstash.conf
-            path: logstash.conf
 status: {}
