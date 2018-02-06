@@ -16,6 +16,12 @@ kubectl delete -f kubefiles/ -R --namespace=default
 
 kubectl get pods,deployments,services,ingress,configmaps
 
+echo "Sleeping for 1min to let the de-provisoning finish"
+
+sleep 1m
+
+kubectl get pods,deployments,services,ingress,configmaps
+
 echo ""
 echo "$(tput setaf 1)Destroying Kubernetes Cluster $(tput sgr 0)"
 echo ""
