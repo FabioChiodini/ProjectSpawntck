@@ -63,6 +63,10 @@ docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380
 
 #Install local etcd browser 
 
+echo ""
+echo "$(tput setaf 2) Creating a LOCAL etcd Browser instance  $(tput sgr 0)"
+echo ""
+
   #creates name
   etcdbrowserkVMName=etcd-browserk$instidk
   
@@ -96,8 +100,12 @@ curl -L http://127.0.0.1:4001/v2/keys/maininstance/uniqueinstanceid -XPUT -d val
 
 
 #Create Kubernetes cluster
+echo ""
+echo "$(tput setaf 2) Creating Kubernetes Cluster in GKE  $(tput sgr 0)"
+echo ""
 
-echo "Creating Kubernetes Cluster in GKE"
+
+#echo "Creating Kubernetes Cluster in GKE"
 
 gcloud container clusters create delltechdemo123
 
@@ -118,7 +126,11 @@ kubectl get nodes
 
 # kubectl get configmaps
 
-echo "Starting ELK in the remote Kubernetes Cluster"
+echo ""
+echo "$(tput setaf 2) Starting ELK in the remote Kubernetes Cluster  $(tput sgr 0)"
+echo ""
+
+# echo "Starting ELK in the remote Kubernetes Cluster"
 
 kubectl create -f kubefiles/ -R --namespace=default
 
