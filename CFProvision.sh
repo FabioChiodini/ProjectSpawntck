@@ -41,8 +41,8 @@ HoneypotPortKj=8081
 
 echo ----
 echo "$(tput setaf 6) Local honeypot RUNNING ON $ipAWSK:$HoneypotPortKj $(tput sgr 0)"
-echo "$(tput setaf 6) Local honeypot sending logs to $publiciplogstash PORT $ReceiverPortK (tput sgr 0)"
-echo "$(tput setaf 4) Open a browser to : $ipAWSK:$HoneypotPortKj (tput sgr 0)"
+echo "$(tput setaf 6) Local honeypot sending logs to $publiciplogstash PORT $ReceiverPortK $(tput sgr 0)"
+echo "$(tput setaf 4) Open a browser to : $ipAWSK:$HoneypotPortKj $(tput sgr 0)"
 echo ----
 
 echo "@FabioChiodini"
