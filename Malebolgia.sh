@@ -16,9 +16,9 @@ kubectl delete -f kubefiles/ -R --namespace=default
 
 kubectl get pods,deployments,services,ingress,configmaps
 
-echo "Sleeping for 1min to let the de-provisoning finish"
+echo "Sleeping for 2 mins to let the de-provisioning finish"
 
-sleep 1m
+sleep 2m
 
 kubectl get pods,deployments,services,ingress,configmaps
 
