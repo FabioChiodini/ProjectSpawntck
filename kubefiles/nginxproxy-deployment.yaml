@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginxproxy-config
+  data:
+  default.conf: |
+    server {
+      listen                  80;
+      server_name             localhost;
+      root                    /usr/share/nginx/html;
+      location / {
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        # CHANGE ME
+        proxy_pass http://logstash:5000;
+        proxy_redirect off;
+        port_in_redirect off;
+      }
+    }
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginxproxy-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginxproxy
+    spec:
+      containers:
+      - image: nginx:1.13.6-alpine 
+        imagePullPolicy: Always
+        name: nginxproxy
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginxproxy-configs
+          mountPath: /etc/nginx/conf.d
+      # Load the configuration files for nginx
+      volumes:
+        - name: nginxproxy-configs
+          configMap:
+            name: nginxproxy-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    name: nginxproxy
+  name: nginxproxy
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    targetPort: 80
+    nodePort: 30003
+  selector:
+    name: nginxproxy
+type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginxproxy-ingress
+spec:
+        backend:
+          serviceName: nginxproxy
+          servicePort: 80
