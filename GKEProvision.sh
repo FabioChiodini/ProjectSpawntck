@@ -162,13 +162,15 @@ publicipnginxproxy=$(kubectl get ing/nginxproxy-ingress --namespace=default -o j
 publiciplogstash=$(kubectl get ing/nginxproxy-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
 
-#register ELK public ips in etcd
+#register ELK and nginx public ips in etcd
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipkibana -XPUT -d value=$publicipkibana
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipelastic -XPUT -d value=$publicipelastic
 
 # curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publiciplogstash
+
+curl -L http://127.0.0.1:4001/v2/keys/elk/publicipnginxproxy -XPUT -d value=$publicipnginxproxy
 
 #Sets publiciplogstash to nginx ingress
 curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publicipnginxproxy
