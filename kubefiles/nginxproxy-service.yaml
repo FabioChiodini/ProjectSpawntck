@@ -13,4 +13,4 @@ spec:
     nodePort: 30003
   selector:
     name: nginxproxy
-type: NodePort
+  type: NodePort
