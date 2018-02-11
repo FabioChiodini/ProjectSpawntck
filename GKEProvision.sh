@@ -134,7 +134,7 @@ echo ""
 
 # Creates config map for nginx from file
 
-kubectl create configmap nginxproxy-config kubefiles/config/default.conf
+kubectl create configmap nginxproxy-config --from-file=kubefiles/config/default.conf
 
 sleep 5s
 
