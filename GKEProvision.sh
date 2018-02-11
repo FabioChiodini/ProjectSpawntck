@@ -154,7 +154,9 @@ publicipkibana=$(kubectl get ing/all-ingress --namespace=default -o jsonpath="{.
 
 publicipelastic=$(kubectl get ing/elasticsearch-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
-publiciplogstash=$(kubectl get ing/logstash-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+# publiciplogstash=$(kubectl get ing/logstash-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+
+publicipnginxproxy=$(kubectl get ing/nginxproxy-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
 #register ELK public ips in etcd
 
@@ -162,7 +164,12 @@ curl -L http://127.0.0.1:4001/v2/keys/elk/publicipkibana -XPUT -d value=$publici
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipelastic -XPUT -d value=$publicipelastic
 
-curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publiciplogstash
+# curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publiciplogstash
+
+#Sets publiciplogstash to nginx ingress
+curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publicipnginxproxy
+
+
 
 echo ----
 echo "$(tput setaf 6) Kibana RUNNING ON $publicipkibana $(tput sgr 0)"
@@ -175,7 +182,7 @@ echo "$(tput setaf 4) $publicipelastic $(tput sgr 0)"
 echo ----
 
 echo ----
-echo "$(tput setaf 6) logstash RUNNING ON $publiciplogstash $(tput sgr 0)"
+echo "$(tput setaf 6) logstash public ip available ON $publiciplogstash $(tput sgr 0)"
 echo "$(tput setaf 4) $publiciplogstash $(tput sgr 0)"
 echo ----
 
