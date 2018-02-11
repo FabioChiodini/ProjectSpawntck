@@ -132,6 +132,12 @@ echo ""
 
 # echo "Starting ELK in the remote Kubernetes Cluster"
 
+# Creates config map for nginx from file
+
+kubectl create configmap nginxproxy-config kubefiles/config/default.conf
+
+sleep 5s
+
 kubectl create -f kubefiles/ -R --namespace=default
 
 kubectl get pods,deployments,services,ingress,configmaps
