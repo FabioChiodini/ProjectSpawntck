@@ -158,6 +158,10 @@ publicipelastic=$(kubectl get ing/elasticsearch-ingress --namespace=default -o j
 
 publicipnginxproxy=$(kubectl get ing/nginxproxy-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
+# Sets public ip logstash to the public ip of nginx
+publiciplogstash=$(kubectl get ing/nginxproxy-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+
+
 #register ELK public ips in etcd
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipkibana -XPUT -d value=$publicipkibana
