@@ -26,6 +26,10 @@ echo ""
 echo "$(tput setaf 1)Destroying Kubernetes Cluster $(tput sgr 0)"
 echo ""
 
+
+echo ""
+echo "Remote Kubernetes clusters instances running: "
+
 gcloud container clusters delete delltechdemo123 --quiet
 
 kubectl get nodes
@@ -42,4 +46,11 @@ docker rm -f honeypot-i
 sleep 1
 docker rm -f etcdk
 
+echo ""
+echo "Local Docker instances running: "
+
 docker ps
+
+echo ""
+echo "$(tput setaf 1) Everything has been destroyed by Malebolgia ;) $(tput sgr 0)"
+echo ""
