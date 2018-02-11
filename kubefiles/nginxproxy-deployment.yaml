@@ -23,29 +23,3 @@ spec:
         - name: nginxproxy-configs
           configMap:
             name: nginxproxy-config
----
-apiVersion: v1
-kind: Service
-metadata:
-  creationTimestamp: null
-  labels:
-    name: nginxproxy
-  name: nginxproxy
-spec:
-  ports:
-  - name: "80"
-    port: 80
-    targetPort: 80
-    nodePort: 30003
-  selector:
-    name: nginxproxy
-type: NodePort
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: nginxproxy-ingress
-spec:
-        backend:
-          serviceName: nginxproxy
-          servicePort: 80
