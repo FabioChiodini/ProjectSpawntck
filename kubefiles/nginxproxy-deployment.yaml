@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: nginxproxy-deployment
+  name: nginxproxy
 spec:
   replicas: 1
   template:
