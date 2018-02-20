@@ -146,7 +146,7 @@ For demo purposes two service discovery services are used: Consul and etcd
 
 All the items created by the code are registered in the KV store of **etcd** to allow for further manipulation.
 
-**Consul** is used only for demo purposes (GUI)
+
 
 ### etcd
 etcd is launched as a local dockerized applications and stores variables that are used in the main Spawn, in the scale up and tear down code
@@ -159,26 +159,13 @@ An application (etcd-browser) has been added for showing in a web GUI the data t
 
 ![Alt text](/images/etcd-browser.png "etcd-browser")
 
-To enable the use of this application it is necessary to **manually** open port 4001 on the VM where the main script is launched. App port (8000) for etcd-browser is opend up automatically.
+To enable the use of this application it is necessary to **manually** open port 4001 on the VM where the main script is launched. App port (8000) for etcd-browser is opened up automatically (if the etcd-browser is launched on a remote host.
 
 
 ![Alt text](/images/Port4001.png "Port4001")
 
 **Added value**: The etcd broswer is also useful for testing this code as you can change values inside etcd directly from its web interface
 
-### Consul
-
-**Important note**: If Consul is launched locally (DynDNS option)  it is necessary to **manually** open port 8500 on the VM where the main script is launched.
-
-Following are some examples of the Consul outputs.
-
-Main KV tree:
-
-![Alt text](/images/ConsulRegistration-3.png "ConsulRegistration-3")
-
-Example entry (with IP) for the Docker Machine hosting the Receiver:
-
-![Alt text](/images/ConsulRegistration-4.png "ConsulRegistration-4")
 
 ## NOTES ON Spawning to GCE
 
@@ -208,16 +195,16 @@ Finally activate your service account by issuing this command:
 gcloud auth activate-service-account --key-file /home/ec2-user/GCEkeyfile.json
 ```
 
-##Scale Out Code
-
+## Scale Out Code
+TBI
 Leetha.sh is the code that automates the scale out of the setup after the first deployment
 
 It reads configuration information from the etcd local instances (to connect to swarm, set up docker-machine and to launch honeypots).
 
 It then launches a number of Docker VMs and honeypot containers as specified with the following launch parameters
 
-###How to launch
-
+### How to launch
+TBI
 ```
 
 ./Leetha.sh instancestoaddAWS instancestoaddGCE HoneypotsToSpawn 
@@ -228,8 +215,8 @@ During the launch it also respawns Honeypots containers that were already starte
 Added value (:P) : If launched without parameters the code opens up all firewall port needed by the application
 
 
-##Scale Down Code
-
+## Scale Down Code
+TBI
 Redeemer.sh is the code that automates the scale down of the setup after the first deployment
 
 It reads configuration information from the etcd local instances (to connect to swarm, set up docker-machine, gets the number of Docker machines and honeypots and to restart honeypots).
@@ -238,7 +225,7 @@ It then destroys the specified Docker machine instances in GCE or AWS. It also c
 
 It then restarts honeypot containers to match the number specified with the following launch parameters
 
-###How to launch
+### How to launch
 
 ```
 
@@ -250,16 +237,17 @@ During the launch it also respawns Honeypots containers that were already starte
 This code does NOT reopen firewall ports in GCE or AWs.
 
 
-##Tear Down Code
+## Tear Down Code
 
 Malebolgia.sh is the code that automates the environment teardown
 
 It reads configuration information from the etcd local instances (to connect to swarm, set up docker-machine and to launch honeypots).
 
 It then destroys:
-- Docker machine VMs provisioned (by doing so kills all honeypot instances)
-- Infrastructure Components (Docker Swarm, Receiver, etcd-browser and Consul)
-- Local Docker instances (etcd and eventually Consul if local)
+- Pods provisioned on Kubernetes
+- Remote Kubernetes Cluster
+- Infrastructure Components (etcd-browser)
+- Local Docker instances (etcd if local)
 
 
 
@@ -269,8 +257,8 @@ It then destroys:
 ./Malebolgia.sh
 ```
 
-##Continuous Integration Code
-
+## Continuous Integration Code
+TBI
 [This is more like Test Driven Deployment (TDD) :P ]
 
 This code is meant to help in testing the elements deployed by the main code and validate that any change to the base code has been successful
@@ -279,11 +267,11 @@ The code tests these components:
 - Data written in etcd
 - Honeypots
 - Receiver Instance
-- Consul
+
 
 After getting the setup details from etcd it tests if the ports are open for the components listed and basically test the Honeypots application (parsing a curl output).
 
-###How to launch:
+### How to launch:
 
 ```
 ./CISpawntc
@@ -306,7 +294,7 @@ Following are high level notes on how to get this running quickly:
 - Open ports for this VM on AWS
  - 22 (to reach it ;) )
  - 4001 (all IPs) for etcd-browser
- - 8500 (all IPs) for Consul
+ - 8500 (all IPs) for etcd
 
 ![Alt text](/images/MainInboundRules.png "MainInboundRules")
 
@@ -320,7 +308,7 @@ Following are high level notes on how to get this running quickly:
 
 - Validate GCE account [ gcloud auth activate-service-account --key-file /home/ec2-user/GCEkeyfile.json ]
 
-- git clone this code : https://github.com/FabioChiodini/ProjectSpawnSwarmtc.git
+- git clone this code : https://github.com/FabioChiodini/ProjectSpawnSwarmtck.git
 
 - Launch script
 
