@@ -14,12 +14,12 @@ spec:
         imagePullPolicy: Always
         name: nginxproxy
         ports:
-        - containerPort: 80
-        #volumeMounts:
-        #- name: nginxproxy-configs
-          #mountPath: /etc/nginx/conf.d
+        - containerPort: 8080
+        volumeMounts:
+        - name: nginxproxy-configs
+          mountPath: /etc/nginx/conf.d
       # Load the configuration files for nginx
-      #volumes:
-        #- name: nginxproxy-configs
-          #configMap:
-            #name: nginxproxy-config
+      volumes:
+        - name: nginxproxy-configs
+          configMap:
+            name: nginxproxy-config
