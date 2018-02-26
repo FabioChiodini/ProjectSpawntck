@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: honeypot
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        name: honeypot
+    spec:
+      containers:
+      - env:
+        - name: LOG_HOST
+          value: logstash
+        image: kiodo/honeypotproxy:latest
+        name: honeypot
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+status: {}
