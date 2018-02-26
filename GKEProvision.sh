@@ -140,6 +140,11 @@ sleep 5s
 
 kubectl create -f kubefiles/ -R --namespace=default
 
+
+#Starts a local honeypot inside the kubernetes environment for testing purposes
+kubectl create -f honeypot/ -R --namespace=default
+
+
 kubectl get pods,deployments,services,ingress,configmaps
 
 echo "Sleeping for 5 minutes to let the Pods provisioning finish"
