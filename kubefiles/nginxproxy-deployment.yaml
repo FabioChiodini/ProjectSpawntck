@@ -15,11 +15,11 @@ spec:
         name: nginxproxy
         ports:
         - containerPort: 8080
-        #volumeMounts:
-        #- name: nginxproxy-configs
-          #mountPath: /etc/nginx/conf.d
+        volumeMounts:
+        - name: nginxproxy-configs
+          mountPath: /etc/nginx/conf.d
       # Load the configuration files for nginx
-      #volumes:
-        #- name: nginxproxy-configs
-          #configMap:
-            #name: nginxproxy-config
+      volumes:
+        - name: nginxproxy-configs
+          configMap:
+            name: nginxproxy-config
