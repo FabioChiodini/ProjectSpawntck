@@ -13,4 +13,4 @@ spec:
     nodePort: 30005
   selector:
     name: honeypot
-type: NodePort
+  type: NodePort
