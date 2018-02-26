@@ -5,10 +5,14 @@ Project to Spawn a titanium crucible Installation with Cloud Foundry and Kuberne
 
 # ProjectSpawnSwarmtck
 Project to Spawn a titanium crucible (receiver + multiple honeypots) installation in an automated way across different Clouds (AWS and optionally GCE) using Docker containers, Kubernetes, Cloud Foundry and basic Service Discovery. 
-An ELK stack gets started in Kubernetes (GKE), honeypot instances are started in Cloud Foundry (Pivotal Web services). Some local docker containers perform Service discovery and mapping for the different application components.
+- An ELK stack gets started in Kubernetes (GKE)
+- Honeypot instances are started in Cloud Foundry (Pivotal Web services)
+- Some local docker containers perform Service discovery and mapping for the different application components
 
 A dockerized etcd instances is used to store variables/application parameters in a KV store.
 The code stores all application information in etcd and uses the data stored to scale up, scale down, perform a basic TDD/CI and eventually tear down the application.
+
+This is a setup targeted at emonstranting teh different abstactions (Container as a service, platform as a service) and Cloud native Tools (Service Discovery, KV stores) that you can use to build your new applications.
 
 Tested on a t1.micro AMI
 
