@@ -14,6 +14,9 @@ echo ""
 
 kubectl delete -f kubefiles/ -R --namespace=default
 
+#destroys local honeypot instance in Kubernetes (testing instance)
+kubectl delete -f honeypot/ -R --namespace=default
+
 kubectl get pods,deployments,services,ingress,configmaps
 
 echo "Sleeping for 2 mins to let the de-provisioning finish"
