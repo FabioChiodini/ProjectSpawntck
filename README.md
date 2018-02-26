@@ -54,7 +54,7 @@ This script performs these tasks (leveraging Docker-Machine):
 
 Here's an high level diagram: 
 
-![Alt text](/images/Main.png "Main")
+![Alt text](/images/ProjecttcK.png "ProjecttcK")
 
 ## Environment Variables
 
