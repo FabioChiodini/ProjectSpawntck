@@ -253,6 +253,7 @@ It then destroys:
 - Infrastructure Components (etcd-browser)
 - Local Docker instances (etcd if local)
 
+Violator.sh destroys all the workloads deployed on Kubernetes and the local containers but it does not remove the GKE cluster. You can then relaung ./GKEProvision to test the deployment (in a faster way).
 
 
 ###How to launch
