@@ -16,7 +16,7 @@ spec:
       - env:
         - name: LOG_HOST
           value: logstash
-        image: kiodo/honeypotproxy:latest
+        image: kiodo/honeypotproxy5000:latest
         name: honeypot
         ports:
         - containerPort: 8080
