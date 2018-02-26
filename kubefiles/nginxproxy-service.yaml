@@ -7,10 +7,10 @@ metadata:
   name: nginxproxy
 spec:
   ports:
-  - name: "80"
-    port: 80
-    targetPort: 80
-    nodePort: 30003
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+    nodePort: 30080
   selector:
     name: nginxproxy
   type: NodePort
