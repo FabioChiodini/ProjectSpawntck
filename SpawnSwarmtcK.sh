@@ -127,6 +127,11 @@ kubectl create -f kubefiles/ -R --namespace=default
 echo""
 
 #Starts a local honeypot inside the kubernetes environment for testing purposes
+
+echo ""
+echo "$(tput setaf 2) Creating local honeypot in Kubernetes for internal testing purposes $(tput sgr 0)"
+echo ""
+
 kubectl create -f honeypot/ -R --namespace=default
 
 echo ""
