@@ -106,25 +106,34 @@ echo "$(tput setaf 2) Starting ELK in the remote Kubernetes Cluster  $(tput sgr 
 echo ""
 
 # echo "Connected the remote Kubernetes Cluster"
-
+echo ""
 kubectl config current-context
 echo ""
 kubectl get nodes
 
 # Creates config map for nginx from file
 
+echo ""
+kecho "Creating ConfigMaps"
+echo ""
+
 kubectl create configmap nginxproxy-config --from-file=kubefiles/config/default.conf
 
+kubectl create configmap logstash-config --from-file=kubefiles/config/logstash.conf
+
 sleep 5s
-
+echo ""
 kubectl create -f kubefiles/ -R --namespace=default
-
+echo""
 
 #Starts a local honeypot inside the kubernetes environment for testing purposes
 kubectl create -f honeypot/ -R --namespace=default
 
+echo ""
 
 kubectl get pods,deployments,services,ingress,configmaps
+
+echo""
 
 echo "Sleeping for 5 minutes to let the Pods provisioning finish"
 sleep 5m
