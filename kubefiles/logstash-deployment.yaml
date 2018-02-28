@@ -26,9 +26,9 @@ spec:
         - name: logstash-configs
           mountPath: /usr/share/logstash/pipeline
       # Load the configuration files for logstash
-        volumes:
+      volumes:
         - name: logstash-configs
           configMap:
-          name: logstash-config
+            name: logstash-config
       restartPolicy: Always
 status: {}
