@@ -5,6 +5,9 @@ echo ""
 echo "$(tput setaf 1)Destroying ELK Setup $(tput sgr 0)"
 echo ""
 
+kubectl delete cm nginxproxy-config
+kubectl delete cm logstash-config
+
 kubectl delete -f kubefiles/ -R --namespace=default
 
 #destroys local honeypot instance in Kubernetes (testing instance)
