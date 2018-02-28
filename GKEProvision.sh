@@ -173,12 +173,12 @@ curl -L http://127.0.0.1:4001/v2/keys/elk/publicipkibana -XPUT -d value=$publici
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipelastic -XPUT -d value=$publicipelastic
 
-# curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publiciplogstash
+curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publiciplogstash
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipnginxproxy -XPUT -d value=$publicipnginxproxy
 
 #Sets publiciplogstash to nginx ingress
-curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publicipnginxproxy
+# curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publicipnginxproxy
 
 
 
@@ -226,6 +226,10 @@ curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
 #Launches Honeypots
     #docker run -d --name honeypot-$i -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK
     docker run -d --name honeypot-i -e LOG_HOST=$publiciplogstash -e LOG_PORT=$ReceiverPortK -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK 
+#Creates a second honeypot that logs to nginxproxy
+docker run -d --name honeypot-nginx -e LOG_HOST=$publicipnginxproxy -e LOG_PORT=$ReceiverPortK -p 8081:$HoneypotPortK $HoneypotImageK 
+#launches nginx (optional)
+
 #launches nginx (optional)
 
 #Registers honeypot parameters in etcd
@@ -241,6 +245,13 @@ echo "$(tput setaf 6) Local honeypot RUNNING ON $ipAWSK:$HoneypotPortK $(tput sg
 echo "$(tput setaf 6) Local honeypot sending logs to $publiciplogstash PORT $ReceiverPortK$(tput sgr 0)"
 echo "$(tput setaf 4) Open a browser to : $ipAWSK:8080 $(tput sgr 0)"
 echo ----
+
+echo ----
+echo "$(tput setaf 6) Test honeypot RUNNING ON $ipAWSK:8081 $(tput sgr 0)"
+echo "$(tput setaf 6) Local honeypot sending logs to $publicipnginxproxy PORT 8081(tput sgr 0)"
+echo "$(tput setaf 4) Open a browser to : $ipAWSK:8081 $(tput sgr 0)"
+echo ----
+
 
 #Poll local honeypot
 # curl $ipAWSK:$HoneypotPortK
