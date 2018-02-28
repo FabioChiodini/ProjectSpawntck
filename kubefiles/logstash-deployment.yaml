@@ -24,8 +24,8 @@ spec:
         resources: {}      
         volumeMounts:
         - name: logstash-configs
-          mountPath: /etc/nginx/conf.d
-      # Load the configuration files for nginx
+          mountPath: /usr/share/logstash/pipeline
+      # Load the configuration files for logstash
         volumes:
         - name: logstash-configs
           configMap:
