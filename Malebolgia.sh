@@ -50,6 +50,8 @@ docker rm -f etcd-browserk$instidk
 sleep 1
 docker rm -f honeypot-i
 sleep 1
+docker rm -f honeypot-nginx
+sleep 1
 docker rm -f etcdk
 
 echo ""
