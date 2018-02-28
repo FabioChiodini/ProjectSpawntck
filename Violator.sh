@@ -13,7 +13,7 @@ kubectl delete -f honeypot/ -R --namespace=default
 kubectl get pods,deployments,services,ingress,configmaps
 
 echo "Sleeping for 2 mins to let the de-provisioning finish"
-
+echo ""
 sleep 2m
 
 kubectl get pods,deployments,services,ingress,configmaps
