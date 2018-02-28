@@ -114,7 +114,7 @@ kubectl get nodes
 # Creates config map for nginx from file
 
 echo ""
-kecho "Creating ConfigMaps"
+echo "Creating ConfigMaps"
 echo ""
 
 kubectl create configmap nginxproxy-config --from-file=kubefiles/config/default.conf
