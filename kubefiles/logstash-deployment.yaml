@@ -21,6 +21,14 @@ spec:
         name: logstash
         ports:
         - containerPort: 5000
-        resources: {}        
+        resources: {}      
+        volumeMounts:
+        - name: logstash-configs
+          mountPath: /etc/nginx/conf.d
+      # Load the configuration files for nginx
+        volumes:
+        - name: logstash-configs
+          configMap:
+          name: logstash-config
       restartPolicy: Always
 status: {}
