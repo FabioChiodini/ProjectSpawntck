@@ -10,11 +10,12 @@ spec:
         app: nginxproxy
     spec:
       containers:
-      - image: mhowlett/ngx-stub-status-prometheus 
+      #- image: mhowlett/ngx-stub-status-prometheus 
+      - image: nginx:1.11
         imagePullPolicy: Always
         name: nginxproxy
         ports:
-        - containerPort: 8000
+        - containerPort: 80
         #volumeMounts:
         #- name: nginxproxy-configs
           #mountPath: /etc/nginx/conf.d
