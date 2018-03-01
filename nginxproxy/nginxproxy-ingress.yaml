@@ -7,4 +7,4 @@ metadata:
 spec:
   backend:
     serviceName: nginxproxy
-servicePort: 80
+    servicePort: 80
