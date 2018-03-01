@@ -12,6 +12,12 @@ echo ""
 echo "$(tput setaf 1)Destroying ELK Setup $(tput sgr 0)"
 echo ""
 
+echo ""
+echo "$(tput setaf 1) Removing nginxproxy ip from GCP $(tput sgr 0)"
+echo ""
+
+gcloud compute addresses delete --quiet kubernetes-ingress --global
+
 kubectl delete cm nginxproxy-config
 kubectl delete cm logstash-config
 
