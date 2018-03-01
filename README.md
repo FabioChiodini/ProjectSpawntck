@@ -33,6 +33,25 @@ Launch the main script with no parameters (all parameters are stored in the conf
 ./GKE.sh
 
 ```
+This will create a Kubernetes Cluster on GKE and connect to it.
+
+```
+
+./SpawnSwarmtcK.sh
+
+```
+
+This will provision an ELK stack in Kubernetes and publish its services over the internet (all parameters are logged in an etcd instance)
+
+```
+
+./CFProvision.sh
+
+```
+
+This script will start honeypot instances on Cloud Foundry. Instances will be configured to log to the ELK stack previously created
+
+
 
 ## Configuration Files
 To run this script you have to prepare two configuration files (in /home/ec2-user)
