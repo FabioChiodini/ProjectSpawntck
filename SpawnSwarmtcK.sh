@@ -111,6 +111,15 @@ kubectl config current-context
 echo ""
 kubectl get nodes
 
+
+#Create ip for nginx
+echo ""
+echo "Creating an ip on GCP for nginx proxy"
+echo ""
+gcloud compute addresses create kubernetes-ingress --global
+
+
+
 # Creates config map for nginx from file
 
 echo ""
