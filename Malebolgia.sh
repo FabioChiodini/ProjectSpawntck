@@ -21,9 +21,11 @@ gcloud compute addresses delete --quiet kubernetes-ingress --global
 kubectl delete cm nginxproxy-config
 kubectl delete cm logstash-config
 
-kubectl delete deployment nginxproxy
+kubectl delete service nginxproxy
 
 kubectl delete -f kubefiles/ -R --namespace=default
+
+kubectl delete -f nginx-proxy/ -R --namespace=default
 
 #destroys local honeypot instance in Kubernetes (testing instance)
 kubectl delete -f honeypot/ -R --namespace=default
