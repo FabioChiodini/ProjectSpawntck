@@ -6,5 +6,5 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: "kubernetes-ingress"
 spec:
   backend:
-    serviceName: nginxproxy-ingress
+    serviceName: nginxproxy
     servicePort: 80
