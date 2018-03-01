@@ -261,13 +261,13 @@ curl -L http://127.0.0.1:4001/v2/keys/honeypots/receiverport -XPUT -d value=$Rec
 
 echo ----
 echo "$(tput setaf 6) Local honeypot RUNNING ON $ipAWSK:$HoneypotPortK $(tput sgr 0)"
-echo "$(tput setaf 6) Local honeypot sending logs to $publiciplogstash PORT 80 (tput sgr 0)"
+echo "$(tput setaf 6) Local honeypot sending logs to $publiciplogstash PORT 80 $(tput sgr 0)"
 echo "$(tput setaf 4) Open a browser to : $ipAWSK:8080 $(tput sgr 0)"
 echo ----
 
 echo ----
 echo "$(tput setaf 6) Test honeypot RUNNING ON $ipAWSK:8081 $(tput sgr 0)"
-echo "$(tput setaf 6) Local honeypot sending logs to $publicipnginxproxy PORT Check config(tput sgr 0)"
+echo "$(tput setaf 6) Local honeypot sending logs to $publicipnginxproxy PORT Check config $(tput sgr 0)"
 echo "$(tput setaf 4) Open a browser to : $ipAWSK:8081 $(tput sgr 0)"
 echo ----
 
