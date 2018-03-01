@@ -105,7 +105,8 @@ echo ""
 echo "$(tput setaf 2) Starting ELK in the remote Kubernetes Cluster  $(tput sgr 0)"
 echo ""
 
-# echo "Connected the remote Kubernetes Cluster"
+echo "Connected the remote Kubernetes Cluster"
+
 echo ""
 kubectl config current-context
 echo ""
@@ -116,6 +117,7 @@ kubectl get nodes
 echo ""
 echo "Creating an ip on GCP for nginx proxy"
 echo ""
+
 gcloud compute addresses create kubernetes-ingress --global
 
 
