@@ -140,6 +140,7 @@ kubectl create -f kubefiles/ -R --namespace=default
 echo""
 
 echo "Creating an nginx proxy for logstash"
+echo ""
 
 #deployment
 kubectl create -f nginxproxy/nginxproxy-deployment.yaml --namespace=default
@@ -163,7 +164,7 @@ echo ""
 
 kubectl get pods,deployments,services,ingress,configmaps
 
-echo""
+echo ""
 
 echo "Sleeping for 5 minutes to let the Pods provisioning finish"
 sleep 5m
