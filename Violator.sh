@@ -22,7 +22,7 @@ kubectl delete service nginxproxy
 
 kubectl delete -f kubefiles/ -R --namespace=default
 
-kubectl delete -f nginx-proxy/ -R --namespace=default
+kubectl delete -f nginxproxy/ -R --namespace=default
 
 
 #destroys local honeypot instance in Kubernetes (testing instance)
