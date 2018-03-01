@@ -310,7 +310,6 @@ Running these tests multiple times updates the test flags value in etcd.
 
 
 # Minimal Launch Instructions
-
 Following are high level notes on how to get this running quickly:
 
 - Start a t1.small on AWS
@@ -335,6 +334,11 @@ Following are high level notes on how to get this running quickly:
 - git clone this code : https://github.com/FabioChiodini/ProjectSpawnSwarmtck.git
 
 - Launch script
+
+# ELK Versions
+Logstash 5.3.2
+Kibana
+Elasticsearch
 
 
 @FabioChiodini
