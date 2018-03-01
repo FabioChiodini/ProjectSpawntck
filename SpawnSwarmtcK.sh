@@ -135,6 +135,11 @@ echo ""
 kubectl create -f kubefiles/ -R --namespace=default
 echo""
 
+#create default service for nginx
+
+kubectl expose deployment nginxproxy --type NodePort
+
+
 #Starts a local honeypot inside the kubernetes environment for testing purposes
 
 echo ""
