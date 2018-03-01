@@ -132,17 +132,24 @@ kubectl create configmap nginxproxy-config --from-file=kubefiles/config/default.
 
 kubectl create configmap logstash-config --from-file=kubefiles/config/logstash.conf
 
-kubectl expose deployment nginxproxy --type NodePort
+
 
 sleep 5s
 echo ""
 kubectl create -f kubefiles/ -R --namespace=default
 echo""
 
+echo "Creating an nginx proxy for logstash"
+
+#deployment
+kubectl create -f nginxproxy/nginxproxy-deployment.yaml --namespace=default
+
 #create default service for nginx
 
+kubectl expose deployment nginxproxy --type NodePort
 
-
+#ingress
+kubectl create -f nginxproxy/nginxproxy-ingress.yaml --namespace=default
 
 #Starts a local honeypot inside the kubernetes environment for testing purposes
 
