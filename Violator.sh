@@ -33,6 +33,12 @@ kubectl get pods,deployments,services,ingress,configmaps
 
 #Delete local docker containers
 
+echo ""
+echo "$(tput setaf 1) Removing nginxproxy ip from GCP $(tput sgr 0)"
+echo ""
+
+gcloud compute addresses delete --quiet  kubernetes-ingress --global
+
 #Kill local containers
 echo ""
 echo "$(tput setaf 1) Destroying Local Containers $(tput sgr 0)"
