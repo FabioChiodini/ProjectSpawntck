@@ -258,16 +258,31 @@ curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
 #Add number of nodes/worloads?
 
 
-# Launch local honeypot (this will log to elasticsearch)
+# Launch local honeypot (they will log to logstash)
 
-#Launches Honeypot that logs to logstash endpoint
-    #docker run -d --name honeypot-$i -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK
-    docker run -d --name honeypot-i -e LOG_HOST=$publiciplogstash -e LOG_PORT=$ReceiverPortK -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK 
-#Creates a second honeypot that logs to nginxproxy
-docker run -d --name honeypot-nginx -e LOG_HOST=$publicipnginxproxy -e LOG_PORT=$ReceiverPortK -p 8081:$HoneypotPortK $HoneypotImageK2 
-#launches nginx (optional)
 
-#launches nginx (optional)
+if [ $localhoneypot1 -eq 1 ]; then
+  echo "$(tput setaf 2) Starting Local Honeypot container (honeypot-logstash-1) logging to logstash ingress $(tput sgr 0)"
+  #Launches Honeypot that logs to logstash endpoint
+  #docker run -d --name honeypot-$i -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK
+  docker run -d --name honeypot-logstash-1 -e LOG_HOST=$publiciplogstash -e LOG_PORT=$ReceiverPortK -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK
+  #Registers honeypot parameters in etcd
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot1/containername -XPUT -d value=$HoneypotImageK
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot1/honeypotport -XPUT -d value=$HoneypotPortK
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot1/receiverip -XPUT -d value=$publiciplogstash
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot1/receiverport -XPUT -d value=$ReceiverPortK
+fi
+
+if [ $localhoneypot2 -eq 1 ]; then
+  echo "$(tput setaf 2) Starting Local Honeypot container (honeypot-nginx-2) logging to nginxproxy ingress $(tput sgr 0)"
+  #Creates a second honeypot that logs to nginxproxy
+  docker run -d --name honeypot-nginx-2 -e LOG_HOST=$publicipnginxproxy -e LOG_PORT=$ReceiverPortK -p 8081:$HoneypotPortK $HoneypotImageK2 
+  #Registers honeypot parameters in etcd
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot2/containername -XPUT -d value=$HoneypotImageK2
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot2/honeypotport -XPUT -d value=8081
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot2/receiverip -XPUT -d value=$publicipnginxproxy
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot2/receiverport -XPUT -d value=$ReceiverPortK
+fi
 
 #Registers honeypot parameters in etcd
 
