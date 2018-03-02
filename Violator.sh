@@ -20,9 +20,13 @@ kubectl delete cm logstash-config
 
 kubectl delete service nginxproxy
 
+kubectl delete service logstash
+
 kubectl delete -f kubefiles/ -R --namespace=default
 
 kubectl delete -f nginxproxy/ -R --namespace=default
+
+kubectl delete -f logstash/ -R --namespace=default
 
 
 #destroys local honeypot instance in Kubernetes (testing instance)
