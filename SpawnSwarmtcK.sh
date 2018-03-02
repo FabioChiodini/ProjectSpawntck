@@ -185,7 +185,7 @@ if [ $ghosttest -eq 1 ]; then
   echo ""
   echo "$(tput setaf 2) Creating local ghost instance in Kubernetes for internal testing purposes $(tput sgr 0)"
   echo ""
-  kubectl run ghost --image=nginx
+  kubectl create -f nginxproxy/ghost.yaml --namespace=default
   kubectl expose deployment ghost --type NodePort
 fi
 
