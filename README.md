@@ -118,6 +118,8 @@ export etcdbrowserprovision=0
 
 export localKuberneteshoneypotprovision=0
 
+export ingresslogstash=0
+
 export instidk=2
 ```
 
@@ -150,6 +152,8 @@ Here are the details on how these variables are used:
 - **etcdbrowserprovision** is a flag to determine if an etcd-browser containerized instance will be launched in GCE 
 
 - **localKuberneteshoneypotprovision** is a flag to provision an honeypot instance inside the kubernetes environment
+
+- **ingresslogstash** is a flag to determine if an ingress for logstash will be created 
 
 - **instidk** is a string (that will be added as a prefix to all names of items created) to allow for multiple deployment of tc in the same AWS and GCE instances (avoiding duplicate names)  (**you MUST use lowercase string due to GCE docker machine command line limitations**)
 
