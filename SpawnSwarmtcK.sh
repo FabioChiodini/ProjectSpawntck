@@ -120,11 +120,12 @@ echo ""
 
 gcloud compute addresses create kubernetes-ingress --global
 
-echo ""
-echo "$(tput setaf 2) Creating an ip on GCP for logstash  $(tput sgr 0)"
-echo ""
-
-gcloud compute addresses create logstash-ingress --global
+if [ $ingresslogstash -eq 1 ]; then
+  echo ""
+  echo "$(tput setaf 2) Creating an ip on GCP for logstash  $(tput sgr 0)"
+  echo ""
+  gcloud compute addresses create logstash-ingress --global
+fi
 
 # Creates config map for nginx from file
 
@@ -152,7 +153,9 @@ kubectl create -f logstash/logstash-deployment.yaml --namespace=default
 kubectl expose deployment logstash --type NodePort
 
 #ingress
-kubectl create -f logstash/logstash-ingress.yaml --namespace=default
+if [ $ingresslogstash -eq 1 ]; then
+  kubectl create -f logstash/logstash-ingress.yaml --namespace=default
+fi
 
 echo "Creating an nginx proxy for logstash"
 echo ""
