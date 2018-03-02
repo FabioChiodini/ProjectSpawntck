@@ -32,6 +32,10 @@ kubectl delete -f logstash/ -R --namespace=default
 #destroys local honeypot instance in Kubernetes (testing instance)
 kubectl delete -f honeypot/ -R --namespace=default
 
+#destroys ghost 
+kubectl delete deploy ghost
+kubectl delete service ghost
+
 kubectl get pods,deployments,services,ingress,configmaps
 
 echo "Sleeping for 30 seconds to let the de-provisioning finish"
