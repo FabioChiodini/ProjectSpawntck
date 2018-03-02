@@ -48,6 +48,8 @@ echo ""
 
 gcloud compute addresses delete --quiet  kubernetes-ingress --global
 
+gcloud compute addresses delete --quiet logstash-ingress --global
+
 #Kill local containers
 echo ""
 echo "$(tput setaf 1) Destroying Local Containers $(tput sgr 0)"
