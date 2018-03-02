@@ -64,9 +64,9 @@ echo "$(tput setaf 1) Destroying Local Containers $(tput sgr 0)"
 echo ""
 docker rm -f etcd-browserk$instidk
 sleep 1
-docker rm -f honeypot-i
+docker rm -f honeypot-logstash-1
 sleep 1
-docker rm -f honeypot-nginx
+docker rm -f honeypot-nginx-2
 sleep 1
 docker rm -f etcdk
 
