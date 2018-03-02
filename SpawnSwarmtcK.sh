@@ -264,7 +264,7 @@ curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
     #docker run -d --name honeypot-$i -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK
     docker run -d --name honeypot-i -e LOG_HOST=$publiciplogstash -e LOG_PORT=$ReceiverPortK -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK 
 #Creates a second honeypot that logs to nginxproxy
-docker run -d --name honeypot-nginx -e LOG_HOST=$publicipnginxproxy -e LOG_PORT=$ReceiverPortK -p 8081:$HoneypotPortK $HoneypotImageK 
+docker run -d --name honeypot-nginx -e LOG_HOST=$publicipnginxproxy -e LOG_PORT=$ReceiverPortK -p 8081:$HoneypotPortK $HoneypotImageK2 
 #launches nginx (optional)
 
 #launches nginx (optional)
