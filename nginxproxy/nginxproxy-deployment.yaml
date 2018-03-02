@@ -19,14 +19,14 @@ spec:
         volumeMounts:
         - name: nginxproxy-configs
           mountPath: /etc/nginx/conf.d
+      # Load the configuration files for nginx
+      volumes:
+        - name: nginxproxy-configs
+          configMap:
+            name: nginxproxy-config
       readinessProbe:
           httpGet:
               path: /nginx-health
               port: 80
           initialDelaySeconds: 5
           periodSeconds: 5
-      # Load the configuration files for nginx
-      volumes:
-        - name: nginxproxy-configs
-          configMap:
-            name: nginxproxy-config
