@@ -181,6 +181,14 @@ if [ $localKuberneteshoneypotprovision -eq 1 ]; then
   kubectl create -f honeypot/ -R --namespace=default
 fi
 
+if [ $ghosttest -eq 1 ]; then
+  echo ""
+  echo "$(tput setaf 2) Creating local ghost instance in Kubernetes for internal testing purposes $(tput sgr 0)"
+  echo ""
+  kubectl run ghost --image=ghost
+  kubectl expose deployment ghost --type NodePort
+fi
+
 echo ""
 
 kubectl get pods,deployments,services,ingress,configmaps
