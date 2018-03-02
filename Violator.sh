@@ -40,6 +40,11 @@ sleep 30s
 
 kubectl get pods,deployments,services,ingress,configmaps
 
+echo ""
+echo ""
+
+kubect get all
+
 #Delete local docker containers
 
 echo ""
