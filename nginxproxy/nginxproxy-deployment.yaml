@@ -21,7 +21,7 @@ spec:
             path: /healthz
             port: 80
           initialDelaySeconds: 5
-          periodSeconds: 5
+          timeoutSeconds: 5
         volumeMounts:
         - name: nginxproxy-configs
           mountPath: /etc/nginx/conf.d
