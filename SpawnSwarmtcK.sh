@@ -120,7 +120,7 @@ echo ""
 
 gcloud compute addresses create kubernetes-ingress --global
 
-
+gcloud compute addresses create logstash-ingress --global
 
 # Creates config map for nginx from file
 
@@ -139,6 +139,17 @@ echo ""
 kubectl create -f kubefiles/ -R --namespace=default
 echo""
 
+#Logstash creation
+
+#deployment
+kubectl create -f logstash/logstash-deployment.yaml --namespace=default
+
+#service
+kubectl expose deployment logstash --type NodePort
+
+#ingress
+kubectl create -f logstash/logstash-ingress.yaml --namespace=default
+
 echo "Creating an nginx proxy for logstash"
 echo ""
 
@@ -154,11 +165,14 @@ kubectl create -f nginxproxy/nginxproxy-ingress.yaml --namespace=default
 
 #Starts a local honeypot inside the kubernetes environment for testing purposes
 
-echo ""
-echo "$(tput setaf 2) Creating local honeypot in Kubernetes for internal testing purposes $(tput sgr 0)"
-echo ""
 
-# kubectl create -f honeypot/ -R --namespace=default
+if [ $localKuberneteshoneypotprovision -eq 1 ]; then
+  echo ""
+  echo "$(tput setaf 2) Creating local honeypot in Kubernetes for internal testing purposes $(tput sgr 0)"
+  echo ""
+
+  kubectl create -f honeypot/ -R --namespace=default
+fi
 
 echo ""
 
@@ -267,7 +281,7 @@ echo ----
 
 echo ----
 echo "$(tput setaf 6) Test honeypot RUNNING ON $ipAWSK:8081 $(tput sgr 0)"
-echo "$(tput setaf 6) Local honeypot sending logs to $publicipnginxproxy PORT Check config $(tput sgr 0)"
+echo "$(tput setaf 6) Local honeypot sending logs to $publicipnginxproxy PORT 80 $(tput sgr 0)"
 echo "$(tput setaf 4) Open a browser to : $ipAWSK:8081 $(tput sgr 0)"
 echo ----
 
