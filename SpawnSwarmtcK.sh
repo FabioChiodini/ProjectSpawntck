@@ -213,7 +213,9 @@ curl -L http://127.0.0.1:4001/v2/keys/elk/publicipkibana -XPUT -d value=$publici
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipelastic -XPUT -d value=$publicipelastic
 
-curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publiciplogstash
+if [ $ingresslogstash -eq 1 ]; then
+  curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publiciplogstash
+fi
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipnginxproxy -XPUT -d value=$publicipnginxproxy
 
@@ -232,21 +234,30 @@ echo "$(tput setaf 6) elasticsearch RUNNING ON $publicipelastic $(tput sgr 0)"
 echo "$(tput setaf 4) $publicipelastic $(tput sgr 0)"
 echo ----
 
-echo ----
-echo "$(tput setaf 6) logstash public ip available ON $publiciplogstash $(tput sgr 0)"
-echo "$(tput setaf 4) $publiciplogstash $(tput sgr 0)"
-echo ----
+if [ $ingresslogstash -eq 1 ]; then
+  echo ----
+  echo "$(tput setaf 6) logstash public ip available ON $publiciplogstash $(tput sgr 0)"
+  echo "$(tput setaf 4) $publiciplogstash $(tput sgr 0)"
+  echo ----
+fi
 
+echo ----
+echo "$(tput setaf 6) nginxproxy RUNNING ON $publicipnginxproxy $(tput sgr 0)"
+echo "$(tput setaf 4) $publicipnginxproxy $(tput sgr 0)"
+echo ----
 
 urlkibana=http://$publicipkibana
 urlelastic=http://$publicipelastic
 urllogstash=http://$publiciplogstash
+urlnginxproxy=http://$publicipnginxproxy
+
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlkibana -XPUT -d value=$urlkibana
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlelastic -XPUT -d value=$urlelastic
-curl -L http://127.0.0.1:4001/v2/keys/elk/urllogstash -XPUT -d value=$urllogstash
-
-
+if [ $ingresslogstash -eq 1 ]; then
+  curl -L http://127.0.0.1:4001/v2/keys/elk/urllogstash -XPUT -d value=$urllogstash
+fi
+curl -L http://127.0.0.1:4001/v2/keys/elk/urlnginxproxy -XPUT -d value=$urlnginxproxy
 
 # register Kubernetes Setup parameters in etcd
 echo "Registering Kubernetes Cluster parameters in etcd"
@@ -289,10 +300,10 @@ fi
 
 #Registers honeypot parameters in etcd
 
-curl -L http://127.0.0.1:4001/v2/keys/honeypots/containername -XPUT -d value=$HoneypotImageK
-curl -L http://127.0.0.1:4001/v2/keys/honeypots/honeypotport -XPUT -d value=$HoneypotPortK
-curl -L http://127.0.0.1:4001/v2/keys/honeypots/receiverip -XPUT -d value=$publiciplogstash
-curl -L http://127.0.0.1:4001/v2/keys/honeypots/receiverport -XPUT -d value=$ReceiverPortK
+#curl -L http://127.0.0.1:4001/v2/keys/honeypots/containername -XPUT -d value=$HoneypotImageK
+#curl -L http://127.0.0.1:4001/v2/keys/honeypots/honeypotport -XPUT -d value=$HoneypotPortK
+#curl -L http://127.0.0.1:4001/v2/keys/honeypots/receiverip -XPUT -d value=$publiciplogstash
+#curl -L http://127.0.0.1:4001/v2/keys/honeypots/receiverport -XPUT -d value=$ReceiverPortK
 
 
 echo ----
