@@ -115,10 +115,14 @@ kubectl get nodes
 
 #Create ip for nginx
 echo ""
-echo "Creating an ip on GCP for nginx proxy"
+echo "$(tput setaf 2) Creating an ip on GCP for nginx proxy  $(tput sgr 0)"
 echo ""
 
 gcloud compute addresses create kubernetes-ingress --global
+
+echo ""
+echo "$(tput setaf 2) Creating an ip on GCP for logstash  $(tput sgr 0)"
+echo ""
 
 gcloud compute addresses create logstash-ingress --global
 
