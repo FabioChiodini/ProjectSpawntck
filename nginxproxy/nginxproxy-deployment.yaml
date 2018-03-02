@@ -24,9 +24,9 @@ spec:
         - name: nginxproxy-configs
           configMap:
             name: nginxproxy-config
-      readinessProbe:
+      livenessProbe:
           httpGet:
-              path: /nginx-health
+              path: /healthz
               port: 80
           initialDelaySeconds: 5
           periodSeconds: 5
