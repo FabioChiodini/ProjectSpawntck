@@ -16,6 +16,12 @@ spec:
         name: nginxproxy
         ports:
         - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
         volumeMounts:
         - name: nginxproxy-configs
           mountPath: /etc/nginx/conf.d
@@ -24,9 +30,3 @@ spec:
         - name: nginxproxy-configs
           configMap:
             name: nginxproxy-config
-      livenessProbe:
-          httpGet:
-              path: /healthz
-              port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
