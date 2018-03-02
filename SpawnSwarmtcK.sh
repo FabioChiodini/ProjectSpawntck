@@ -285,6 +285,14 @@ if [ $localhoneypot1 -eq 1 ]; then
   curl -L http://127.0.0.1:4001/v2/keys/localhoneypot1/honeypotport -XPUT -d value=$HoneypotPortK
   curl -L http://127.0.0.1:4001/v2/keys/localhoneypot1/receiverip -XPUT -d value=$publiciplogstash
   curl -L http://127.0.0.1:4001/v2/keys/localhoneypot1/receiverport -XPUT -d value=$ReceiverPortK
+  echo ----
+  echo "$(tput setaf 6) Local honeypot RUNNING ON $ipAWSK:$HoneypotPortK $(tput sgr 0)"
+  echo "$(tput setaf 6) Local honeypot sending logs to $publiciplogstash PORT 80 (logstash ingress) $(tput sgr 0)"
+  echo "$(tput setaf 4) Open a browser to : $ipAWSK:8080 $(tput sgr 0)"
+  echo ----
+  #Poll local honeypot
+  curl $ipAWSK:$HoneypotPortK
+
 fi
 
 if [ $localhoneypot2 -eq 1 ]; then
@@ -296,6 +304,12 @@ if [ $localhoneypot2 -eq 1 ]; then
   curl -L http://127.0.0.1:4001/v2/keys/localhoneypot2/honeypotport -XPUT -d value=8081
   curl -L http://127.0.0.1:4001/v2/keys/localhoneypot2/receiverip -XPUT -d value=$publicipnginxproxy
   curl -L http://127.0.0.1:4001/v2/keys/localhoneypot2/receiverport -XPUT -d value=$ReceiverPortK
+  echo ----
+  echo "$(tput setaf 6) Test honeypot RUNNING ON $ipAWSK:8081 $(tput sgr 0)"
+  echo "$(tput setaf 6) Local honeypot sending logs to $publicipnginxproxy PORT 80 (nginxproxy ingress) $(tput sgr 0)"
+  echo "$(tput setaf 4) Open a browser to : $ipAWSK:8081 $(tput sgr 0)"
+  echo ----
+  curl $ipAWSK:8081
 fi
 
 #Registers honeypot parameters in etcd
@@ -305,23 +319,6 @@ fi
 #curl -L http://127.0.0.1:4001/v2/keys/honeypots/receiverip -XPUT -d value=$publiciplogstash
 #curl -L http://127.0.0.1:4001/v2/keys/honeypots/receiverport -XPUT -d value=$ReceiverPortK
 
-
-echo ----
-echo "$(tput setaf 6) Local honeypot RUNNING ON $ipAWSK:$HoneypotPortK $(tput sgr 0)"
-echo "$(tput setaf 6) Local honeypot sending logs to $publiciplogstash PORT 80 (logstash ingress) $(tput sgr 0)"
-echo "$(tput setaf 4) Open a browser to : $ipAWSK:8080 $(tput sgr 0)"
-echo ----
-
-echo ----
-echo "$(tput setaf 6) Test honeypot RUNNING ON $ipAWSK:8081 $(tput sgr 0)"
-echo "$(tput setaf 6) Local honeypot sending logs to $publicipnginxproxy PORT 80 (nginxproxy ingress) $(tput sgr 0)"
-echo "$(tput setaf 4) Open a browser to : $ipAWSK:8081 $(tput sgr 0)"
-echo ----
-
-
-#Poll local honeypot
-# curl $ipAWSK:$HoneypotPortK
-curl $ipAWSK:$HoneypotPortK
 
 echo ----
 echo "$(tput setaf 6) $etcdbrowserkVMName RUNNING ON $publicipetcdbrowser:8000 $(tput sgr 0)"
