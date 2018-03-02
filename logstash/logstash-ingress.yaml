@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: nginxproxy-ingress
+  name: logstash-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "logstash-ingress"
 spec:
