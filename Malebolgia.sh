@@ -18,6 +18,8 @@ echo ""
 
 gcloud compute addresses delete --quiet kubernetes-ingress --global
 
+gcloud compute addresses delete --quiet logstash-ingress --global
+
 kubectl delete cm nginxproxy-config
 kubectl delete cm logstash-config
 
