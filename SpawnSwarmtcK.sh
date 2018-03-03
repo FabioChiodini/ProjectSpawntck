@@ -150,7 +150,8 @@ echo""
 kubectl create -f logstash/logstash-deployment.yaml --namespace=default
 
 #service
-kubectl expose deployment logstash --type NodePort
+# kubectl expose deployment logstash --type NodePort
+kubectl create -f logstash/logstash-service.yaml --namespace=default
 
 #ingress
 if [ $ingresslogstash -eq 1 ]; then
