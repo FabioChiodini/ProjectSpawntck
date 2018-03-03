@@ -17,14 +17,17 @@ echo ""
 
 kubectl delete cm nginxproxy-config
 kubectl delete cm logstash-config
+kubectl delete cm tcpnginx-config
 
 kubectl delete service nginxproxy
-
+kubectl delete service tcpnginx
 kubectl delete service logstash
 
 kubectl delete -f kubefiles/ -R --namespace=default
 
 kubectl delete -f nginxproxy/ -R --namespace=default
+
+kubectl delete -f tcpnginx/ -R --namespace=default
 
 kubectl delete -f logstash/ -R --namespace=default
 
@@ -68,6 +71,8 @@ sleep 1
 docker rm -f honeypot-logstash-1
 sleep 1
 docker rm -f honeypot-nginx-2
+sleep 1
+docker rm -f honeypot-nginx-3
 sleep 1
 docker rm -f etcdk
 
