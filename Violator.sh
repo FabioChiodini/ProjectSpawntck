@@ -47,7 +47,7 @@ kubectl get pods,deployments,services,ingress,configmaps
 echo ""
 echo ""
 
-kubect get all
+kubectl get all
 
 #Delete local docker containers
 
