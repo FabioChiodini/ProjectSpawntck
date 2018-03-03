@@ -144,7 +144,7 @@ kubectl create configmap nginxproxy-config --from-file=kubefiles/config/default.
 
 kubectl create configmap logstash-config --from-file=kubefiles/config/logstash.conf
 
-kubectl create configmap tcpnginx-config --from-file=tcpnginx/config/default.conf
+kubectl create configmap tcpnginx-config --from-file=tcpnginx/config/nginx.conf
 
 sleep 5s
 echo ""
