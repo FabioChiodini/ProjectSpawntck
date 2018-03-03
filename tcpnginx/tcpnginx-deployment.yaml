@@ -1,1 +1,39 @@
-fd
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tcpnginx
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tcpnginx
+    spec:
+      containers:
+      #- image: mhowlett/ngx-stub-status-prometheus 
+      - image: nginx:1.13.9-alpine
+        imagePullPolicy: Always
+        name: nginxproxy
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 10
+          timeoutSeconds: 5          
+        volumeMounts:
+        - name: tcpnginx-configs
+          mountPath: /etc/nginx
+      # Load the configuration files for nginx
+      volumes:
+        - name: tcpnginx-configs
+          configMap:
+            name: tcpnginx-config
