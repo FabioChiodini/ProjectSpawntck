@@ -13,7 +13,7 @@ spec:
       #- image: mhowlett/ngx-stub-status-prometheus 
       - image: nginx:1.13.9-alpine
         imagePullPolicy: Always
-        name: nginxproxy
+        name: tcpnginx
         ports:
         - containerPort: 80
         #readinessProbe:
