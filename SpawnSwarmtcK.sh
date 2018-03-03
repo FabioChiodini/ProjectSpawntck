@@ -120,6 +120,13 @@ echo ""
 
 gcloud compute addresses create kubernetes-ingress --global
 
+echo ""
+echo "$(tput setaf 2) Creating an ip on GCP for nginx proxy  $(tput sgr 0)"
+echo ""
+
+gcloud compute addresses create tcpnginx-ingress --global
+
+
 if [ $ingresslogstash -eq 1 ]; then
   echo ""
   echo "$(tput setaf 2) Creating an ip on GCP for logstash  $(tput sgr 0)"
@@ -137,7 +144,7 @@ kubectl create configmap nginxproxy-config --from-file=kubefiles/config/default.
 
 kubectl create configmap logstash-config --from-file=kubefiles/config/logstash.conf
 
-
+kubectl create configmap tcpnginx-config --from-file=tcpnginx/config/default.conf
 
 sleep 5s
 echo ""
@@ -158,18 +165,21 @@ if [ $ingresslogstash -eq 1 ]; then
   kubectl create -f logstash/logstash-ingress.yaml --namespace=default
 fi
 
+echo ""
 echo "Creating an nginx proxy for logstash"
 echo ""
 
 #deployment
-kubectl create -f nginxproxy/nginxproxy-deployment.yaml --namespace=default
+# kubectl create -f nginxproxy/nginxproxy-deployment.yaml --namespace=default
+kubectl create -f tcpnginx/tcpnginx-deployment.yaml --namespace=default
 
 #create default service for nginx
-
-kubectl expose deployment nginxproxy --type NodePort
+#kubectl expose deployment nginxproxy --type NodePort
+kubectl expose deployment tcpnginx --type NodePort
 
 #ingress
-kubectl create -f nginxproxy/nginxproxy-ingress.yaml --namespace=default
+#kubectl create -f nginxproxy/nginxproxy-ingress.yaml --namespace=default
+kubectl create -f tcpnginx/tcpnginx-ingress.yaml --namespace=default
 
 #Starts a local honeypot inside the kubernetes environment for testing purposes
 
@@ -212,6 +222,8 @@ publiciplogstash=$(kubectl get ing/logstash-ingress --namespace=default -o jsonp
 
 publicipnginxproxy=$(kubectl get ing/nginxproxy-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
+publiciptcpnginx=$(kubectl get ing/tcpnginx-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+
 # Sets public ip logstash to the public ip of nginx
 # publiciplogstash=$(kubectl get ing/nginxproxy-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
@@ -227,6 +239,8 @@ if [ $ingresslogstash -eq 1 ]; then
 fi
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipnginxproxy -XPUT -d value=$publicipnginxproxy
+
+curl -L http://127.0.0.1:4001/v2/keys/elk/publiciptcpnginx -XPUT -d value=$publiciptcpnginx
 
 #Sets publiciplogstash to nginx ingress
 # curl -L http://127.0.0.1:4001/v2/keys/elk/publiciplogstash -XPUT -d value=$publicipnginxproxy
@@ -255,10 +269,16 @@ echo "$(tput setaf 6) nginxproxy RUNNING ON $publicipnginxproxy $(tput sgr 0)"
 echo "$(tput setaf 4) $publicipnginxproxy $(tput sgr 0)"
 echo ----
 
+echo ----
+echo "$(tput setaf 6) tcpnginx RUNNING ON $publiciptcpnginx $(tput sgr 0)"
+echo "$(tput setaf 4) $publiciptcpnginx $(tput sgr 0)"
+echo ----
+
 urlkibana=http://$publicipkibana
 urlelastic=http://$publicipelastic
 urllogstash=http://$publiciplogstash
 urlnginxproxy=http://$publicipnginxproxy
+urltcpnginx=http://$publiciptcpnginx
 
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlkibana -XPUT -d value=$urlkibana
@@ -267,6 +287,7 @@ if [ $ingresslogstash -eq 1 ]; then
   curl -L http://127.0.0.1:4001/v2/keys/elk/urllogstash -XPUT -d value=$urllogstash
 fi
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlnginxproxy -XPUT -d value=$urlnginxproxy
+curl -L http://127.0.0.1:4001/v2/keys/elk/urltcpnginx -XPUT -d value=$urltcpnginx
 
 # register Kubernetes Setup parameters in etcd
 echo "Registering Kubernetes Cluster parameters in etcd"
@@ -320,6 +341,21 @@ if [ $localhoneypot2 -eq 1 ]; then
   echo ----
   curl $ipAWSK:8081
 fi
+
+  echo "$(tput setaf 2) Starting Local Honeypot container (honeypot-nginx-3) logging to tcpnginx ingress $(tput sgr 0)"
+  #Creates a second honeypot that logs to nginxproxy
+  docker run -d --name honeypot-nginx-3 -e LOG_HOST=$publiciptcpnginx -e LOG_PORT=$ReceiverPortK -p 8080:$HoneypotPortK $HoneypotImageK2 
+  #Registers honeypot parameters in etcd
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot3/containername -XPUT -d value=$HoneypotImageK2
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot3/honeypotport -XPUT -d value=8080
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot3/receiverip -XPUT -d value=$publiciptcpnginx
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot3/receiverport -XPUT -d value=$ReceiverPortK
+  echo ----
+  echo "$(tput setaf 6) Test honeypot RUNNING ON $ipAWSK:8081 $(tput sgr 0)"
+  echo "$(tput setaf 6) Local honeypot sending logs to $publiciptcpnginx PORT 80 (tcpnginx ingress) $(tput sgr 0)"
+  echo "$(tput setaf 4) Open a browser to : $ipAWSK:8081 $(tput sgr 0)"
+  echo ----
+  curl $ipAWSK:8081
 
 #Registers honeypot parameters in etcd
 
