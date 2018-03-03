@@ -29,11 +29,11 @@ spec:
         #    scheme: HTTP
         #  initialDelaySeconds: 10
         #  timeoutSeconds: 5          
-        #volumeMounts:
-        #- name: tcpnginx-configs
-        #  mountPath: /etc/nginx
+        volumeMounts:
+        - name: tcpnginx-configs
+          mountPath: /etc/nginx
       # Load the configuration files for nginx
-      #volumes:
-        #- name: tcpnginx-configs
-         # configMap:
-         #   name: tcpnginx-config
+      volumes:
+        - name: tcpnginx-configs
+          configMap:
+            name: tcpnginx-config
