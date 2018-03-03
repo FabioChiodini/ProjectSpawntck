@@ -16,19 +16,19 @@ spec:
         name: nginxproxy
         ports:
         - containerPort: 80
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: 80
-          initialDelaySeconds: 15
-          timeoutSeconds: 1
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 80
-            scheme: HTTP
-          initialDelaySeconds: 10
-          timeoutSeconds: 5          
+        #readinessProbe:
+        #  httpGet:
+        #    path: /healthz
+        #    port: 80
+        #  initialDelaySeconds: 15
+        #  timeoutSeconds: 1
+        #livenessProbe:
+        #  httpGet:
+        #    path: /healthz
+        #    port: 80
+        #    scheme: HTTP
+        #  initialDelaySeconds: 10
+        #  timeoutSeconds: 5          
         volumeMounts:
         - name: tcpnginx-configs
           mountPath: /etc/nginx
