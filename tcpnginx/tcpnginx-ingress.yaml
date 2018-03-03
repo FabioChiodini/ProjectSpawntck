@@ -7,4 +7,4 @@ metadata:
 spec:
   backend:
     serviceName: tcpnginx
-servicePort: 80
+    servicePort: 80
