@@ -86,6 +86,6 @@ echo "Local Docker instances running: "
 docker ps
 
 echo ""
-echo "$(tput setaf 1) All Kubernetes deployments and local docker containers has been destroyed by Violator ;) $(tput sgr 0)"
+echo "$(tput setaf 1) All Kubernetes deployments and local docker containers have been destroyed by Violator ;) $(tput sgr 0)"
 echo ""
 
