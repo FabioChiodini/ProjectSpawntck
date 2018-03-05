@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       #- image: mhowlett/ngx-stub-status-prometheus 
-      - image: nginx:1.13.9-alpine
+      - image: kiodo/tcpnginxb
         imagePullPolicy: Always
         name: tcpnginx
         ports:
@@ -29,11 +29,11 @@ spec:
         #    scheme: HTTP
         #  initialDelaySeconds: 10
         #  timeoutSeconds: 5          
-        volumeMounts:
-        - name: tcpnginx-configs
-          mountPath: /etc/nginx/conf.d
+        #volumeMounts:
+        #- name: tcpnginx-configs
+        #  mountPath: /etc/nginx/conf.d
       # Load the configuration files for nginx
-      volumes:
-        - name: tcpnginx-configs
-          configMap:
-            name: tcpnginx-config
+      #volumes:
+        #- name: tcpnginx-configs
+         # configMap:
+          #  name: tcpnginx-config
