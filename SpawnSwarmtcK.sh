@@ -170,16 +170,16 @@ echo "Creating an nginx proxy for logstash"
 echo ""
 
 #deployment
-# kubectl create -f nginxproxy/nginxproxy-deployment.yaml --namespace=default
-kubectl create -f tcpnginx/tcpnginx-deployment.yaml --namespace=default
+kubectl create -f nginxproxy/nginxproxy-deployment.yaml --namespace=default
+# kubectl create -f tcpnginx/tcpnginx-deployment.yaml --namespace=default
 
 #create default service for nginx
-#kubectl expose deployment nginxproxy --type NodePort
-kubectl expose deployment tcpnginx --type NodePort
+kubectl expose deployment nginxproxy --type NodePort
+# kubectl expose deployment tcpnginx --type NodePort
 
 #ingress
-#kubectl create -f nginxproxy/nginxproxy-ingress.yaml --namespace=default
-kubectl create -f tcpnginx/tcpnginx-ingress.yaml --namespace=default
+kubectl create -f nginxproxy/nginxproxy-ingress.yaml --namespace=default
+#kubectl create -f tcpnginx/tcpnginx-ingress.yaml --namespace=default
 
 #Starts a local honeypot inside the kubernetes environment for testing purposes
 
