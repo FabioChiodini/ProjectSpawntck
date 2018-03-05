@@ -344,16 +344,16 @@ fi
 
   echo "$(tput setaf 2) Starting Local Honeypot container (honeypot-nginx-3) logging to tcpnginx ingress $(tput sgr 0)"
   #Creates a second honeypot that logs to nginxproxy
-  docker run -d --name honeypot-nginx-3 -e LOG_HOST=$publiciptcpnginx -e LOG_PORT=$ReceiverPortK -p 8080:$HoneypotPortK $HoneypotImageK2 
+  docker run -d --name honeypot-nginx-3 -e LOG_HOST=$publiciptcpnginx -e LOG_PORT=$ReceiverPortK -p 8083:$HoneypotPortK $HoneypotImageK2 
   #Registers honeypot parameters in etcd
   curl -L http://127.0.0.1:4001/v2/keys/localhoneypot3/containername -XPUT -d value=$HoneypotImageK2
-  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot3/honeypotport -XPUT -d value=8080
+  curl -L http://127.0.0.1:4001/v2/keys/localhoneypot3/honeypotport -XPUT -d value=8083
   curl -L http://127.0.0.1:4001/v2/keys/localhoneypot3/receiverip -XPUT -d value=$publiciptcpnginx
   curl -L http://127.0.0.1:4001/v2/keys/localhoneypot3/receiverport -XPUT -d value=$ReceiverPortK
   echo ----
-  echo "$(tput setaf 6) Test honeypot RUNNING ON $ipAWSK:8081 $(tput sgr 0)"
+  echo "$(tput setaf 6) Test honeypot RUNNING ON $ipAWSK:8083 $(tput sgr 0)"
   echo "$(tput setaf 6) Local honeypot sending logs to $publiciptcpnginx PORT 80 (tcpnginx ingress) $(tput sgr 0)"
-  echo "$(tput setaf 4) Open a browser to : $ipAWSK:8081 $(tput sgr 0)"
+  echo "$(tput setaf 4) Open a browser to : $ipAWSK:8083 $(tput sgr 0)"
   echo ----
   curl $ipAWSK:8081
 
