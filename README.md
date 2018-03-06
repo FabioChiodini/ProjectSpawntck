@@ -178,6 +178,11 @@ Here is a picture of the applications that get deployed on Kubernetes:
 
 ![Alt text](/images/ELK.png "ELK")
 
+An nginx container is used to reverse proxy logstash. We used nginx in order to be able to publish an health page that is needed by GKE to provision an **healthy** load balancer:
+
+![Alt text](/images/GKENetworking.png "GKENetworking")
+
+
 
 ## Service Discovery
 
