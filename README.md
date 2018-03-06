@@ -77,6 +77,10 @@ This script performs these tasks (leveraging Docker-Machine):
 
 Here's an high level diagram: 
 
+![Alt text](/images/HighLevel.png "HighLevel")
+
+And a more detailed one:
+
 ![Alt text](/images/ProjecttcK.png "ProjecttcK")
 
 ## Environment Variables
