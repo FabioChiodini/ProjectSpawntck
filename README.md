@@ -284,11 +284,10 @@ It reads configuration information from the etcd local instances (to connect to 
 
 It then destroys:
 - Pods provisioned on Kubernetes
+- GCP Ingresses and IPs
 - Remote Kubernetes Cluster
 - Infrastructure Components (etcd-browser)
 - Local Docker instances (etcd if local)
-
-Violator.sh destroys all the workloads deployed on Kubernetes and the local containers but it does not remove the GKE cluster. You can then relaung ./GKEProvision to test the deployment (in a faster way).
 
 
 ###How to launch
@@ -296,6 +295,11 @@ Violator.sh destroys all the workloads deployed on Kubernetes and the local cont
 ```
 ./Malebolgia.sh
 ```
+
+Violator.sh destroys *only the workloads deployed on Kubernetes and the local containers* but it does not remove the GKE cluster. You can then relaunch ./Spawnswarmtck to test the deployment (in a faster way).
+
+
+
 
 ## Continuous Integration Code
 TBI
