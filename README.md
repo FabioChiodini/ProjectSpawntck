@@ -174,6 +174,10 @@ Yaml files for the Kubernetes deployment are located in /kubefiles
 
 These files start an ELK application deployed in multiple containers and publish it over the internet on a GKE cluster.
 
+Here is a picture of the applications that get deployed on Kubernetes:
+
+![Alt text](/images/ELK.png "ELK")
+
 
 ## Service Discovery
 
