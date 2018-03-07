@@ -332,7 +332,17 @@ The results of the tests are written in etcd:
 
 Running these tests multiple times updates the test flags value in etcd.
 
+# Create a geoip Map representation in Kibana
 
+As soon as some traffic will get in from the Honeypots you should see some logs like this:
+
+![Alt text](/images/LogsinKibana.png "LogsinKibana")
+
+To create a geoip visuaaztion just go to the Kibana -> Visualize page add a new Tile map.
+
+Then add a client_ipk filter on the map. You'll get a map like this showing the source IPs of all client connecting to your honeypots:
+
+![Alt text](/images/KibanaTilemap.png "KibanaTilemap")
 
 # Minimal Launch Instructions
 Following are high level notes on how to get this running quickly:
