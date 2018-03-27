@@ -68,6 +68,12 @@ curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
 echo "Installing Helm on Kubernetes"
 helm init
 
+echo ""
+echo "Sleeping for 60 seconds to let the provisioning finish"
+echo ""
+
+sleep 30s
+
 # Check to see if Tiller is running
 kubectl get pods --namespace kube-system
 
