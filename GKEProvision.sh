@@ -74,8 +74,15 @@ echo ""
 
 sleep 30s
 
-# Check to see if Tiller is running
+# Check to see if Helm has been installed
 kubectl get pods --namespace kube-system
+
+echo ""
+
+# Check to see if Tiller is running
+kubectl get pod --namespace kube-system -l app=helm
+
+echo ""
 
 #Checks versions
 helm version
