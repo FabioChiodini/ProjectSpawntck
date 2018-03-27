@@ -54,6 +54,8 @@ echo "Sleeping for 30 seconds to let the provisioning finish"
 sleep 30s
 
 kubectl get nodes
+kubectl get services
+
 echo " Cluster"
 kubectl config current-context
 echo "created"
@@ -72,7 +74,7 @@ echo ""
 echo "Sleeping for 60 seconds to let the provisioning finish"
 echo ""
 
-sleep 30s
+sleep 60s
 
 # Check to see if Helm has been installed
 kubectl get pods --namespace kube-system
@@ -91,9 +93,24 @@ echo ""
 echo "$(tput setaf 2) Installing project riff in the Kubernetes Cluster  $(tput sgr 0)"
 echo ""
 
+helm repo add riffrepo https://riff-charts.storage.googleapis.com
 
+helm repo update
 
+# Create a riff namespace in Kubernetes
 
+kubectl create namespace riff-system
+
+# Install kafka for riff
+helm install --name transport --namespace riff-system riffrepo/kafka
+
+echo ""
+echo "Sleeping for 60 seconds to let the provisioning finish"
+echo ""
+
+sleep 60s
+
+helm install riffrepo/riff --name delltechriff123 --namespace riff-system
 
 
 echo ""
