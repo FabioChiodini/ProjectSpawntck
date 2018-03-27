@@ -58,8 +58,34 @@ echo " Cluster"
 kubectl config current-context
 echo "created"
 
-echo""
+echo ""
+echo "$(tput setaf 2) Installing Helm in the Kubernetes Cluster  $(tput sgr 0)"
+echo ""
+
+echo "Installing local Helm client"
+curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+
+echo "Installing Helm on Kubernetes"
+helm init
+
+# Check to see if Tiller is running
+kubectl get pods --namespace kube-system
+
+#Checks versions
+helm version
+
+echo ""
+echo "$(tput setaf 2) Installing project riff in the Kubernetes Cluster  $(tput sgr 0)"
+echo ""
+
+
+
+
+
+
+echo ""
 echo "Demo by @FabioChiodini"
+echo ""
 # kubectl delete -f kubefiles/ -R --namespace=default
 
 # gcloud container clusters delete delltechdemo123 --quiet
