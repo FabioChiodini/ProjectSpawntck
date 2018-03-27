@@ -73,10 +73,13 @@ echo ""
 export GCP_USER=$(gcloud config get-value account | head -n 1)
 kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$GCP_USER
 
+echo ""
 
+#echo "Installing local Helm client"
 
-echo "Installing local Helm client"
-curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+chmod 700 get_helm.sh
+./get_helm.sh
 
 
 #Add repo to Helm
