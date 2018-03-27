@@ -152,6 +152,19 @@ SERVICE_IP=$(kubectl get svc --namespace riff-system control-riff-http-gateway -
 echo http://$SERVICE_IP:80
 echo ""
 
+
+echo ""
+echo "$(tput setaf 2) Installing riff CLI  $(tput sgr 0)"
+echo ""
+curl -Lo riff-linux-amd64.tgz https://github.com/projectriff/riff/releases/download/v0.0.5/riff-linux-amd64.tgz
+tar xvzf riff-linux-amd64.tgz
+sudo mv riff /usr/local/bin/
+
+echo ""
+riff version
+riff list
+echo ""
+
 echo ""
 echo "Demo by @FabioChiodini"
 echo ""
