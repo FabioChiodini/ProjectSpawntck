@@ -50,6 +50,7 @@ gcloud container clusters create --cluster-version=1.8.9-gke.1 delltechdemo123
 
 # It takes a few minutes to do this
 echo "Sleeping for 30 seconds to let the provisioning finish"
+echo ""
 
 sleep 30s
 
