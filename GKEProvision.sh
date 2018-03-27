@@ -64,11 +64,31 @@ echo ""
 echo "$(tput setaf 2) Installing Helm in the Kubernetes Cluster  $(tput sgr 0)"
 echo ""
 
+#removing CPU limits
+kubectl delete limitrange limits
+
+#Adding cluster-admin permissions
+export GCP_USER=$(gcloud config get-value account | head -n 1)
+kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$GCP_USER
+
+
+
 echo "Installing local Helm client"
 curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
 
-echo "Installing Helm on Kubernetes"
-helm init
+
+#Add repo to Helm
+helm repo add projectriff https://riff-charts.storage.googleapis.com
+helm repo update
+
+# Install Helm
+kubectl -n kube-system create serviceaccount tiller
+kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+helm init --service-account=tiller
+
+
+#echo "Installing Helm on Kubernetes"
+#helm init
 
 echo ""
 echo "Sleeping for 60 seconds to let the provisioning finish"
@@ -93,16 +113,13 @@ echo ""
 echo "$(tput setaf 2) Installing project riff in the Kubernetes Cluster  $(tput sgr 0)"
 echo ""
 
-helm repo add riffrepo https://riff-charts.storage.googleapis.com
-
-helm repo update
-
 # Create a riff namespace in Kubernetes
-
 kubectl create namespace riff-system
 
 # Install kafka for riff
-helm install --name transport --namespace riff-system riffrepo/kafka
+helm install riffrepo/kafka \
+  --name transport \
+  --namespace riff-system
 
 echo ""
 echo "Sleeping for 60 seconds to let the provisioning finish"
@@ -110,7 +127,12 @@ echo ""
 
 sleep 60s
 
-helm install riffrepo/riff --name delltechriff123 --namespace riff-system
+
+helm install projectriff/riff \
+  --name control \
+  --namespace riff-system
+  
+#helm install riffrepo/riff --name delltechriff123 --namespace riff-system
 
 
 echo ""
