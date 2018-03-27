@@ -139,6 +139,18 @@ helm install projectriff/riff \
   
 #helm install riffrepo/riff --name delltechriff123 --namespace riff-system
 
+echo ""
+echo "Sleeping for 60 seconds to let the provisioning finish"
+echo ""
+
+sleep 60s
+
+kubectl get po,deploy --namespace riff-system
+
+echo ""
+SERVICE_IP=$(kubectl get svc --namespace riff-system control-riff-http-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+echo http://$SERVICE_IP:80
+echo ""
 
 echo ""
 echo "Demo by @FabioChiodini"
