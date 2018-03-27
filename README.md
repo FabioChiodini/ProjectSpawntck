@@ -30,10 +30,10 @@ Launch the main script with no parameters (all parameters are stored in the conf
 
 ```
 
-./GKE.sh
+./GKEProvision.sh
 
 ```
-This will create a Kubernetes Cluster on GKE and connect to it.
+This will create a Kubernetes Cluster on GKE and connect to it. **The script currently also install Helm in the cluster (in a specifc namespace) and then uses Helm to install Project riff for serverless functions.**
 
 ```
 
