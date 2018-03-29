@@ -39,7 +39,14 @@ kubectl apply -f istio/install/kubernetes/addons/grafana.yaml
 # Checks grafana installation
 kubectl -n istio-system get svc grafana
 
-#expose grafana
+# Create grafana ingress
+
+echo ""
+echo "$(tput setaf 2) Creating an ip on GCP for nginx proxy  $(tput sgr 0)"
+echo ""
+
+gcloud compute addresses create kubernetes-ingress --global
+
 
 
 
