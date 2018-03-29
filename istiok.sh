@@ -49,4 +49,5 @@ gcloud compute addresses create grafana-ingress --global
 
 kubectl create -f grafana/grafana-ingress.yaml --namespace=istio-system
 
+publicipgrafana=$(kubectl get ing/grafana-ingress --namespace=istio-system -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
