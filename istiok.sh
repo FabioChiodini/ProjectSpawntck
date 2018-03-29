@@ -19,6 +19,17 @@ export PATH=/bin/istio:$PATH
 
 #Gives current user cluster-admin role
 
+#removing CPU limits
+kubectl delete limitrange limits
+
+echo ""
+
+#Adding cluster-admin permissions
+export GCP_USER=$(gcloud config get-value account | head -n 1)
+kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$GCP_USER
+
+echo ""
+
 
 # Installs istio
 
