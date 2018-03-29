@@ -123,7 +123,7 @@ gcloud compute addresses create kubernetes-ingress --global
 echo ""
 echo "$(tput setaf 2) Creating an ip on GCP for nginx proxy  $(tput sgr 0)"
 echo ""
-
+# This COULD BE DELETED
 gcloud compute addresses create tcpnginx-ingress --global
 
 
