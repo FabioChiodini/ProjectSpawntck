@@ -7,7 +7,7 @@ wget https://github.com/istio/istio/releases/download/0.6.0/istio-0.6.0-linux.ta
 
 mkdir istio
 
-#untars istio in an istio folder stripping iut the version number 
+#untars istio in an istio folder stripping the version number 
 
 tar xzvf istio-0.6.0-linux.tar.gz -C istio --strip-components=1
 
