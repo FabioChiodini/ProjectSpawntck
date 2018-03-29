@@ -45,8 +45,8 @@ echo ""
 echo "$(tput setaf 2) Creating an ip on GCP for nginx proxy  $(tput sgr 0)"
 echo ""
 
-gcloud compute addresses create kubernetes-ingress --global
+gcloud compute addresses create grafana-ingress --global
 
-
+kubectl create -f grafana/grafana-ingress.yaml --namespace=istio-system
 
 
