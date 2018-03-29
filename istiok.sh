@@ -86,6 +86,10 @@ sleep 5m
 echo ""
 kubectl top nodes
 
+echo ""
+
+kubectl describe nodes | grep -A 2 -e "^\\s*CPU Requests"
+
 echo""
 
 publicipgrafana=$(kubectl get ing/grafana-ingress --namespace=istio-system -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
