@@ -6,5 +6,5 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: "grafana-ingress"
 spec:
   backend:
-    serviceName: grafana
+    serviceName: nginxproxy-grafana
     servicePort: 80
