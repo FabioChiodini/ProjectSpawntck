@@ -1,0 +1,10 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "grafana-ingress"
+spec:
+  backend:
+    serviceName: grafana
+servicePort: 80
