@@ -39,14 +39,29 @@ kubectl apply -f istio/install/kubernetes/addons/grafana.yaml
 # Checks grafana installation
 kubectl -n istio-system get svc grafana
 
+echo ""
+echo "Creating ConfigMaps"
+echo ""
+
+kubectl create configmap nginxproxy-config-grafana --from-file=grafana/config/default.conf --namespace=istio-system
+
+#deployment
+kubectl create -f grafana/nginxproxy-grafana.yaml --namespace=default --namespace=istio-system
+
+
+#create default service for nginx
+kubectl expose deployment nginxproxy-grafana --type NodePort --namespace=istio-system
+
+
 # Create grafana ingress
 
 echo ""
-echo "$(tput setaf 2) Creating an ip on GCP for nginx proxy  $(tput sgr 0)"
+echo "$(tput setaf 2) Creating an ip on GCP for grafana nginx proxy $(tput sgr 0)"
 echo ""
 
 gcloud compute addresses create grafana-ingress --global
 
+# Creates an ingress for an nginxproxy that points to grafana
 kubectl create -f grafana/grafana-ingress.yaml --namespace=istio-system
 
 echo ""
@@ -56,4 +71,8 @@ echo ""
 sleep 5m
 
 publicipgrafana=$(kubectl get ing/grafana-ingress --namespace=istio-system -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+
+echo ""
+echo "$(tput setaf 2) Grafana available at $publicipgrafana $(tput sgr 0)"
+echo ""
 
