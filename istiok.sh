@@ -83,6 +83,11 @@ echo ""
 
 sleep 5m
 
+echo ""
+kubectl top nodes
+
+echo""
+
 publicipgrafana=$(kubectl get ing/grafana-ingress --namespace=istio-system -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
 echo ""
