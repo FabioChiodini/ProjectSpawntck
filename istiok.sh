@@ -49,5 +49,11 @@ gcloud compute addresses create grafana-ingress --global
 
 kubectl create -f grafana/grafana-ingress.yaml --namespace=istio-system
 
+echo ""
+echo "Sleeping for 5 minutes to let the Pods provisioning finish"
+echo ""
+
+sleep 5m
+
 publicipgrafana=$(kubectl get ing/grafana-ingress --namespace=istio-system -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
