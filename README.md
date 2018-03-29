@@ -8,6 +8,8 @@ Project to Spawn a titanium crucible (receiver + multiple honeypots) installatio
 - An ELK stack gets started in Kubernetes (GKE)
 - Honeypot instances are started in Cloud Foundry (Pivotal Web services)
 - Some local docker containers perform Service discovery and mapping for the different application components
+- [Optional] Istio to provide telemetry for some of the pods deployed to Kubernetes
+- [Optional] Project riff to show how to deploy Functions on top of Kubernetes 
 
 A dockerized etcd instances is used to store variables/application parameters in a KV store.
 The code stores all application information in etcd and uses the data stored to scale up, scale down, perform a basic TDD/CI and eventually tear down the application.
