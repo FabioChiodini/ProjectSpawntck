@@ -7,4 +7,4 @@ metadata:
 spec:
   backend:
     serviceName: grafana
-servicePort: 80
+    servicePort: 80
