@@ -89,3 +89,9 @@ echo ""
 echo "$(tput setaf 2) Grafana available at $publicipgrafana $(tput sgr 0)"
 echo ""
 
+echo ""
+echo "$(tput setaf 2) istio dashboards available at $publicipgrafana/dashboard/db/istio-dashboard $(tput sgr 0)"
+echo ""
+
+
+
