@@ -72,6 +72,8 @@ echo ""
 
 gcloud compute addresses create grafana-ingress --global
 
+echo ""
+
 # Creates an ingress for an nginxproxy that points to grafana
 kubectl create -f grafana/grafana-ingress.yaml --namespace=istio-system
 
