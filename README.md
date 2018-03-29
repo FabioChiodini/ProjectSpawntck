@@ -33,7 +33,7 @@ Launch the main script with no parameters (all parameters are stored in the conf
 ./GKEProvision.sh
 
 ```
-This will create a Kubernetes Cluster on GKE and connect to it. **The script currently also install Helm in the cluster (in a specifc namespace) and then uses Helm to install Project riff for serverless functions.**
+This will create a Kubernetes Cluster on GKE and connect to it. 
 
 ```
 
@@ -369,6 +369,24 @@ Following are high level notes on how to get this running quickly:
 - git clone this code : https://github.com/FabioChiodini/ProjectSpawnSwarmtck.git
 
 - Launch script
+
+# Add Ons
+
+## Istio
+A script is provide to install istio in the Kubernetes cluster.
+
+The code is istiok.sh
+
+The script also installs prometheus and grafana and makes grafana available via an external ip on GKE.
+
+Grafana is published using an nginx reverse proxy and GKE ingress
+
+## project riff
+A script is provided to install project riff (FaaS for K8S) on the Kubernetes cluster
+
+The code is in riff.sh
+
+The script currently also install Helm in the cluster (in a specific namespace) and then uses Helm to install Project riff for serverless functions.
 
 # ELK Versions
 Logstash 5.3.2
