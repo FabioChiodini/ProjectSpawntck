@@ -64,6 +64,8 @@ gcloud compute addresses delete --quiet logstash-ingress --global
 
 gcloud compute addresses delete --quiet tcpnginx-ingress --global
 
+gcloud compute addresses delete --quiet grafana-ingress --global
+
 gcloud compute addresses list --global
 
 #Kill local containers
