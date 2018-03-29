@@ -1,3 +1,9 @@
+# Overview
+# Installs Helm
+# Installs riff
+
+
+
 echo ""
 echo "$(tput setaf 2) Installing Helm in the Kubernetes Cluster  $(tput sgr 0)"
 echo ""
@@ -82,6 +88,7 @@ echo "Sleeping for 60 seconds to let the provisioning finish"
 echo ""
 
 sleep 60s
+
 kubectl get svc,deployments,pods,functions,topics --namespace riff-system
 # kubectl get po,deploy --namespace riff-system
 
@@ -101,4 +108,8 @@ sudo mv riff /usr/local/bin/
 echo ""
 riff version
 riff list
+echo ""
+
+echo ""
+echo "Demo by @FabioChiodini"
 echo ""
