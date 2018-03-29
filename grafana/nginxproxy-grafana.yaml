@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginxproxy-grafana
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginxproxy-grafana
+    spec:
+      containers:
+      #- image: mhowlett/ngx-stub-status-prometheus 
+      - image: nginx:1.11
+        imagePullPolicy: Always
+        name: nginxproxy
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 10
+          timeoutSeconds: 5          
+        volumeMounts:
+        - name: nginxproxy-configs-grafana
+          mountPath: /etc/nginx/conf.d
+      # Load the configuration files for nginx
+      volumes:
+        - name: nginxproxy-configs-grafana
+          configMap:
+            name: nginxproxy-config-grafana
