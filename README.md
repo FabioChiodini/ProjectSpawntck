@@ -1,5 +1,5 @@
 # ProjectSpawntck
-Project to Spawn a titanium crucible Installation with Cloud Foundry and Kubernetes
+Project to Spawn a titanium crucible Installation with Cloud Foundry and Kubernetes (*optional: can integrate with istio and deploy serverless workloads on Project riff*)
 
 *Credits to komljen for the kubernetes yaml files for deploying ELK*
 
