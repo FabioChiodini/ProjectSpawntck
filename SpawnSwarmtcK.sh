@@ -160,7 +160,7 @@ echo""
 
 #deployment
 if [ $istiodeployed -eq 1 ]; then
-  kubectl apply --namespace=default -f <(istioctl kube-inject -f logstash/logstash-ingress.yaml) 
+  kubectl apply -f <(istioctl kube-inject -f logstash/logstash-ingress.yaml) 
 else
   kubectl create -f logstash/logstash-deployment.yaml --namespace=default
 fi
