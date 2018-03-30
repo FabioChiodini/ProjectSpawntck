@@ -292,8 +292,8 @@ if [ $ingresslogstash -eq 1 ]; then
   curl -L http://127.0.0.1:4001/v2/keys/elk/urllogstash -XPUT -d value=$urllogstash
 fi
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlnginxproxy -XPUT -d value=$urlnginxproxy
-curl -L http://127.0.0.1:4001/v2/keys/istio/urlgrafana -XPUT -d value=$urlgrafana
-curl -L http://127.0.0.1:4001/v2/keys/elk/urltcpnginx -XPUT -d value=$urltcpnginx/dashboard/db/istio-dashboard
+curl -L http://127.0.0.1:4001/v2/keys/istio/urlgrafana -XPUT -d value=$urlgrafana/dashboard/db/istio-dashboard
+curl -L http://127.0.0.1:4001/v2/keys/elk/urltcpnginx -XPUT -d value=$urltcpnginx
 
 # register Kubernetes Setup parameters in etcd
 echo "Registering Kubernetes Cluster parameters in etcd"
