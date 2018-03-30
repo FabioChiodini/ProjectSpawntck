@@ -92,10 +92,15 @@ sleep 60s
 kubectl get svc,deployments,pods,functions,topics --namespace riff-system
 # kubectl get po,deploy --namespace riff-system
 
+kubectl get svc --namespace riff-system control-riff-http-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+
 echo ""
 SERVICE_IP=$(kubectl get svc --namespace riff-system control-riff-http-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-echo http://$SERVICE_IP:80
+echo "Service ip $SERVICE_IP"
 echo ""
+
+#urlriff=http://
+
 
 
 echo ""
