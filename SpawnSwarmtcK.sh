@@ -283,7 +283,7 @@ urlelastic=http://$publicipelastic
 urllogstash=http://$publiciplogstash
 urlnginxproxy=http://$publicipnginxproxy
 urlgrafana=http://$publicipgrafana
-urltcpnginx=http://$publiciptcpnginx/dashboard/db/istio-dashboard
+urltcpnginx=http://$publiciptcpnginx
 
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlkibana -XPUT -d value=$urlkibana
@@ -293,7 +293,7 @@ if [ $ingresslogstash -eq 1 ]; then
 fi
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlnginxproxy -XPUT -d value=$urlnginxproxy
 curl -L http://127.0.0.1:4001/v2/keys/istio/urlgrafana -XPUT -d value=$urlgrafana
-curl -L http://127.0.0.1:4001/v2/keys/elk/urltcpnginx -XPUT -d value=$urltcpnginx
+curl -L http://127.0.0.1:4001/v2/keys/elk/urltcpnginx -XPUT -d value=$urltcpnginx/dashboard/db/istio-dashboard
 
 # register Kubernetes Setup parameters in etcd
 echo "Registering Kubernetes Cluster parameters in etcd"
