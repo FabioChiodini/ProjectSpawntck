@@ -154,7 +154,14 @@ echo""
 #Logstash creation
 
 #deployment
-kubectl create -f logstash/logstash-deployment.yaml --namespace=default
+if [ $istiodeployed -eq 1 ]; then
+  kubectl apply --namespace=default -f <(istioctl kube-inject -f logstash/logstash-ingress.yaml) 
+else
+  kubectl create -f logstash/logstash-deployment.yaml --namespace=default
+fi
+
+#kubectl apply -f <(istioctl kube-inject -f samples/bookinfo/kube/bookinfo.yaml)
+
 
 #service
 # kubectl expose deployment logstash --type NodePort
