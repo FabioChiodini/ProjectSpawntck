@@ -180,6 +180,7 @@ To use this script (and let it interact with Google Cloud platform) **Install th
 - curl https://sdk.cloud.google.com | bash
 - exec -l $SHELL
 - gcloud init (this will start an interactive setup/configuration)
+- gcloud components install kubectl (to install kubectl)
 
 
 You also need to properly set up your GCE account, following are the high level steps:
