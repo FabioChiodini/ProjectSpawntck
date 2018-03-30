@@ -224,6 +224,8 @@ publicipnginxproxy=$(kubectl get ing/nginxproxy-ingress --namespace=default -o j
 
 publiciptcpnginx=$(kubectl get ing/tcpnginx-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
+publicipgrafana=$(kubectl get ing/grafana-ingress --namespace=istio-system -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+
 # Sets public ip logstash to the public ip of nginx
 # publiciplogstash=$(kubectl get ing/nginxproxy-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
@@ -239,6 +241,8 @@ if [ $ingresslogstash -eq 1 ]; then
 fi
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipnginxproxy -XPUT -d value=$publicipnginxproxy
+
+curl -L http://127.0.0.1:4001/v2/keys/istio/publicipgrafana -XPUT -d value=$publicipgrafana
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publiciptcpnginx -XPUT -d value=$publiciptcpnginx
 
@@ -278,7 +282,8 @@ urlkibana=http://$publicipkibana
 urlelastic=http://$publicipelastic
 urllogstash=http://$publiciplogstash
 urlnginxproxy=http://$publicipnginxproxy
-urltcpnginx=http://$publiciptcpnginx
+urlgrafana=http://$publicipgrafana
+urltcpnginx=http://$publiciptcpnginx/dashboard/db/istio-dashboard
 
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlkibana -XPUT -d value=$urlkibana
@@ -287,6 +292,7 @@ if [ $ingresslogstash -eq 1 ]; then
   curl -L http://127.0.0.1:4001/v2/keys/elk/urllogstash -XPUT -d value=$urllogstash
 fi
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlnginxproxy -XPUT -d value=$urlnginxproxy
+curl -L http://127.0.0.1:4001/v2/keys/istio/urlgrafana -XPUT -d value=$urlgrafana
 curl -L http://127.0.0.1:4001/v2/keys/elk/urltcpnginx -XPUT -d value=$urltcpnginx
 
 # register Kubernetes Setup parameters in etcd
