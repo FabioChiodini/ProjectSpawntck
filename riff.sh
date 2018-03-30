@@ -99,7 +99,12 @@ SERVICE_IP=$(kubectl get svc --namespace riff-system control-riff-http-gateway -
 echo "Service ip $SERVICE_IP"
 echo ""
 
-#urlriff=http://
+urlriff=http://$SERVICE_IP
+
+echo ""
+echo "riff URL $urlriff"
+echo ""
+
 
 
 
