@@ -125,11 +125,11 @@ echo ""
 
 gcloud compute addresses create kubernetes-ingress --global
 
-echo ""
-echo "$(tput setaf 2) Creating an ip on GCP for tcpnginxingress  $(tput sgr 0)"
-echo ""
+# echo ""
+#echo "$(tput setaf 2) Creating an ip on GCP for tcpnginxingress  $(tput sgr 0)"
+#echo ""
 # This COULD BE DELETED
-gcloud compute addresses create tcpnginx-ingress --global
+#gcloud compute addresses create tcpnginx-ingress --global
 
 
 if [ $ingresslogstash -eq 1 ]; then
@@ -149,7 +149,7 @@ kubectl create configmap nginxproxy-config --from-file=kubefiles/config/default.
 
 kubectl create configmap logstash-config --from-file=kubefiles/config/logstash.conf
 
-kubectl create configmap tcpnginx-config --from-file=tcpnginx/config/nginx.default.conf
+#kubectl create configmap tcpnginx-config --from-file=tcpnginx/config/nginx.default.conf
 
 sleep 5s
 echo ""
