@@ -35,6 +35,11 @@ chmod +x ./jq
 
 sudo cp -p jq /usr/bin
 
+
+echo "Adding istioctl to path"
+export PATH=/bin/istio:$PATH
+
+
 echo ""
 echo "STARTING"
 echo ""
