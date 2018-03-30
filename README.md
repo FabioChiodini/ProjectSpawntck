@@ -93,26 +93,6 @@ The code uses a file to load the variables needed (/home/ec2-user/Cloud1).
 This file has the following format:
 
 ```
-export K1_AWS_ACCESS_KEY=AKXXXXXX
-
-export K1_AWS_SECRET_KEY=LXXXXXXXXXX
-
-export K1_AWS_VPC_ID=vpc-XXXXXX
-
-export K1_AWS_ZONE=b
-
-export K1_AWS_DEFAULT_REGION=us-east-1
-
-export AWS_DEFAULT_REGION=us-east-1
-
-export VM_InstancesK=2
-export Container_InstancesK=3
-
-export GCEKProvision=1
-
-export GCEVM_InstancesK=1
-
-
 export ReceiverPortK=61116
 export ReceiverImageK=kiodo/receiver:latest
 export HoneypotPortK=8080
@@ -131,22 +111,6 @@ export instidk=2
 ```
 
 Here are the details on how these variables are used:
-
-- The first five variable are used by the docker-machine command and are related to your AWS account
-
-- **AWS_DEFAULT_REGION** variable is used by AWS cli (to edit the security group) 
-
-- **VM_InstancesK** is used to determine the number of VM that will be spawned on AWS 
-- **Container_InstancesK** is used to state how many Containers instances will be run
-
-- **GCEKProvision** is a flag to enable provisioning on GCE
-- **GCEVM_InstancesK** is used to determine the number of VM that will be spawned on GCE
-
-- **K2_GOOGLE_AUTH_EMAIL** contains the google account email for your GCE project (shown in the manage service accounts panel, this is NOT your google email :P)
-
-- **K2_GOOGLE_PROJECT** contains the project to targte for GCE
-
-- **GOOGLE_APPLICATION_CREDENTIALS** maps to a file containing the Service account keys for your GCE login
 
 - **ReceiverPortK** and **ReceiverImageK** are the port used and the docker image for the receiver Application
 
@@ -168,8 +132,6 @@ Here are the details on how these variables are used:
 
 ![Alt text](/images/Cloud1.png "Cloud1")
 
-The code also uses another file: GCEkeyfile.json 
-- This contains data that is used for GCE authentication (Service account keys type in JSON format)
 
 
 ## Kubernetes Configuration Files
@@ -189,9 +151,7 @@ An nginx container is used to reverse proxy logstash. We used nginx in order to 
 
 ## Service Discovery
 
-For demo purposes two service discovery services are used: Consul and etcd
-
-All the items created by the code are registered in the KV store of **etcd** to allow for further manipulation.
+All the items created by the code are registered in the KV store of **etcd** to allow for further manipulation (scaling, troubleshooting etc).
 
 
 
@@ -206,7 +166,7 @@ An application (etcd-browser) has been added for showing in a web GUI the data t
 
 ![Alt text](/images/etcd-browser.png "etcd-browser")
 
-To enable the use of this application it is necessary to **manually** open port 4001 on the VM where the main script is launched. App port (8000) for etcd-browser is opened up automatically (if the etcd-browser is launched on a remote host.
+To enable the use of this application it is necessary to **manually** open port 4001 on the VM where the main script is launched. App port (8000) for etcd-browser needs to be opened up on your AWS security group for the launcher machine.
 
 
 ![Alt text](/images/Port4001.png "Port4001")
@@ -214,9 +174,9 @@ To enable the use of this application it is necessary to **manually** open port 
 **Added value**: The etcd broswer is also useful for testing this code as you can change values inside etcd directly from its web interface
 
 
-## NOTES ON Spawning to GCE
+## NOTES ON using GCP
 
-To spawn VMs to GCE you need to **Install the GCE SDK** on your AMI image (install and configure the SDK in the context of the ec2-user user):
+To use this script (and let it interact with Google Cloud platform) **Install the GCE SDK** on your AMI image (install and configure the SDK in the context of the ec2-user user):
 - curl https://sdk.cloud.google.com | bash
 - exec -l $SHELL
 - gcloud init (this will start an interactive setup/configuration)
@@ -230,16 +190,12 @@ You also need to properly set up your GCE account, following are the high level 
 
 - Enable billing for your account
 
-Then you need to perform these configurations in the /home/ec2-user/Cloud1 file:
-
-- Populate the configuration file with your GCE account details
-- Enable the flag to provision to GCE
-- Indicate a number of VMs to provision to GCE
+- Change teh settings to have more IPs available
 
 Finally activate your service account by issuing this command:
 
 ```
-gcloud auth activate-service-account --key-file /home/ec2-user/GCEkeyfile.json
+gcloud auth activate-service-account 
 ```
 
 ## Scale Out Code
@@ -354,7 +310,8 @@ Following are high level notes on how to get this running quickly:
 
 - Open ports for this VM on AWS
  - 22 (to reach it ;) )
- - 4001 (all IPs) for etcd-browser
+ - 4001 (all IPs) for etcd-browser to reach etcd
+ - 8000 for etcd-browser UI
  - 8500 (all IPs) for etcd
 
 ![Alt text](/images/MainInboundRules.png "MainInboundRules")
@@ -365,9 +322,7 @@ Following are high level notes on how to get this running quickly:
 
 - Populate /home/ec2-user/Cloud1
 
-- Populate /home/ec2-user/GCE JSON (if using GCE)
-
-- Validate GCE account [ gcloud auth activate-service-account --key-file /home/ec2-user/GCEkeyfile.json ]
+- Validate GCE account [ gcloud auth activate-service-account ]
 
 - git clone this code : https://github.com/FabioChiodini/ProjectSpawnSwarmtck.git
 
@@ -376,7 +331,7 @@ Following are high level notes on how to get this running quickly:
 # Add Ons
 
 ## Istio
-A script is provide to install istio in the Kubernetes cluster.
+A script is provided to install istio in the Kubernetes cluster.
 
 The code is istiok.sh
 
