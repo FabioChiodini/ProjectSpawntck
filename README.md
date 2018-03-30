@@ -28,6 +28,7 @@ https://github.com/FabioChiodini/AWSDockermachine
 
 ### How to launch
 
+Create an instance on AWS (t1 micro, update it and install components using this script https://github.com/FabioChiodini/AWSDockermachine )
 Launch the main script with no parameters (all parameters are stored in the configuration file **Cloud1)
 
 ```
@@ -56,7 +57,7 @@ This script will start honeypot instances on Cloud Foundry. Instances will be co
 
 
 ## Configuration Files
-To run this script you have to prepare two configuration files (in /home/ec2-user)
+To run this script you have to prepare one configuration file (in /home/ec2-user)
 - **Cloud1** see below for syntax
 
 
