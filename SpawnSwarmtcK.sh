@@ -160,7 +160,11 @@ echo""
 
 #deployment
 if [ $istiodeployed -eq 1 ]; then
-  kubectl apply -f <(istioctl kube-inject -f logstash/logstash-deployment.yaml) 
+  echo ""
+  echo "Deploying logstash with envoy sidecar"
+  echo""
+  istioctl kube-inject -f logstash/logstash-deployment.yaml -o logstash/logstash-deployment-injected.yaml
+  kubectl create -f logstash/logstash-deployment-injected.yaml --namespace=default 
 else
   kubectl create -f logstash/logstash-deployment.yaml --namespace=default
 fi
