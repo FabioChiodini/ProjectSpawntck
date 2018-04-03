@@ -15,7 +15,7 @@ spec:
       containers:
       - env:
         - name: LOG_HOST
-          value: MYDESTNAME
+          value: {{MYDESTNAME}}
         #image: kiodo/honeyplus80
         image: kiodo/honey80http
         name: honeypot-istio
