@@ -70,7 +70,8 @@ helm repo update
 kubectl create namespace riff-system
 
 # Install kafka for riff
-helm install riffrepo/kafka \
+#helm install riffrepo/kafka \
+helm install projectriff/kafka \
   --name transport \
   --namespace riff-system
 
