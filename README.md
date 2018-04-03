@@ -350,7 +350,7 @@ The script also installs prometheus and grafana and makes grafana available via 
 
 Grafana is published using an nginx reverse proxy and GKE ingress
 
-**Please note that even if you delete istio and the corresponding Kubernetes cluster hosting it some of the GCP networkl cosntructs could still be in place.
+**Please note that even if you delete istio and the corresponding Kubernetes cluster hosting it some of the GCP network constructs could still be in place.
 You may need to remove them manually**
 
 ![Alt text](/images/istioCleanUp.png "istioCleanUp")
