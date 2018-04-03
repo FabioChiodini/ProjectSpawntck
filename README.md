@@ -366,6 +366,12 @@ The script currently also install Helm in the cluster (in a specific namespace) 
 You can test riff using some examples located here:
 https://github.com/BrianMMcClain/riff-demos/tree/master/functions/echo/shell
 
+**Please note that even if you delete riff and the corresponding Kubernetes cluster hosting it some of the GCP network constructs could still be in place.
+You may need to remove them manually**
+
+![Alt text](/images/riffCleanUp.png "riffCleanUp")
+
+
 # ELK Versions
 Logstash 5.3.2
 Kibana
