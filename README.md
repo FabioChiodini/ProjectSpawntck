@@ -363,6 +363,9 @@ The code is in riff.sh
 
 The script currently also install Helm in the cluster (in a specific namespace) and then uses Helm to install Project riff for serverless functions.
 
+You can test riff using some examples located here:
+https://github.com/BrianMMcClain/riff-demos/tree/master/functions/echo/shell
+
 # ELK Versions
 Logstash 5.3.2
 Kibana
