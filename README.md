@@ -177,6 +177,7 @@ To enable the use of this application it is necessary to **manually** open port 
 ## NOTES ON using GCP
 
 To use this script (and let it interact with Google Cloud platform) **Install the GCE SDK** on your AMI image (install and configure the SDK in the context of the ec2-user user):
+- [Optional if Python2 is installed] export CLOUDSDK_PYTHON=python2.7
 - curl https://sdk.cloud.google.com | bash
 - exec -l $SHELL
 - gcloud init (this will start an interactive setup/configuration)
