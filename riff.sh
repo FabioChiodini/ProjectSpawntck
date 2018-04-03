@@ -62,6 +62,10 @@ echo ""
 echo "$(tput setaf 2) Installing project riff in the Kubernetes Cluster  $(tput sgr 0)"
 echo ""
 
+#Add repo to Helm
+helm repo add projectriff https://riff-charts.storage.googleapis.com
+helm repo update
+
 # Create a riff namespace in Kubernetes
 kubectl create namespace riff-system
 
