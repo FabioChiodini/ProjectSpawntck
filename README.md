@@ -331,11 +331,13 @@ Following are high level notes on how to get this running quickly:
 
 - Populate /home/ec2-user/Cloud1
 
+- Install gcloud
+
 - Validate GCE account [ gcloud auth activate-service-account ]
 
 - git clone this code : https://github.com/FabioChiodini/ProjectSpawnSwarmtck.git
 
-- Launch script
+- Launch scripts
 
 # Add Ons
 
