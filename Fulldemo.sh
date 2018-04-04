@@ -5,4 +5,4 @@
 ./istiok.sh
 ./riff.sh
 ./honey-istio.sh
-./SpawnSwarmtck.sh
+./SpawnSwarmtcK.sh
