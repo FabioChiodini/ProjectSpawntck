@@ -94,6 +94,11 @@ The code uses a file to load the variables needed (/home/ec2-user/Cloud1).
 This file has the following format:
 
 ```
+export cfapik1=api.123.io
+export cforgk1=MyOrg
+export cflogink1=Mylogin1
+export cfpassk1='MycomplexPWD'
+
 export ReceiverPortK=80
 export HoneypotPortK=8080
 export localhoneypot1=1
@@ -115,6 +120,7 @@ export instidk=2
 
 Here are the details on how these variables are used:
 
+- **cfapik1** **cforgk1** **cflogink1** **cfpassk1** are the parameters (repsectively API endpoint, Organization, usernamen and password) to connect to a Cloud Foundry instance (where an honeypot will be deployed)
 - **ReceiverPortK** is the destination port for honeypot logs. Set to 80 as that is the port exposed by the GKE loadbalancer in this setup
 
 - **HoneypotPortK** is the port used by local (testing only) honeypot containers 
