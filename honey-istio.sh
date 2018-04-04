@@ -43,7 +43,14 @@ if [ $istioinstalled -eq 1 ]; then
   # read the yml template from a file and substitute the string 
   # {{MYVARNAME}} with the value of the MYVARVALUE variable
   template=`cat "honeypot-istio/honey-istio-deployment.yaml" | sed "s/{{MYDESTNAME}}/$MYDESTVALUE/g"`
-
+  destdirk=honeypot-istio/honey-istio-deployment-destvalue.yaml
+  echo "$template" > "$destdirk"
+  
+  #  echo ""
+  #  echo "Deploying honeypot with envoy sidecar"
+  #  echo""
+  #  istioctl kube-inject -f logstash/logstash-deployment.yaml -o logstash/logstash-deployment-injected.yaml
+  #  kubectl create -f logstash/logstash-deployment-injected.yaml --namespace=default 
   #echo $template
 
   echo ""
