@@ -36,8 +36,8 @@ chmod +x ./jq
 sudo cp -p jq /usr/bin
 
 
-echo "Adding istioctl to path"
-export PATH=/bin/istio:$PATH
+#echo "Adding istioctl to path"
+#export PATH=/bin/istio:$PATH
 
 
 echo ""
@@ -158,16 +158,18 @@ echo""
 
 #Logstash creation
 
+kubectl create -f logstash/logstash-deployment.yaml --namespace=default
+
 #deployment
-if [ $istiodeployed -eq 1 ]; then
-  echo ""
-  echo "Deploying logstash with envoy sidecar"
-  echo""
-  istioctl kube-inject -f logstash/logstash-deployment.yaml -o logstash/logstash-deployment-injected.yaml
-  kubectl create -f logstash/logstash-deployment-injected.yaml --namespace=default 
-else
-  kubectl create -f logstash/logstash-deployment.yaml --namespace=default
-fi
+#if [ $istiodeployed -eq 1 ]; then
+#  echo ""
+#  echo "Deploying logstash with envoy sidecar"
+#  echo""
+#  istioctl kube-inject -f logstash/logstash-deployment.yaml -o logstash/logstash-deployment-injected.yaml
+#  kubectl create -f logstash/logstash-deployment-injected.yaml --namespace=default 
+#else
+#  kubectl create -f logstash/logstash-deployment.yaml --namespace=default
+#fi
 
 #kubectl apply -f <(istioctl kube-inject -f samples/bookinfo/kube/bookinfo.yaml)
 
@@ -240,7 +242,7 @@ publicipnginxproxy=$(kubectl get ing/nginxproxy-ingress --namespace=default -o j
 
 #publiciptcpnginx=$(kubectl get ing/tcpnginx-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
-publicipgrafana=$(kubectl get ing/grafana-ingress --namespace=istio-system -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+#publicipgrafana=$(kubectl get ing/grafana-ingress --namespace=istio-system -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
 
 # Sets public ip logstash to the public ip of nginx
 # publiciplogstash=$(kubectl get ing/nginxproxy-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
@@ -258,7 +260,7 @@ fi
 
 curl -L http://127.0.0.1:4001/v2/keys/elk/publicipnginxproxy -XPUT -d value=$publicipnginxproxy
 
-curl -L http://127.0.0.1:4001/v2/keys/istio/publicipgrafana -XPUT -d value=$publicipgrafana
+#curl -L http://127.0.0.1:4001/v2/keys/istio/publicipgrafana -XPUT -d value=$publicipgrafana
 
 #curl -L http://127.0.0.1:4001/v2/keys/elk/publiciptcpnginx -XPUT -d value=$publiciptcpnginx
 
@@ -308,7 +310,7 @@ if [ $ingresslogstash -eq 1 ]; then
   curl -L http://127.0.0.1:4001/v2/keys/elk/urllogstash -XPUT -d value=$urllogstash
 fi
 curl -L http://127.0.0.1:4001/v2/keys/elk/urlnginxproxy -XPUT -d value=$urlnginxproxy
-curl -L http://127.0.0.1:4001/v2/keys/istio/urlgrafana -XPUT -d value=$urlgrafana/dashboard/db/istio-dashboard
+#curl -L http://127.0.0.1:4001/v2/keys/istio/urlgrafana -XPUT -d value=$urlgrafana/dashboard/db/istio-dashboard
 #curl -L http://127.0.0.1:4001/v2/keys/elk/urltcpnginx -XPUT -d value=$urltcpnginx
 
 # register Kubernetes Setup parameters in etcd
