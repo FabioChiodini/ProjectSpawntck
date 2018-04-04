@@ -1,6 +1,10 @@
 # Overview
 # Installs Istio
 
+echo ""
+echo "$(tput setaf 2) Installing istio in the remote Kubernetes Cluster  $(tput sgr 0)"
+echo ""
+
 #install istio Client
 
 wget https://github.com/istio/istio/releases/download/0.6.0/istio-0.6.0-linux.tar.gz
@@ -98,6 +102,7 @@ urlgrafana=http://$publicipgrafana
 # Writing values in etcd
 curl -L http://127.0.0.1:4001/v2/keys/istio/publicipgrafana -XPUT -d value=$publicipgrafana
 curl -L http://127.0.0.1:4001/v2/keys/istio/URLgrafana -XPUT -d value=$urlgrafana/dashboard/db/istio-dashboard
+curl -L http://127.0.0.1:4001/v2/keys/istio/installed -XPUT -d value=1
 
 
 echo ""
