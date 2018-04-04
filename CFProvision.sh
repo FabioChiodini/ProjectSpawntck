@@ -32,11 +32,11 @@ HoneypotPortK=`(curl http://127.0.0.1:4001/v2/keys/honeypots/honeypotport | jq '
 publiciplogstash=`(curl http://127.0.0.1:4001/v2/keys/honeypots/receiverip | jq '.node.value' | sed 's/.//;s/.$//')`
 ReceiverPortK=`(curl http://127.0.0.1:4001/v2/keys/honeypots/receiverport | jq '.node.value' | sed 's/.//;s/.$//')`
 
-cf api api.run.pivotal.io
+cf api $cfapik1
 
 cd cf
 
-cf login -u $cflogink1 -p $cfpassk1 -o EVP
+cf login -u $cflogink1 -p $cfpassk1 -o $cforgk1
 
 cf push
 
