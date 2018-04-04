@@ -24,6 +24,8 @@ gcloud compute addresses delete --quiet tcpnginx-ingress --global
 
 gcloud compute addresses delete --quiet grafana-ingress --global
 
+gcloud compute addresses delete --quiet honeypot-istio-ingress --global
+
 kubectl delete cm nginxproxy-config
 kubectl delete cm logstash-config
 
@@ -36,6 +38,9 @@ kubectl delete -f kubefiles/ -R --namespace=default
 kubectl delete -f nginxproxy/ -R --namespace=default
 
 kubectl delete -f logstash/ -R --namespace=default
+
+#destroys honeypot-istio
+kubectl delete -f honeypot-istio/ -R --namespace=default
 
 #destroys local honeypot instance in Kubernetes (testing instance)
 kubectl delete -f honeypot/ -R --namespace=default
