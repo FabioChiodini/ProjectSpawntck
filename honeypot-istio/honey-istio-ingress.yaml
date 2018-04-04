@@ -1,0 +1,10 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: honey-istio-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "honey-istio-ingress"
+spec:
+  backend:
+    serviceName: honey-istio
+servicePort: 80
