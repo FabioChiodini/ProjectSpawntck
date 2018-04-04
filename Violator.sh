@@ -101,7 +101,18 @@ echo "Local Docker instances running: "
 
 docker ps
 
+# kill remote cf honeypots
 echo ""
-echo "$(tput setaf 1) All Kubernetes deployments and local docker containers have been destroyed by Violator ;) $(tput sgr 0)"
+echo "$(tput setaf 1) Destroying cf honeypots $(tput sgr 0)"
+echo ""
+
+cf api $cfapik1
+
+cf login -u $cflogink1 -p $cfpassk1 -o $cforgk1
+
+cf delete -f $MYNAMEVALUE
+
+echo ""
+echo "$(tput setaf 1) All Kubernetes deployments, honeypot on cf and local docker containers have been destroyed by Violator ;) $(tput sgr 0)"
 echo ""
 
