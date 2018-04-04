@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   creationTimestamp: null
-  name: honeypot-istio
+  name: honey-istio
 spec:
   replicas: 1
   strategy: {}
@@ -10,7 +10,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        name: honeypot-istio
+        name: honey-istio
     spec:
       containers:
       - env:
@@ -18,7 +18,7 @@ spec:
           value: {{MYDESTNAME}}
         #image: kiodo/honeyplus80
         image: kiodo/honey80http
-        name: honeypot-istio
+        name: honey-istio
         ports:
         - containerPort: 8080
         resources: {}
