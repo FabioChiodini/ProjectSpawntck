@@ -27,6 +27,13 @@ if [ $istioinstalled -eq 1 ]; then
   #Dinamycally read the location of the honeypot receiver
   # sample value for your variables
   #MYDESTVALUE="nginx:latest"
+  
+  #Create ip for honey-istio
+  echo ""
+  echo "$(tput setaf 2) Creating an ip on GCP for honey-istio proxy  $(tput sgr 0)"
+  echo ""
+
+  gcloud compute addresses create honey-istio-ingress --global
 
   echo ""
   echo "Address of Honeypot receiver"
@@ -45,6 +52,22 @@ if [ $istioinstalled -eq 1 ]; then
 
   # apply the yml with the substituted value
   echo "$template" | kubectl apply -f -
+  
+  #service
+  kubectl expose deployment honey-istio --type NodePort
+  
+
+  #ingress
+  kubectl create -f honeypot-istio/honey-istio-ingress.yaml --namespace=default
+  
+  #registers in etcd
+  publiciphoneyistio=$(kubectl get ing/honey-istio-ingress --namespace=default -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+  curl -L http://127.0.0.1:4001/v2/keys/honeypot-istio/publiciphoneyistio -XPUT -d value=$publiciphoneyistio
+  
+  echo ""
+  echo "$(tput setaf 2) Honeypot with Istio available at $publiciphoneyistio $(tput sgr 0)"
+  echo ""
+  
 
 else
   echo ""
