@@ -68,7 +68,7 @@ gcloud compute addresses delete --quiet tcpnginx-ingress --global
 
 gcloud compute addresses delete --quiet grafana-ingress --global
 
-gcloud compute addresses delete --quiet honeypot-istio-ingress --global
+gcloud compute addresses delete --quiet honey-istio-ingress --global
 
 gcloud compute addresses list --global
 
