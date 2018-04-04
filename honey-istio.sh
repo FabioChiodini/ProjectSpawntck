@@ -20,6 +20,17 @@ echo ""
 
 #gets data from previous run
 MYDESTVALUE=`(curl http://127.0.0.1:4001/v2/keys/elk/publicipnginxproxy | jq '.node.value' | sed 's/.//;s/.$//')`
+istioinstalled=`(curl http://127.0.0.1:4001/v2/keys/istio/installed | jq '.node.value' | sed 's/.//;s/.$//')`
+#http://127.0.0.1:4001/v2/keys/istio/installed
+
+if [ $istioinstalled -eq 0 ]; then
+  echo ""
+  echo "$(tput setaf 1) istio is NOT INSTALLED $(tput sgr 0)"
+  echo "$(tput setaf 1) istio is NOT INSTALLED $(tput sgr 0)"
+  echo "$(tput setaf 1) istio is NOT INSTALLED $(tput sgr 0)"
+  echo""
+fi
+
 
 
 #Dinamycally read the location of the honeypot receiver
