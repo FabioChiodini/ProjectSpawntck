@@ -34,10 +34,13 @@ ReceiverPortK=`(curl http://127.0.0.1:4001/v2/keys/honeypots/receiverport | jq '
 
 cf api api.run.pivotal.io
 
+cd cf
 
 cf login -u $cflogink1 -p $cfpassk1 -o EVP
 
-cf push /cf
+cf push
+
+cd ..
 
 
 echo "Demo by @FabioChiodini"
