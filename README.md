@@ -8,6 +8,7 @@ Project to Spawn a titanium crucible (receiver + multiple honeypots) installatio
 - An ELK stack gets started in Kubernetes (GKE)
 - Honeypot instances are started in Cloud Foundry (Pivotal Web services)
 - Some local docker containers perform Service discovery and mapping for the different application components
+- [Optional] A local honeypot (deployed as a docker container to the launcher VM in AWS) that listens to port 8081 and logs to the ELK stack
 - [Optional] Istio to provide telemetry for some of the pods deployed to Kubernetes
 - [Optional] Project riff to show how to deploy Functions on top of Kubernetes 
 
@@ -93,8 +94,6 @@ The code uses a file to load the variables needed (/home/ec2-user/Cloud1).
 This file has the following format:
 
 ```
-export ReceiverPortK=61116
-export ReceiverImageK=kiodo/receiver:latest
 export HoneypotPortK=8080
 export localhoneypot1=1
 export localhoneypot2=1
@@ -115,11 +114,11 @@ export instidk=2
 
 Here are the details on how these variables are used:
 
-- **ReceiverPortK** and **ReceiverImageK** are the port used and the docker image for the receiver Application
+- **HoneypotPortK** is the port used by local (testing only) honeypot containers 
 
-- **HoneypotPortK** and **HoneypotImageK** are the port used and the docker image for the honeypot Applications 
+- **HoneypotImageK** and **HoneypotImageK2** are the  docker image for the local (testing) honeypot Applications
 
-- **localhoneypot1** and **localhoneypot2** are flags to determine if a local honeypot will be launched
+- **localhoneypot1** and **localhoneypot2** are flags to determine if local honeypots (testing) will be launched
 
 - **HoneypotImageK2** is a test docker image that gets launched locally for testing purposes
 
