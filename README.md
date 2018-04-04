@@ -7,7 +7,7 @@ Project to Spawn a titanium crucible Installation with Cloud Foundry and Kuberne
 Project to Spawn a titanium crucible (receiver + multiple honeypots) installation in an automated way across different Clouds (AWS and optionally GCE) using Docker containers, Kubernetes, Cloud Foundry and basic Service Discovery. 
 - An ELK stack gets started in Kubernetes (GKE)
 - Honeypot instances are started in Cloud Foundry (Pivotal Web services)
-- Some local docker containers perform Service discovery and mapping for the different application components
+- Local docker containers perform Service discovery and mapping for the different application and stack components
 - [Optional] A local honeypot (deployed as a docker container to the launcher VM in AWS) that listens to port 8081 and logs to the ELK stack
 - [Optional] Istio to provide telemetry for some of the pods deployed to Kubernetes
 - [Optional] Project riff to show how to deploy Functions on top of Kubernetes 
