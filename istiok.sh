@@ -93,6 +93,12 @@ kubectl describe nodes | grep -A 2 -e "^\\s*CPU Requests"
 echo""
 
 publicipgrafana=$(kubectl get ing/grafana-ingress --namespace=istio-system -o jsonpath="{.status.loadBalancer.ingress[*].ip}")
+urlgrafana=http://$publicipgrafana
+
+# Writing values in etcd
+curl -L http://127.0.0.1:4001/v2/keys/istio/publicipgrafana -XPUT -d value=$publicipgrafana
+curl -L http://127.0.0.1:4001/v2/keys/istio/URLgrafana -XPUT -d value=$urlgrafana/dashboard/db/istio-dashboard
+
 
 echo ""
 echo "$(tput setaf 2) Grafana available at $publicipgrafana $(tput sgr 0)"
