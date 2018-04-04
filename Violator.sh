@@ -10,6 +10,16 @@ echo "| |____| |____| . \     | |  | |____ / ____ \| | \ \| |__| | |__| | \  /\ 
 echo "|______|______|_|\_\    |_|  |______/_/    \_\_|  \_\_____/ \____/   \/  \/   |_| \_|"
 echo ""
 
+#Must use Cloud1 for accounts (any way to change this?)
+#Some variables are modified later by fetching data from etcd
+. /home/ec2-user/Cloud1
+echo "loaded Config file"
+
+echo ""
+echo "STARTING"
+echo ""
+
+MYNAMEVALUE=`(curl http://127.0.0.1:4001/v2/keys/cf-honeypot1/appname | jq '.node.value' | sed 's/.//;s/.$//')`
 
 echo ""
 echo "$(tput setaf 1)Destroying ELK Setup $(tput sgr 0)"
