@@ -31,6 +31,8 @@ kubectl delete -f tcpnginx/ -R --namespace=default
 
 kubectl delete -f logstash/ -R --namespace=default
 
+#destroys honeypot-istio
+kubectl delete -f honeypot-istio/ -R --namespace=default
 
 #destroys local honeypot instance in Kubernetes (testing instance)
 kubectl delete -f honeypot/ -R --namespace=default
@@ -65,6 +67,8 @@ gcloud compute addresses delete --quiet logstash-ingress --global
 gcloud compute addresses delete --quiet tcpnginx-ingress --global
 
 gcloud compute addresses delete --quiet grafana-ingress --global
+
+gcloud compute addresses delete --quiet honeypot-istio-ingress --global
 
 gcloud compute addresses list --global
 
