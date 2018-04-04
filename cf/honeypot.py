@@ -29,7 +29,7 @@ def log_request(req):
 @app.route('/<path:path>')
 def honey(path):
     log_request(request)
-    return jsonify({'result': 'ok'})
+    return jsonify({'resultCF': 'ok'})
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0",port=8080)
