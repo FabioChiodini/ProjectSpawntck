@@ -67,6 +67,15 @@ cf push
 cd ..
 
 
+#etcd
+urlcfhoneypot=http://$MYNAMEVALUE
+
+curl -L http://127.0.0.1:4001/v2/keys/cf-honeypot1/appname -XPUT -d value=$MYNAMEVALUE
+curl -L http://127.0.0.1:4001/v2/keys/cf-honeypot1/url -XPUT -d value=urlcfhoneypot.cfapps.io
+curl -L http://127.0.0.1:4001/v2/keys/cf-honeypot1/api -XPUT -d value=$cfapik1
+curl -L http://127.0.0.1:4001/v2/keys/cf-honeypot1/org -XPUT -d value=$cforgk1
+
+
 echo "Demo by @FabioChiodini"
 
 
