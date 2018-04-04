@@ -23,7 +23,8 @@ urlnginxproxy=`(curl http://127.0.0.1:4001/v2/keys/elk/urlnginxproxy | jq '.node
 HoneypotImageK2=`(curl http://127.0.0.1:4001/v2/keys/localhoneypot2/containername | jq '.node.value' | sed 's/.//;s/.$//')`
 honeypotport=`(curl http://127.0.0.1:4001/v2/keys/localhoneypot2/honeypotport | jq '.node.value' | sed 's/.//;s/.$//')`
 
-
+appname=`(curl http://127.0.0.1:4001/v2/keys/cf-honeypot1/appname | jq '.node.value' | sed 's/.//;s/.$//')`
+urlcfhoneypot=`(curl http://127.0.0.1:4001/v2/keys/cf-honeypot1/url | jq '.node.value' | sed 's/.//;s/.$//')`
 
 
 echo " "
@@ -82,6 +83,11 @@ else
     curl -L http://127.0.0.1:4001/v2/keys/elk/logstashTEST -XPUT -d value=FAILED
 fi
 
+
+echo ""
+echo "$(tput setaf 1)Testing local honeypot $(tput sgr 0)"
+echo ""
+
 #local honeypot
 REMOTEHOST=$DynDNSK
 REMOTEPORT=8081
@@ -107,6 +113,42 @@ echo""
     #"$searchString") echo YES;;
     *"$searchString"*) curl -L http://127.0.0.1:4001/v2/keys/localhoneypot2/SYNTHETICTEST -XPUT -d value=PASSED;;
     *) curl -L http://127.0.0.1:4001/v2/keys/localhoneypot2/SYNTHETICTEST -XPUT -d value=FAILED ;;
+   esac
+   echo ""
+   echo ""
+
+
+echo ""
+echo "$(tput setaf 1)Testing cf honeypot $(tput sgr 0)"
+echo ""
+
+#
+
+
+REMOTEHOST=$urlcfhoneypot
+REMOTEPORT=80
+TIMEOUT=1
+
+if nc -w $TIMEOUT -z $REMOTEHOST $REMOTEPORT; then
+    echo "$(tput setaf 2) I was able to connect to ${REMOTEHOST}:${REMOTEPORT} $(tput sgr 0)"
+    curl -L http://127.0.0.1:4001/v2/keys/cf-honeypot1/TEST -XPUT -d value=PASSED
+else
+    echo "$(tput setaf 1) Connection to ${REMOTEHOST}:${REMOTEPORT} failed. Exit code from Netcat was ($?).$(tput sgr 0)"
+    curl -L http://127.0.0.1:4001/v2/keys/cf-honeypot1/TEST -XPUT -d value=FAILED
+fi
+
+echo""
+   echo""
+   echo curl testing
+   #curl ${REMOTEHOST}:${REMOTEPORT}
+   curltestk=`(curl ${REMOTEHOST}:${REMOTEPORT})`
+   #echo $curltestk
+   #searchString="result":" ok"
+   searchString="result"
+   case $curltestk in
+    #"$searchString") echo YES;;
+    *"$searchString"*) curl -L http://127.0.0.1:4001/v2/keys/cf-honeypot1/SYNTHETICTEST -XPUT -d value=PASSED;;
+    *) curl -L http://127.0.0.1:4001/v2/keys/cf-honeypot1/SYNTHETICTEST -XPUT -d value=FAILED ;;
    esac
    echo ""
    echo ""
