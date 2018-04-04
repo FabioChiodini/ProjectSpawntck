@@ -32,19 +32,14 @@ HoneypotPortK=`(curl http://127.0.0.1:4001/v2/keys/honeypots/honeypotport | jq '
 publiciplogstash=`(curl http://127.0.0.1:4001/v2/keys/honeypots/receiverip | jq '.node.value' | sed 's/.//;s/.$//')`
 ReceiverPortK=`(curl http://127.0.0.1:4001/v2/keys/honeypots/receiverport | jq '.node.value' | sed 's/.//;s/.$//')`
 
-HoneypotPortKj=8081
+cf api api.run.pivotal.io
 
-#Launches additional local
-    #docker run -d --name honeypot-$i -p $HoneypotPortK:$HoneypotPortK $HoneypotImageK
-    docker run -d --name honeypot-j -e LOG_HOST=$publiciplogstash -e LOG_PORT=$ReceiverPortK -p $HoneypotPortK:$HoneypotPortKj $HoneypotImageK 
-#launches nginx (optional)
 
-echo ----
-echo "$(tput setaf 6) Local honeypot RUNNING ON $ipAWSK:$HoneypotPortKj $(tput sgr 0)"
-echo "$(tput setaf 6) Local honeypot sending logs to $publiciplogstash PORT $ReceiverPortK $(tput sgr 0)"
-echo "$(tput setaf 4) Open a browser to : $ipAWSK:$HoneypotPortKj $(tput sgr 0)"
-echo ----
+cf login -u $cflogink1 -p $cfpassk1 -o EVP
 
-echo "@FabioChiodini"
+cf push /cf
+
+
+echo "Demo by @FabioChiodini"
 
 
