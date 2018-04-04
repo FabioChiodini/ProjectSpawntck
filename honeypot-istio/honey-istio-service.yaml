@@ -3,8 +3,8 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    name: honeypot-istio
-  name: honeypot-istio
+    name: honey-istio
+  name: honey-istio
 spec:
   ports:
   - name: "8080"
@@ -12,5 +12,5 @@ spec:
     targetPort: 8080
     nodePort: 30005
   selector:
-    name: honeypot-istio
+    name: honey-istio
     type: NodePort
