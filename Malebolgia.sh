@@ -101,7 +101,7 @@ echo "Local Docker instances running: "
 docker ps
 
 
-# kill remore cf honeypots
+# kill remote cf honeypots
 echo ""
 echo "$(tput setaf 1) Destroying cf honeypots $(tput sgr 0)"
 echo ""
