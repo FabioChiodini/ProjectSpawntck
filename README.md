@@ -94,6 +94,7 @@ The code uses a file to load the variables needed (/home/ec2-user/Cloud1).
 This file has the following format:
 
 ```
+export ReceiverPortK=80
 export HoneypotPortK=8080
 export localhoneypot1=1
 export localhoneypot2=1
@@ -113,6 +114,8 @@ export instidk=2
 ```
 
 Here are the details on how these variables are used:
+
+- **ReceiverPortK** is the destination port for honeypot logs. Set to 80 as that is the port exposed by the GKE loadbalancer in this setup
 
 - **HoneypotPortK** is the port used by local (testing only) honeypot containers 
 
