@@ -195,7 +195,7 @@ To use this script (and let it interact with Google Cloud platform) **Install th
 - [Optional if Python2 is installed] export CLOUDSDK_PYTHON=python2.7
 - curl https://sdk.cloud.google.com | bash
 - exec -l $SHELL
-- gcloud init (this will start an interactive setup/configuration)
+- gcloud init (this will start an interactive setup/configuration (using 4 ie us-east4-c as a region))
 - gcloud components install kubectl (to install kubectl)
 
 
