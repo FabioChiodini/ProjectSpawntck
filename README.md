@@ -359,6 +359,7 @@ The script also installs prometheus and grafana and makes grafana available via 
 Grafana is published using an nginx reverse proxy and GKE ingress
 
 **Please note that even if you delete istio and the corresponding Kubernetes cluster hosting it some of the GCP network constructs could still be in place.
+The same applies for Health Checks (https://console.cloud.google.com/compute/healthChecks)
 You may need to remove them manually**
 
 ![Alt text](/images/istioCleanUp.png "istioCleanUp")
@@ -375,6 +376,7 @@ You can test riff using some examples located here:
 https://github.com/BrianMMcClain/riff-demos/tree/master/functions/echo/shell
 
 **Please note that even if you delete riff and the corresponding Kubernetes cluster hosting it some of the GCP network constructs could still be in place.
+The same applies for Health Checks (https://console.cloud.google.com/compute/healthChecks)
 You may need to remove them manually**
 
 ![Alt text](/images/riffCleanUp.png "riffCleanUp")
