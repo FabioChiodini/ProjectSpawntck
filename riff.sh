@@ -140,7 +140,8 @@ echo ""
 echo ""
 echo "$(tput setaf 2) Installing riff CLI  $(tput sgr 0)"
 echo ""
-curl -Lo riff-linux-amd64.tgz https://github.com/projectriff/riff/releases/download/v0.0.5/riff-linux-amd64.tgz
+#curl -Lo riff-linux-amd64.tgz https://github.com/projectriff/riff/releases/download/v0.0.5/riff-linux-amd64.tgz
+curl -Lo riff-linux-amd64.tgz https://github.com/projectriff/riff/releases/download/v0.0.6/riff-linux-amd64.tgz
 tar xvzf riff-linux-amd64.tgz
 sudo mv riff /usr/local/bin/
 
