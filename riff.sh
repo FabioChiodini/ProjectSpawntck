@@ -103,20 +103,7 @@ echo ""
 
 sleep 2m
 
-#Installing invokers
 
-echo ""
-echo "Installing riff invokers"
-echo ""
-
-riff invokers apply -f https://github.com/projectriff/command-function-invoker/raw/v0.0.6/command-invoker.yaml
-riff invokers apply -f https://github.com/projectriff/go-function-invoker/raw/v0.0.2/go-invoker.yaml
-riff invokers apply -f https://github.com/projectriff/java-function-invoker/raw/v0.0.5-sr.1/java-invoker.yaml
-riff invokers apply -f https://github.com/projectriff/node-function-invoker/raw/v0.0.6/node-invoker.yaml
-riff invokers apply -f https://github.com/projectriff/python2-function-invoker/raw/v0.0.6/python2-invoker.yaml
-riff invokers apply -f https://github.com/projectriff/python3-function-invoker/raw/v0.0.6/python3-invoker.yam
-
-sleep 30s
 
 kubectl get svc,deployments,pods,functions,topics --namespace riff-system
 # kubectl get po,deploy --namespace riff-system
@@ -124,7 +111,9 @@ kubectl get svc,deployments,pods,functions,topics --namespace riff-system
 kubectl get svc --namespace riff-system control-riff-http-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
 echo ""
-SERVICE_IP=$(kubectl get svc --namespace riff-system control-riff-http-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+#SERVICE_IP=$(kubectl get svc --namespace riff-system control-riff-http-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+SERVICE_IP=$(kubectl get svc --namespace riff-system projectriff-riff-http-gateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+
 echo "Service ip $SERVICE_IP"
 echo ""
 
@@ -149,6 +138,23 @@ echo ""
 riff version
 riff list
 echo ""
+
+#Installing invokers
+
+echo ""
+echo "Installing riff invokers"
+echo ""
+
+riff invokers apply -f https://github.com/projectriff/command-function-invoker/raw/v0.0.6/command-invoker.yaml
+riff invokers apply -f https://github.com/projectriff/go-function-invoker/raw/v0.0.2/go-invoker.yaml
+riff invokers apply -f https://github.com/projectriff/java-function-invoker/raw/v0.0.5-sr.1/java-invoker.yaml
+riff invokers apply -f https://github.com/projectriff/node-function-invoker/raw/v0.0.6/node-invoker.yaml
+riff invokers apply -f https://github.com/projectriff/python2-function-invoker/raw/v0.0.6/python2-invoker.yaml
+riff invokers apply -f https://github.com/projectriff/python3-function-invoker/raw/v0.0.6/python3-invoker.yam
+
+sleep 30s
+
+
 
 echo ""
 echo "Demo by @FabioChiodini"
