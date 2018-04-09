@@ -17,11 +17,11 @@
 echo ""
 echo "Loaded Config file"
 echo ""
-echo "$(tput setaf 2) Starting $VM_InstancesK Instances in AWS $(tput sgr 0)"
-if [ $GCEKProvision -eq 1 ]; then
-  echo "$(tput setaf 2) Starting $GCEVM_InstancesK Instances in GCE $(tput sgr 0)"
-fi
-echo "$(tput setaf 2) Starting $Container_InstancesK Container Instances $(tput sgr 0)"
+#echo "$(tput setaf 2) Starting $VM_InstancesK Instances in AWS $(tput sgr 0)"
+#if [ $GCEKProvision -eq 1 ]; then
+#  echo "$(tput setaf 2) Starting $GCEVM_InstancesK Instances in GCE $(tput sgr 0)"
+#fi
+#echo "$(tput setaf 2) Starting $Container_InstancesK Container Instances $(tput sgr 0)"
 
 
 #Install jq
