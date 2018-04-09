@@ -9,7 +9,7 @@ echo " "
 
 #Must use Cloud1 for accounts (any way to change this?)
 #Some variables are modified later by fetching data from etcd
-. /home/ec2-user/Cloud1
+. /home/$USER/Cloud1
 echo "loaded Config file"
 
 echo ""
