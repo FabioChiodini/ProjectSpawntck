@@ -71,28 +71,52 @@ kubectl create namespace riff-system
 
 # Install kafka for riff
 #helm install riffrepo/kafka \
-helm install projectriff/kafka \
-  --name transport \
-  --namespace riff-system
+# goof fopr version 0.0.5
+#helm install projectriff/kafka \
+#  --name transport \
+#  --namespace riff-system
 
-echo ""
-echo "Sleeping for 60 seconds to let the provisioning finish"
-echo ""
+#echo ""
+#echo "Sleeping for 60 seconds to let the provisioning finish"
+#echo ""
 
-sleep 60s
+#sleep 60s
 
 
+#helm install projectriff/riff \
+#  --name control \
+#  --namespace riff-system
+
+
+#ver 0.0.6
 helm install projectriff/riff \
-  --name control \
-  --namespace riff-system
-  
+  --name projectriff \
+  --namespace riff-system \
+  --set kafka.create=true
+ 
+ 
 #helm install riffrepo/riff --name delltechriff123 --namespace riff-system
 
 echo ""
-echo "Sleeping for 60 seconds to let the provisioning finish"
+echo "Sleeping for 2 minutes to let the provisioning finish"
 echo ""
 
-sleep 60s
+sleep 2m
+
+#Installing invokers
+
+echo ""
+echo "Installing riff invokers"
+echo ""
+
+riff invokers apply -f https://github.com/projectriff/command-function-invoker/raw/v0.0.6/command-invoker.yaml
+riff invokers apply -f https://github.com/projectriff/go-function-invoker/raw/v0.0.2/go-invoker.yaml
+riff invokers apply -f https://github.com/projectriff/java-function-invoker/raw/v0.0.5-sr.1/java-invoker.yaml
+riff invokers apply -f https://github.com/projectriff/node-function-invoker/raw/v0.0.6/node-invoker.yaml
+riff invokers apply -f https://github.com/projectriff/python2-function-invoker/raw/v0.0.6/python2-invoker.yaml
+riff invokers apply -f https://github.com/projectriff/python3-function-invoker/raw/v0.0.6/python3-invoker.yam
+
+sleep 30s
 
 kubectl get svc,deployments,pods,functions,topics --namespace riff-system
 # kubectl get po,deploy --namespace riff-system
