@@ -375,11 +375,33 @@ The script currently also install Helm in the cluster (in a specific namespace) 
 You can test riff using some examples located here:
 https://github.com/BrianMMcClain/riff-demos/tree/master/functions/echo/shell
 
+The script currently installs riff version 0.0.6
+
 **Please note that even if you delete riff and the corresponding Kubernetes cluster hosting it some of the GCP network constructs could still be in place.
 The same applies for Health Checks (https://console.cloud.google.com/compute/healthChecks)
 You may need to remove them manually**
 
 ![Alt text](/images/riffCleanUp.png "riffCleanUp")
+
+### riff my terrible **terrible** hack :P
+To use riff function I leverage a local linux user that has the same name of my docker hub login (kiodo)
+[infact riff messes up with ec2-user in pushing the docker container to docker hub and takes the current logged in linux uiser, maybe it's me not getting how this works]
+
+So to add this user here are the (rough) steps to perform:
+- useradd kiodo
+- passwd kiodo
+- gpasswd -a kiodo wheel
+- sudo visudo
+  - Uncomment the line starting with %wheel. i.e. remove the # before %wheel ALL=(ALL) ALL
+  - Add this at teh end of the file kiodo ALL = NOPASSWD : ALL
+- sudo usermod -a -G docker kiodo
+
+
+When installing riff and using it use the kiodo user with this command
+su - kiodo
+
+And perform a docker login to make sure that you can do a docker push to docker hub
+
 
 
 # ELK Versions
