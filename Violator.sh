@@ -64,6 +64,12 @@ echo ""
 
 kubectl get all
 
+echo ""
+echo "$(tput setaf 1)Destroying riff installation $(tput sgr 0)"
+echo ""
+
+helm delete --purge projectriff
+
 #Delete local docker containers
 
 echo ""
