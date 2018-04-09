@@ -72,6 +72,8 @@ helm repo update
 # Create a riff namespace in Kubernetes
 kubectl create namespace riff-system
 
+echo ""
+
 # Install kafka for riff
 #helm install riffrepo/kafka \
 # goof fopr version 0.0.5
