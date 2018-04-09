@@ -161,6 +161,11 @@ riff invokers apply -f https://github.com/projectriff/python3-function-invoker/r
 sleep 30s
 
 # Writing values in etcd
+
+echo ""
+echo "registering riff in etcd"
+echo ""
+
 curl -L http://127.0.0.1:4001/v2/keys/riff/publicipriff -XPUT -d value=$SERVICE_IP
 curl -L http://127.0.0.1:4001/v2/keys/riff/URLriff -XPUT -d value=$urlriff
 curl -L http://127.0.0.1:4001/v2/keys/riff/installed -XPUT -d value=1
