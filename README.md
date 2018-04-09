@@ -385,7 +385,7 @@ You may need to remove them manually**
 
 ### riff my terrible **terrible** hack :P
 To use riff function I leverage a local linux user that has the same name of my docker hub login (kiodo)
-[infact riff messes up with ec2-user in pushing the docker container to docker hub and takes the current logged in linux uiser, maybe it's me not getting how this works]
+[infact riff messes up with ec2-user in pushing the docker container to docker hub and takes the current logged in linux user, maybe it's me not getting how this works UPDATE: There's a way using riff CLI; I need to make it work]
 
 So to add this user here are the (rough) steps to perform:
 - useradd kiodo
