@@ -2,6 +2,9 @@
 # Installs Helm
 # Installs riff
 
+echo ""
+echo "$(tput setaf 2) Installing riff in the Kubernetes Cluster  $(tput sgr 0)"
+echo ""
 
 
 echo ""
@@ -154,7 +157,9 @@ riff invokers apply -f https://github.com/projectriff/python3-function-invoker/r
 
 sleep 30s
 
-
+echo ""
+echo "$(tput setaf 2) riff available at $urlriff $(tput sgr 0)"
+echo ""
 
 echo ""
 echo "Demo by @FabioChiodini"
