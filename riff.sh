@@ -159,6 +159,14 @@ riff invokers apply -f https://github.com/projectriff/python3-function-invoker/r
 
 sleep 30s
 
+# Writing values in etcd
+curl -L http://127.0.0.1:4001/v2/keys/riff/publicipriff -XPUT -d value=$SERVICE_IP
+curl -L http://127.0.0.1:4001/v2/keys/riff/URLriff -XPUT -d value=$urlriff
+curl -L http://127.0.0.1:4001/v2/keys/riff/installed -XPUT -d value=1
+curl -L http://127.0.0.1:4001/v2/keys/riff/user -XPUT -d value=$USER
+curl -L http://127.0.0.1:4001/v2/keys/riff/dockerHubURL -XPUT -d value=https://hub.docker.com/u/$USER
+
+
 echo ""
 echo "$(tput setaf 2) riff available at $urlriff $(tput sgr 0)"
 echo ""
