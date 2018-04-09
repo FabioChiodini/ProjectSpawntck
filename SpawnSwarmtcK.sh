@@ -13,7 +13,7 @@
 #Load Env variables from File (maybe change to DB)
 #using /home/ec2-user/Cloud1
 #source /home/ec2-user/Cloud1
-. /home/ec2-user/Cloud1
+. /home/$USER/Cloud1
 echo ""
 echo "Loaded Config file"
 echo ""
