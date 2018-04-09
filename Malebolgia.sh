@@ -70,6 +70,13 @@ sleep 2m
 kubectl get pods,deployments,services,ingress,configmaps
 
 echo ""
+echo "$(tput setaf 1)Destroying riff installation $(tput sgr 0)"
+echo ""
+
+helm delete --purge projectriff
+
+
+echo ""
 echo "$(tput setaf 1)Destroying Kubernetes Cluster $(tput sgr 0)"
 echo ""
 
