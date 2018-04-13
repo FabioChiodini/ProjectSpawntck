@@ -44,5 +44,5 @@ kubectl get pods
 
 echo ""
 echo " Access the function using"
-echo " curl http://${HTTP_GATEWAY_IP}/requests/tcfaas"
+echo " curl http://$publicipriff/requests/tcfaas"
 echo ""
