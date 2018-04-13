@@ -17,8 +17,6 @@ echo ""
 echo "Building a pushing an updated tcfaas container"
 echo ""
 
-
-
 #cd serverless
 #docker build -t kiodo/receiver:latest .
 docker build -t kiodo/tcfaas:latest serverless/container
@@ -29,15 +27,22 @@ docker login --username=$dologink --password=$dopassk
 #docker push
 docker push kiodo/tcfaas:latest
 
+sleep 30s
+
+echo ""
 
 #create topic
 kubectl apply -f serverless/topics/tcfaas-topic.yaml
+
+echo ""
 
 #create function
 kubectl apply -f serverless/functions/tcfaas-function.yaml
 
 #Checks deployment
 kubectl get deployment tcfaas
+
+echo ""
 
 #checks that no pod are started (it's serverless!!)
 kubectl get pods
