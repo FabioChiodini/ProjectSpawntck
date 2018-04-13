@@ -24,10 +24,10 @@ echo ""
 docker build -t kiodo/tcfaas:latest serverless/container
 
 #docker login
-
+docker login --username=$dologink --password=$dopassk
 
 #docker push
-#docker push kiodo/tcfaas:latest
+docker push kiodo/tcfaas:latest
 
 
 #create topic
