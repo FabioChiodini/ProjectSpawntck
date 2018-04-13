@@ -14,7 +14,7 @@ echo "$template" > "$destdirk"
 
 #cd serverless
 #docker build -t kiodo/receiver:latest .
-docker build -t kiodo/tcfaas:latest serverless
+docker build -t kiodo/tcfaas:latest serverless/container
 
 
 #create topic
