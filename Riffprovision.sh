@@ -1,3 +1,12 @@
+#Builds container that logs to the current ELK stack
+
+
+
+#cd serverless
+#docker build -t kiodo/receiver:latest .
+docker build -t kiodo/tcfaas:latest serverless
+
+
 #create topic
 kubectl apply -f serverless/topics/tcfaas-topic.yaml
 
