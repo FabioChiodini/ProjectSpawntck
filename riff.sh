@@ -167,7 +167,7 @@ echo "registering riff in etcd"
 echo ""
 
 curl -L http://127.0.0.1:4001/v2/keys/riff/publicipriff -XPUT -d value=$SERVICE_IP
-curl -L http://127.0.0.1:4001/v2/keys/riff/URLriff -XPUT -d value=$urlriff
+curl -L http://127.0.0.1:4001/v2/keys/riff/URLriff -XPUT -d value=$urlriff/requests
 curl -L http://127.0.0.1:4001/v2/keys/riff/installed -XPUT -d value=1
 curl -L http://127.0.0.1:4001/v2/keys/riff/user -XPUT -d value=$USER
 curl -L http://127.0.0.1:4001/v2/keys/riff/dockerHubURL -XPUT -d value=https://hub.docker.com/u/$USER
