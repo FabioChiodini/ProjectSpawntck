@@ -22,6 +22,14 @@ echo ""
 MYNAMEVALUE=`(curl http://127.0.0.1:4001/v2/keys/cf-honeypot1/appname | jq '.node.value' | sed 's/.//;s/.$//')`
 
 echo ""
+echo "$(tput setaf 1)Destroying serverless workloads $(tput sgr 0)"
+echo ""
+
+kubectl delete function tcfaas
+kubectl delete topic tcfaas
+
+
+echo ""
 echo "$(tput setaf 1)Destroying ELK Setup $(tput sgr 0)"
 echo ""
 
