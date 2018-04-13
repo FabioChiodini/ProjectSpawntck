@@ -21,6 +21,13 @@ MYNAMEVALUE=`(curl http://127.0.0.1:4001/v2/keys/cf-honeypot1/appname | jq '.nod
 #curl -L http://127.0.0.1:4001/v2/keys/cf-honeypot1/appname -XPUT -d value=$MYNAMEVALUE
 
 echo ""
+echo "$(tput setaf 1)Destroying serverless workloads $(tput sgr 0)"
+echo ""
+
+kubectl delete function tcfaas
+kubectl delete topic tcfaas
+
+echo ""
 echo "$(tput setaf 1)Destroying ELK Setup $(tput sgr 0)"
 echo ""
 
