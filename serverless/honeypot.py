@@ -5,14 +5,14 @@ import logstash
 import sys
 import logging.handlers
 
-if 'LOG_HOST' not in os.environ:
-    raise(Exception("LOG_HOST NOT DEFINED"))
+#if 'LOG_HOST' not in os.environ:
+#    raise(Exception("LOG_HOST NOT DEFINED"))
 
-host = os.environ['LOG_HOST']
+#host = os.environ['LOG_HOST']
 
 test_logger = logging.getLogger('python-http-logger')
 test_logger.setLevel(logging.INFO)
-test_logger.addHandler(logging.handlers.HTTPHandler(host, '/', method='POST'))
+test_logger.addHandler(logging.handlers.HTTPHandler({{MYDESTNAME}}, '/', method='POST'))
 
 app = Flask(__name__)
 
