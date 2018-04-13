@@ -4,8 +4,8 @@ metadata:
   name: tcfaas
 spec:
   container:
-    #image: kiodo/tcfaas:latest
-    image: kiodo/helloriff
+    image: kiodo/tcfaas:latest
+    #image: kiodo/helloriff
   input: tcfaas
   protocol: http
 idleTimeoutMs: 60000
