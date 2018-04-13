@@ -99,6 +99,9 @@ export cforgk1=MyOrg
 export cflogink1=Mylogin1
 export cfpassk1='MycomplexPWD'
 
+export dologink=123@gmail.com
+export dopassk='MyUBERComplexPWD'
+
 export ReceiverPortK=80
 export HoneypotPortK=8080
 export localhoneypot1=1
@@ -121,6 +124,9 @@ export instidk=2
 Here are the details on how these variables are used:
 
 - **cfapik1** **cforgk1** **cflogink1** **cfpassk1** are the parameters (repsectively API endpoint, Organization, usernamen and password) to connect to a Cloud Foundry instance (where an honeypot will be deployed)
+
+- **dologink** and **dopassk** are the username and password to push images to a dockerhub (when deploying tc in riff via the script ./Riffprovision.sh
+
 - **ReceiverPortK** is the destination port for honeypot logs. Set to 80 as that is the port exposed by the GKE loadbalancer in this setup
 
 - **HoneypotPortK** is the port used by local (testing only) honeypot containers 
