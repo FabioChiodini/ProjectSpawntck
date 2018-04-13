@@ -4,7 +4,7 @@ metadata:
   name: tcfaas
 spec:
   container:
-    image: kiodo/titaniumcruciblefaasok
+    image: kiodo/tcfaas:latest
   input: tcfaas
   protocol: http
 idleTimeoutMs: 60000
