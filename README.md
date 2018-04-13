@@ -99,7 +99,7 @@ export cforgk1=MyOrg
 export cflogink1=Mylogin1
 export cfpassk1='MycomplexPWD'
 
-export dologink=123@gmail.com
+export dologink=dockerusername
 export dopassk='MyUBERComplexPWD'
 
 export ReceiverPortK=80
