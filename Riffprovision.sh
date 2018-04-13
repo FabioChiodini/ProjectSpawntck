@@ -1,5 +1,12 @@
 #Builds container that logs to the current ELK stack
 
+#Injects the ELK ip into the container code
+
+# read the yml template from a file and substitute the string 
+# {{MYVARNAME}} with the value of the MYVARVALUE variable
+template=`cat "serverless/honeypot.py" | sed "s/{{MYDESTNAME}}/$MYDESTVALUE/g"`
+destdirk=serverless/container/honeypot.py
+echo "$template" > "$destdirk"
 
 
 #cd serverless
