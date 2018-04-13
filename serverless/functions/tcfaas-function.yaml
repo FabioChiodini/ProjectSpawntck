@@ -1,0 +1,10 @@
+apiVersion: projectriff.io/v1
+kind: Function
+metadata:
+  name: tcfaas
+spec:
+  container:
+    image: kiodo/titaniumcruciblefaasok
+  input: tcfaas
+  protocol: http
+idleTimeoutMs: 60000
