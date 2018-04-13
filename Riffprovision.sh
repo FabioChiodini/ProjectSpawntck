@@ -1,3 +1,13 @@
+#!/bin/bash
+#Loads variables
+#Must use Cloud1 for accounts (any way to change this?)
+#Some variables are modified later by fetching data from etcd
+. /home/$USER/Cloud1
+echo "loaded Config file"
+
+#need login for dockerhub
+
+
 #Builds container that logs to the current ELK stack
 
 #Injects the ELK ip into the container code
