@@ -7,7 +7,7 @@ echo ""
 echo "STARTING"
 echo ""
 
-docker rm -rf etcd-browserk
+docker rm -f etcd-browserk
 
 sleep 5s
 
