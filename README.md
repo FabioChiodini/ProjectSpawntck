@@ -4,7 +4,7 @@ Project to Spawn a titanium crucible Installation with Cloud Foundry and Kuberne
 *Credits to komljen for the kubernetes yaml files for deploying ELK*
 
 # ProjectSpawnSwarmtck
-Project to Spawn a titanium crucible (receiver + multiple honeypots) installation in an automated way across different Clouds (AWS and GCP) using Docker containers, Kubernetes, Cloud Foundry, project riff (optional) supported by basic Service Discovery. 
+Project to Spawn a titanium crucible (ELK stack + multiple honeypots) installation in an automated way across different Clouds (AWS and GCP) using Docker containers, Kubernetes, Cloud Foundry, project riff (optional) all supported by basic Service Discovery. 
 - A script provisions a Kubernetes cluster on GCP (optionally this can be done on top of Pivotal Container services (PKS))
 - An ELK stack gets started in Kubernetes (GKE)
 - Honeypot instances are started in Cloud Foundry (leveraging Pivotal Web services or any cloud foundry based service)
@@ -72,16 +72,17 @@ To run this script you have to prepare one configuration file (in /home/ec2-user
 
 ## Script Flow 
 
-This script performs these tasks (leveraging Docker-Machine):
+This script performs these tasks (leveraging Docker):
 
 
 - Loads config files
 - Prepares etcd and other infrastructure services starting docker containers locally
 - Starts Kubernetes cluster
-- Logs Kubernetes cluster variables in etcd
+- Logs Kubernetes cluster configuration in etcd
 - Executes ELK on Kubernetes
 - Logs ELK variables in etcd
-- Launch honeypots
+- Launch honeypots in Cloud Foundry
+- [Optional] Launch workloads in a FaaS platform (project riff)
 
 
 
@@ -193,7 +194,7 @@ An application (etcd-browser) has been added for showing in a web GUI the data t
 
 ![Alt text](/images/etcd-browser.png "etcd-browser")
 
-To enable the use of this application it is necessary to **manually** open port 4001 on the VM where the main script is launched. App port (8000) for etcd-browser needs to be opened up on your AWS security group for the launcher machine.
+To enable the use of this application it is necessary to **manually** open port 4001 on the VM where the main script is launched. App port (8000) for etcd-browser needs to be **manually** opened up on your AWS security group for the launcher machine.
 
 
 ![Alt text](/images/Port4001.png "Port4001")
@@ -273,14 +274,15 @@ This code does NOT reopen firewall ports in GCE or AWs.
 
 Malebolgia.sh is the code that automates the environment teardown
 
-It reads configuration information from the etcd local instances (to connect to swarm, set up docker-machine and to launch honeypots).
+It reads configuration information from the etcd local instances (to connect to Kubernetes, set up docker and to launch honeypots).
 
 It then destroys:
 - Pods provisioned on Kubernetes
-- GCP Ingresses and IPs
+- GCP Ingresses and IPs proviosioned
 - Remote Kubernetes Cluster
 - Infrastructure Components (etcd-browser)
 - Local Docker instances (etcd if local)
+- riff workloads
 
 
 ###How to launch
@@ -295,7 +297,7 @@ Violator.sh destroys *only the workloads deployed on Kubernetes and the local co
 
 
 ## Continuous Integration Code
-TBI
+
 [This is more like Test Driven Deployment (TDD) :P ]
 
 This code is meant to help in testing the elements deployed by the main code and validate that any change to the base code has been successful
@@ -308,10 +310,10 @@ The code tests these components:
 
 After getting the setup details from etcd it tests if the ports are open for the components listed and basically test the Honeypots application (parsing a curl output).
 
-### How to launch:
+###How to launch
 
 ```
-./CISpawntc
+./TDD.sh
 ```
 
 The results of the tests are written in etcd:
@@ -342,6 +344,7 @@ Following are high level notes on how to get this running quickly:
  - 4001 (all IPs) for etcd-browser to reach etcd
  - 8000 for etcd-browser UI
  - 8500 (all IPs) for etcd
+ - 8081 for local honeypots
 
 ![Alt text](/images/MainInboundRules.png "MainInboundRules")
 
@@ -351,7 +354,7 @@ Following are high level notes on how to get this running quickly:
 
 - Populate /home/ec2-user/Cloud1
 
-- Install gcloud
+- Install gcloud (and kubectl)
 
 - Validate GCE account [ gcloud auth activate-service-account ]
 
@@ -383,6 +386,8 @@ A script is provided to install project riff (FaaS for K8S) on the Kubernetes cl
 The code is in riff.sh
 
 The script currently also install Helm in the cluster (in a specific namespace) and then uses Helm to install Project riff for serverless functions.
+
+The script also installs and activates the riff CLI.
 
 You can test riff using some examples located here:
 https://github.com/BrianMMcClain/riff-demos/tree/master/functions/echo/shell
