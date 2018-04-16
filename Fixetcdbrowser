@@ -1,3 +1,16 @@
+#Must use Cloud1 for accounts (any way to change this?)
+#Some variables are modified later by fetching data from etcd
+. /home/$USER/Cloud1
+echo "loaded Config file"
 
+echo ""
+echo "STARTING"
+echo ""
+
+docker rm -rf etcd-browserk
+
+sleep 5s
 
 docker run -d --name etcd-browserk -p 0.0.0.0:8000:8000 --env ETCD_HOST=$DynDNSK kiodo/etcd-browser:latest
+
+docker ps
