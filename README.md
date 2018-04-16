@@ -4,11 +4,12 @@ Project to Spawn a titanium crucible Installation with Cloud Foundry and Kuberne
 *Credits to komljen for the kubernetes yaml files for deploying ELK*
 
 # ProjectSpawnSwarmtck
-Project to Spawn a titanium crucible (receiver + multiple honeypots) installation in an automated way across different Clouds (AWS and optionally GCE) using Docker containers, Kubernetes, Cloud Foundry and basic Service Discovery. 
+Project to Spawn a titanium crucible (receiver + multiple honeypots) installation in an automated way across different Clouds (AWS and GCP) using Docker containers, Kubernetes, Cloud Foundry, project riff (optional) supported by basic Service Discovery. 
+- A script provisions a Kubernetes cluster on GCP (optionally this can be done on top of Pivotal Container services (PKS))
 - An ELK stack gets started in Kubernetes (GKE)
-- Honeypot instances are started in Cloud Foundry (Pivotal Web services)
+- Honeypot instances are started in Cloud Foundry (leveraging Pivotal Web services or any cloud foundry based service)
 - Local docker containers perform Service discovery and mapping for the different application and stack components
-- [Optional] A local honeypot (deployed as a docker container to the launcher VM in AWS) that listens to port 8081 and logs to the ELK stack
+- A local honeypot is deployed (as a docker container using the launcher VM in AWS) that listens to port 8081 and logs to the ELK stack
 - [Optional] Istio to provide telemetry for some of the pods deployed to Kubernetes
 - [Optional] Project riff to show how to deploy Functions on top of Kubernetes 
 
@@ -55,7 +56,12 @@ This will provision an ELK stack in Kubernetes and publish its services over the
 
 This script will start honeypot instances on Cloud Foundry. Instances will be configured to log to the ELK stack previously created
 
+```
 
+./TDD.sh
+
+```
+This script will perform  abasic testing of the stack components and the ELK stack. It will logs the results in etcd 
 
 ## Configuration Files
 To run this script you have to prepare one configuration file (in /home/ec2-user)
