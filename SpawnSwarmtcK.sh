@@ -45,6 +45,8 @@ echo "STARTING"
 echo ""
 
 
+ipAWSK==$(dig +short $DynDNSK @8.8.8.8)
+
 #Install local etcd
 
 echo ""
@@ -55,8 +57,8 @@ ipAWSK=`(curl http://169.254.169.254/latest/meta-data/public-ipv4)`
 #docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380:2380 -p 2379:2379 --name etcdk quay.io/coreos/etcd -name etcd0 -advertise-client-urls http://${ipAWSK}:2379,http://${ipAWSK}:4001 -listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001 -initial-advertise-peer-urls http://${ipAWSK}:2380 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster-1 -initial-cluster etcd0=http://${ipAWSK}:2380 -initial-cluster-state new
 
 docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380:2380 -p 2379:2379 \
-    #--name etcdk quay.io/coreos/etcd:v3.1.0-rc.1 \
-    --name etcdk quay.io/coreos/etcd:v3.1.13 \
+    --name etcdk quay.io/coreos/etcd:v3.1.0-rc.1 \
+    #--name etcdk quay.io/coreos/etcd:v3.1.13 \
     /usr/local/bin/etcd \
     --name etcd0 \
     --advertise-client-urls http://${ipAWSK}:2379,http://${ipAWSK}:4001 \
@@ -93,7 +95,7 @@ echo "$(tput setaf 4) publicipetcdbrowser=$publicipetcdbrowser $(tput sgr 0)"
 echo ----
 
 #register local ip and dns name in etcd
-myipK=$( dig +short $DynDNSK @8.8.8.8)
+myipK=$(dig +short $DynDNSK @8.8.8.8)
 curl -L http://127.0.0.1:4001/v2/keys/maininstance/ip -XPUT -d value=$myipK
 fqnK=$(nslookup $myipK)
 fqnK=${fqnK##*name = }
