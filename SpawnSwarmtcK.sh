@@ -9,19 +9,15 @@
 # Launch honeypots
 
 
-#Load config files
-#Load Env variables from File (maybe change to DB)
-#using /home/ec2-user/Cloud1
-#source /home/ec2-user/Cloud1
 . /home/$USER/Cloud1
 echo ""
 echo "Loaded Config file"
 echo ""
-#echo "$(tput setaf 2) Starting $VM_InstancesK Instances in AWS $(tput sgr 0)"
-#if [ $GCEKProvision -eq 1 ]; then
-#  echo "$(tput setaf 2) Starting $GCEVM_InstancesK Instances in GCE $(tput sgr 0)"
-#fi
-#echo "$(tput setaf 2) Starting $Container_InstancesK Container Instances $(tput sgr 0)"
+echo "$(tput setaf 2) Starting $VM_InstancesK Instances in AWS $(tput sgr 0)"
+if [ $GCEKProvision -eq 1 ]; then
+  echo "$(tput setaf 2) Starting $GCEVM_InstancesK Instances in GCE $(tput sgr 0)"
+fi
+echo "$(tput setaf 2) Starting $Container_InstancesK Container Instances $(tput sgr 0)"
 
 
 #Install jq
@@ -45,8 +41,6 @@ echo "STARTING"
 echo ""
 
 
-ipAWSK==$(dig +short $DynDNSK @8.8.8.8)
-
 #Install local etcd
 
 echo ""
@@ -58,7 +52,6 @@ ipAWSK=`(curl http://169.254.169.254/latest/meta-data/public-ipv4)`
 
 docker run -d -v /usr/share/ca-certificates/:/etc/ssl/certs -p 4001:4001 -p 2380:2380 -p 2379:2379 \
     --name etcdk quay.io/coreos/etcd:v3.1.0-rc.1 \
-    #--name etcdk quay.io/coreos/etcd:v3.1.13 \
     /usr/local/bin/etcd \
     --name etcd0 \
     --advertise-client-urls http://${ipAWSK}:2379,http://${ipAWSK}:4001 \
@@ -81,8 +74,10 @@ echo ""
   publicipetcdbrowser=$ipAWSK
   
   #launches etcd-browser containerized
-  #docker run -d --name etcd-browserk -p 0.0.0.0:8000:8000 --env ETCD_HOST=$DynDNSK kiodo/etcd-browser:latest
-  docker run -d --name etcd-browserk -p 0.0.0.0:8000:8000 --env ETCD_HOST=$DynDNSK kiodo/etcd-browsernewk:latest
+  docker run -d --name etcd-browserk -p 0.0.0.0:8000:8000 --env ETCD_HOST=$DynDNSK kiodo/etcd-browser:latest
+  
+  sleep 20s
+  
   
   #Register etcd-browser in etcd
   curl -L http://127.0.0.1:4001/v2/keys/etcd-browser/name -XPUT -d value=$etcdbrowserkVMName
@@ -96,7 +91,7 @@ echo "$(tput setaf 4) publicipetcdbrowser=$publicipetcdbrowser $(tput sgr 0)"
 echo ----
 
 #register local ip and dns name in etcd
-myipK=$(dig +short $DynDNSK @8.8.8.8)
+myipK=$( dig +short $DynDNSK @8.8.8.8)
 curl -L http://127.0.0.1:4001/v2/keys/maininstance/ip -XPUT -d value=$myipK
 fqnK=$(nslookup $myipK)
 fqnK=${fqnK##*name = }
@@ -107,8 +102,13 @@ curl -L http://127.0.0.1:4001/v2/keys/maininstance/name -XPUT -d value=$fqnK
 #register instance id in etcd
 curl -L http://127.0.0.1:4001/v2/keys/maininstance/uniqueinstanceid -XPUT -d value=$instidk
 
+#setting istio as not installed
+curl -L http://127.0.0.1:4001/v2/keys/istio/installed -XPUT -d value=0
 
-
+echo ----
+echo "$(tput setaf 2) Cheeck the service discovery status at $publicipetcdbrowser:8000 $(tput sgr 0)"
+echo "$(tput setaf 2) publicipetcdbrowser=$publicipetcdbrowser $(tput sgr 0)"
+echo ----
 
 echo ""
 echo "$(tput setaf 2) Starting ELK in the remote Kubernetes Cluster  $(tput sgr 0)"
