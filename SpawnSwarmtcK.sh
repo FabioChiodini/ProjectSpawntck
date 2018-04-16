@@ -345,8 +345,9 @@ if [ $localhoneypot1 -eq 1 ]; then
   echo "$(tput setaf 4) Open a browser to : $ipAWSK:8080 $(tput sgr 0)"
   echo ----
   #Poll local honeypot
+  sleep 5s
   curl $ipAWSK:$HoneypotPortK
-
+  echo ""
 fi
 
 if [ $localhoneypot2 -eq 1 ]; then
@@ -363,7 +364,9 @@ if [ $localhoneypot2 -eq 1 ]; then
   echo "$(tput setaf 6) Local honeypot sending logs to $publicipnginxproxy PORT 80 (nginxproxy ingress) $(tput sgr 0)"
   echo "$(tput setaf 4) Open a browser to : $ipAWSK:8081 $(tput sgr 0)"
   echo ----
+  sleep 5s
   curl $ipAWSK:8081
+  echo ""
 fi
 
 #Registers honeypot parameters in etcd
@@ -378,6 +381,8 @@ echo ----
 echo "$(tput setaf 6) $etcdbrowserkVMName RUNNING ON $publicipetcdbrowser:8000 $(tput sgr 0)"
 echo "$(tput setaf 4) publicipetcdbrowser=$publicipetcdbrowser $(tput sgr 0)"
 echo ----
+
+
 
 echo "Demo by @FabioChiodini"
 # kubectl delete -f kubefiles/ -R --namespace=default
