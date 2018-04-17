@@ -324,7 +324,7 @@ echo "Registering Kubernetes Cluster parameters in etcd"
 
 kubernetescontext=$(kubectl config view -o jsonpath="{.current-context}")
 
-kubcluster=$(kubectl config view -o jsonpath='{.clusters[?(@.name == "$kubernetescontext")].cluster.server}')
+kubcluster=$(kubectl config view -o jsonpath='{.clusters[?(@.name == "gke_tactile-phalanx-189106_us-east4-c_delltechdemo123")].cluster.server}')
 
 curl -L http://127.0.0.1:4001/v2/keys/k8s/kubernetescontext -XPUT -d value=$kubernetescontext
 curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
