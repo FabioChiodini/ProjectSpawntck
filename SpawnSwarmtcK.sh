@@ -91,7 +91,8 @@ echo "$(tput setaf 4) publicipetcdbrowser=$publicipetcdbrowser $(tput sgr 0)"
 echo ----
 
 #register local ip and dns name in etcd
-myipK=$( dig +short $DynDNSK @8.8.8.8)
+#myipK=$( dig +short $DynDNSK @8.8.8.8)
+myipK=$ipAWSK
 curl -L http://127.0.0.1:4001/v2/keys/maininstance/ip -XPUT -d value=$myipK
 fqnK=$(nslookup $myipK)
 fqnK=${fqnK##*name = }
