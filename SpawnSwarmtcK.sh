@@ -99,6 +99,8 @@ fqnK=${fqnK%.*}
 #echo $fqn
 curl -L http://127.0.0.1:4001/v2/keys/maininstance/name -XPUT -d value=$fqnK
 
+curl -L http://127.0.0.1:4001/v2/keys/maininstance/dyndns -XPUT -d value=$DynDNSK
+
 #register instance id in etcd
 curl -L http://127.0.0.1:4001/v2/keys/maininstance/uniqueinstanceid -XPUT -d value=$instidk
 
@@ -322,7 +324,7 @@ echo "Registering Kubernetes Cluster parameters in etcd"
 
 kubernetescontext=$(kubectl config view -o jsonpath="{.current-context}")
 
-kubcluster=$(kubectl config view -o jsonpath='{.clusters[?(@.name == "gke_tactile-phalanx-189106_us-central1-a_delltechdemo123")].cluster.server}')
+kubcluster=$(kubectl config view -o jsonpath='{.clusters[?(@.name == "$kubernetescontext")].cluster.server}')
 
 curl -L http://127.0.0.1:4001/v2/keys/k8s/kubernetescontext -XPUT -d value=$kubernetescontext
 curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
