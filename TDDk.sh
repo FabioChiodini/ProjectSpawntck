@@ -26,6 +26,8 @@ honeypotport=`(curl http://127.0.0.1:4001/v2/keys/localhoneypot2/honeypotport | 
 appname=`(curl http://127.0.0.1:4001/v2/keys/cf-honeypot1/appname | jq '.node.value' | sed 's/.//;s/.$//')`
 urlcfhoneypot=`(curl http://127.0.0.1:4001/v2/keys/cf-honeypot1/url | jq '.node.value' | sed 's/.//;s/.$//')`
 
+localipk=`(curl http://127.0.0.1:4001/v2/keys/maininstance/ip | jq '.node.value' | sed 's/.//;s/.$//')`
+
 
 echo " "
 echo "   _____ _____ "
@@ -89,7 +91,8 @@ echo "$(tput setaf 1)Testing local honeypot $(tput sgr 0)"
 echo ""
 
 #local honeypot
-REMOTEHOST=$DynDNSK
+
+REMOTEHOST=$localipk
 REMOTEPORT=8081
 TIMEOUT=1
 
