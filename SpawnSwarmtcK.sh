@@ -329,6 +329,10 @@ kubcluster=$(kubectl config view -o jsonpath='{.clusters[?(@.name == "gke_tactil
 
 curl -L http://127.0.0.1:4001/v2/keys/k8s/kubernetescontext -XPUT -d value=$kubernetescontext
 curl -L http://127.0.0.1:4001/v2/keys/k8s/kubcluster -XPUT -d value=$kubcluster
+curl -L http://127.0.0.1:4001/v2/keys/k8s/kubernetesversion -XPUT -d value=$K8sVersion
+curl -L http://127.0.0.1:4001/v2/keys/k8s/nodes -XPUT -d value=$K8sNodes
+
+
 
 #Add number of nodes/worloads?
 
