@@ -110,6 +110,7 @@ export dologink=dockerusername
 export dopassk='MyUBERComplexPWD'
 
 export K8sVersion=1.8.10-gke.0
+export K8sNodes=3
 
 export ReceiverPortK=80
 export HoneypotPortK=8080
@@ -132,7 +133,9 @@ export instidk=2
 
 Here are the details on how these variables are used:
 
-- **cfapik1** **cforgk1** **cflogink1** **cfpassk1** are the parameters (repsectively API endpoint, Organization, usernamen and password) to connect to a Cloud Foundry instance (where an honeypot will be deployed)
+- **cfapik1** **cforgk1** **cflogink1** **cfpassk1** are the parameters (respectively API endpoint, Organization, usernamen and password) to connect to a Cloud Foundry instance (where an honeypot will be deployed)
+
+- **K8sVersion** and **K8sNodes** are the version and the number of nodes to be created in a Kubernetes Cluster
 
 - **dologink** and **dopassk** are the username and password to push images to a dockerhub (when deploying tc in riff via the script ./Riffprovision.sh
 
