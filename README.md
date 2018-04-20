@@ -109,6 +109,8 @@ export cfpassk1='MycomplexPWD'
 export dologink=dockerusername
 export dopassk='MyUBERComplexPWD'
 
+export K8sVersion=1.8.10-gke.0
+
 export ReceiverPortK=80
 export HoneypotPortK=8080
 export localhoneypot1=1
