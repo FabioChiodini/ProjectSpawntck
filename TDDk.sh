@@ -162,6 +162,50 @@ echo""
 
 
 echo ""
+echo "$(tput setaf 1)Testing maininstance $(tput sgr 0)"
+echo ""
+
+#maininstance
+REMOTEHOST=$localipk
+REMOTEPORT=4001
+TIMEOUT=1
+
+if nc -w $TIMEOUT -z $REMOTEHOST $REMOTEPORT; then
+    echo "$(tput setaf 2) I was able to connect to ${REMOTEHOST}:${REMOTEPORT} $(tput sgr 0)"
+    curl -L http://127.0.0.1:4001/v2/keys/maininstance/port4001TEST -XPUT -d value=PASSED
+else
+    echo "$(tput setaf 1) Connection to ${REMOTEHOST}:${REMOTEPORT} failed. Exit code from Netcat was ($?).$(tput sgr 0)"
+    curl -L http://127.0.0.1:4001/v2/keys/maininstance/port4001TEST -XPUT -d value=FAILED
+fi
+
+
+#maininstance
+REMOTEHOST=$localipk
+REMOTEPORT=8000
+TIMEOUT=1
+
+if nc -w $TIMEOUT -z $REMOTEHOST $REMOTEPORT; then
+    echo "$(tput setaf 2) I was able to connect to ${REMOTEHOST}:${REMOTEPORT} $(tput sgr 0)"
+    curl -L http://127.0.0.1:4001/v2/keys/maininstance/port8000TEST -XPUT -d value=PASSED
+else
+    echo "$(tput setaf 1) Connection to ${REMOTEHOST}:${REMOTEPORT} failed. Exit code from Netcat was ($?).$(tput sgr 0)"
+    curl -L http://127.0.0.1:4001/v2/keys/maininstance/port8000TEST -XPUT -d value=FAILED
+fi
+
+#maininstance
+REMOTEHOST=$localipk
+REMOTEPORT=8081
+TIMEOUT=1
+
+if nc -w $TIMEOUT -z $REMOTEHOST $REMOTEPORT; then
+    echo "$(tput setaf 2) I was able to connect to ${REMOTEHOST}:${REMOTEPORT} $(tput sgr 0)"
+    curl -L http://127.0.0.1:4001/v2/keys/maininstance/port8081TEST -XPUT -d value=PASSED
+else
+    echo "$(tput setaf 1) Connection to ${REMOTEHOST}:${REMOTEPORT} failed. Exit code from Netcat was ($?).$(tput sgr 0)"
+    curl -L http://127.0.0.1:4001/v2/keys/maininstance/port8081TEST -XPUT -d value=FAILED
+fi
+
+echo ""
 echo "$(tput setaf 6)Testing Finished: check etcd-browser for results $(tput sgr 0)"
 echo ""
 
