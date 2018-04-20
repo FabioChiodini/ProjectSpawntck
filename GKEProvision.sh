@@ -44,7 +44,7 @@ echo ""
 
 #echo "Creating Kubernetes Cluster in GKE"
 
-gcloud container clusters create --cluster-version=1.9.6-gke.1 delltechdemo123
+gcloud container clusters create --cluster-version=1.8.10-gke.0 delltechdemo123
 
 #Previously using v1.7.12-gke.0
 
