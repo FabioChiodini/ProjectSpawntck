@@ -48,6 +48,10 @@ fi
 
 #echo "Creating Kubernetes Cluster in GKE"
 
+echo ""
+echo "Kubernetes version $K8sVersion"
+echo ""
+
 gcloud container clusters create --cluster-version=$K8sVersion delltechdemo123
 
 #Previously using v1.7.12-gke.0
