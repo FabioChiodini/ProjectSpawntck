@@ -44,9 +44,9 @@ echo ""
 
 #echo "Creating Kubernetes Cluster in GKE"
 
-gcloud container clusters create --cluster-version=1.8.9-gke.1 delltechdemo123
+gcloud container clusters create --cluster-version=1.9.6-gke.1 delltechdemo123
 
-#Currently using v1.7.12-gke.0
+#Previously using v1.7.12-gke.0
 
 # It takes a few minutes to do this
 echo "Sleeping for 30 seconds to let the provisioning finish"
