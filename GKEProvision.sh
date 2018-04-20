@@ -41,18 +41,23 @@ echo ""
 echo "$(tput setaf 2) Creating Kubernetes Cluster in GKE  $(tput sgr 0)"
 echo ""
 
-
+#Createing defaults if cariables are empty
 if [ -z "$K8sVersion" ]; then
   K8sVersion=1.8.10-gke.0
+fi
+
+if [ -z "$K8sNodes" ]; then
+  K8sVersion=3
 fi
 
 #echo "Creating Kubernetes Cluster in GKE"
 
 echo ""
 echo "Kubernetes version $K8sVersion"
+echo "Creating $K8sNodes nodes"
 echo ""
 
-gcloud container clusters create --cluster-version=$K8sVersion delltechdemo123
+gcloud container clusters create --cluster-version=$K8sVersion --num-nodes=$K8sNodes delltechdemo123
 
 #Previously using v1.7.12-gke.0
 
