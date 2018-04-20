@@ -61,9 +61,9 @@ kubectl get pods
 #registering in service discovery
 
 URLtcfaas=http://$publicipriff
-curl -L http://127.0.0.1:4001/v2/keys/faas/functionname -XPUT -d value=tcfaas
-curl -L http://127.0.0.1:4001/v2/keys/faas/url -XPUT -d value=$URLtcfaas/requests/tcfaas
-curl -L http://127.0.0.1:4001/v2/keys/faas/containerimage -XPUT -d value=kiodo/tcfaas
+curl -L http://127.0.0.1:4001/v2/keys/faas-honeypot/functionname -XPUT -d value=tcfaas
+curl -L http://127.0.0.1:4001/v2/keys/faas-honeypot/url -XPUT -d value=$URLtcfaas/requests/tcfaas
+curl -L http://127.0.0.1:4001/v2/keys/faas-honeypot/containerimage -XPUT -d value=kiodo/tcfaas
 
 
 echo ""
