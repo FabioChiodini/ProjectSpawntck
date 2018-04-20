@@ -178,5 +178,11 @@ echo "$(tput setaf 2) riff available at $urlriff $(tput sgr 0)"
 echo ""
 
 echo ""
+echo "Use"
+echo "kubectl get svc,deployments,pods,functions,topics --namespace riff-system"
+echo "to visualize all riff components"
+echo ""
+
+echo ""
 echo "Demo by @FabioChiodini"
 echo ""
