@@ -28,6 +28,9 @@ urlcfhoneypot=`(curl http://127.0.0.1:4001/v2/keys/cf-honeypot1/url | jq '.node.
 
 localipk=`(curl http://127.0.0.1:4001/v2/keys/maininstance/ip | jq '.node.value' | sed 's/.//;s/.$//')`
 
+faasurlk=`(curl http://127.0.0.1:4001/v2/keys/faas-honeypot/url | jq '.node.value' | sed 's/.//;s/.$//')`
+
+
 
 echo " "
 echo "   _____ _____ "
@@ -155,6 +158,41 @@ echo""
    esac
    echo ""
    echo ""
+
+#testing faas
+
+echo ""
+echo "$(tput setaf 1)Testing FaaS honeypot $(tput sgr 0)"
+echo ""
+
+REMOTEHOST=$faasurlk
+REMOTEPORT=80
+TIMEOUT=1
+
+if nc -w $TIMEOUT -z $REMOTEHOST $REMOTEPORT; then
+    echo "$(tput setaf 2) I was able to connect to ${REMOTEHOST}:${REMOTEPORT} $(tput sgr 0)"
+    curl -L http://127.0.0.1:4001/v2/keys/faas-honeypot/TEST -XPUT -d value=PASSED
+else
+    echo "$(tput setaf 1) Connection to ${REMOTEHOST}:${REMOTEPORT} failed. Exit code from Netcat was ($?).$(tput sgr 0)"
+    curl -L http://127.0.0.1:4001/v2/keys/faas-honeypot/TEST -XPUT -d value=FAILED
+fi
+
+echo""
+   echo""
+   echo curl testing
+   #curl ${REMOTEHOST}:${REMOTEPORT}
+   curltestk=`(curl ${REMOTEHOST}:${REMOTEPORT})`
+   #echo $curltestk
+   #searchString="result":" ok"
+   searchString="result"
+   case $curltestk in
+    #"$searchString") echo YES;;
+    *"$searchString"*) curl -L http://127.0.0.1:4001/v2/keys/faas-honeypot/SYNTHETICTEST -XPUT -d value=PASSED;;
+    *) curl -L http://127.0.0.1:4001/v2/keys/faas-honeypot/SYNTHETICTEST -XPUT -d value=FAILED ;;
+   esac
+   echo ""
+   echo ""
+
 
 
 #Test if ingress are healthy
