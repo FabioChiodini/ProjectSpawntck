@@ -65,6 +65,10 @@ curl -L http://127.0.0.1:4001/v2/keys/faas-honeypot/functionname -XPUT -d value=
 curl -L http://127.0.0.1:4001/v2/keys/faas-honeypot/url -XPUT -d value=$URLtcfaas/requests/tcfaas
 curl -L http://127.0.0.1:4001/v2/keys/faas-honeypot/containerimage -XPUT -d value=kiodo/tcfaas
 
+echo ""
+echo "To show the servers in serverless"
+echo "kubectl get svc,deployments,pods,functions,topics --namespace riff-system"
+echo ""
 
 echo ""
 echo " Access the function using"
