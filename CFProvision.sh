@@ -60,7 +60,7 @@ cf api $cfapik1
 
 cd cf
 
-cf login -u $cflogink1 -p $cfpassk1 -o $cforgk1
+cf login -u $cflogink1 -p $cfpassk1 -o $cforgk1 -s EMC
 
 cf push
 
