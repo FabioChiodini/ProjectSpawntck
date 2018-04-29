@@ -123,7 +123,7 @@ echo ""
 
 cf api $cfapik1
 
-cf login -u $cflogink1 -p $cfpassk1 -o $cforgk1
+cf login -u $cflogink1 -p $cfpassk1 -o $cforgk1 -s EMC
 
 cf delete -f $MYNAMEVALUE
 
